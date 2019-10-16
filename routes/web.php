@@ -16,6 +16,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+ Route::get('/vertion', function(){
+    dd('new vertion');
+
+  });
+
+
 
 Route::get('/excel', 'ExcelSIPD@read');
 Route::get('/excel-download', 'ExcelSIPD@getExcel');
