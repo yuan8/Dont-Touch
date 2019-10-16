@@ -16,14 +16,16 @@ class TbBidangUrusan extends Migration
         //
         Schema::create('tb_bidang_urusan', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('kode',4);
-            // $table->integer('kode_bidang_urusan');
+            $table->string('kode',20);
+            $table->integer('kode_urusan')->unsigned();
             $table->string('nama_bidang_urusan');
+            $table->integer('tahun');
+            
             $table->timestamps(6);
-            // $table->foreign('kode_urusan')
-            // ->references('kode_urusan')
-            // ->on('tb_urusan')
-            // ->onDelete('cascade');
+            $table->foreign('kode_urusan')
+            ->references('kode')
+            ->on('tb_urusan')
+            ->onDelete('cascade');
         });
     }
 

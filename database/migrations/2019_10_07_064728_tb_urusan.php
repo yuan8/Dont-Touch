@@ -17,8 +17,10 @@ class TbUrusan extends Migration
 
         Schema::create('tb_urusan', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('kode',2);
+            $table->string('kode',20);
             $table->string('nama_urusan');
+            $table->integer('tahun');
+
             $table->timestamps();
         });
     }
