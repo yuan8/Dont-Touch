@@ -103,7 +103,7 @@
 
 
 <li class="nav-item">
-  <a class="nav-link" href="{{route('home')}}">
+  <a class="nav-link" href="{{route('fs.f6.index',['id_link'=>$id_link])}}">
      <div class="row">
       <div class="col-md-1">
         <i class="fas fa-fw fa-file"></i>
