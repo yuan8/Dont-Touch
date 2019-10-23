@@ -14,7 +14,7 @@
 <div class="" id="container-{{$field_db}}-{{$key}}">
 
 </div>
-<button type="button" class="btn btn-primary btn-sm" id="button-tambah-{{$field_db}}-{{$key}}" name="button">Tambah {{$title}}</button>
+<button type="button" class="btn btn-warning btn-sm" id="button-tambah-{{$field_db}}-{{$key}}" name="button">Tambah {{$title}}</button>
 <script type="text/javascript">
   function action_button_{{$key}}_{{$field_db}}(value=''){
     var them_perkada=$('#{{$field_db}}-{{$key}}-them').clone();

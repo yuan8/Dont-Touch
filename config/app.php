@@ -232,7 +232,7 @@ return [
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'HP' => App\Providers\HelperProvider::class,
-
+        'BindDynamic' => App\Providers\BindsDynamically::class,
 
     ],
 

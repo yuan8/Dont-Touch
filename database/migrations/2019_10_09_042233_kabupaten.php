@@ -30,7 +30,7 @@ class Kabupaten extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('provinsi');
+        Schema::dropIfExists('kabupaten');
         
     }
 }

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\User;
+use Auth;
 class HelperProvider extends ServiceProvider
 {
     /**
@@ -43,5 +44,26 @@ class HelperProvider extends ServiceProvider
         $token_id = $base.date('hiyum').rand(0,1000).'-'.rand(1000,10000).'-'.date('f-d').$base2;
       }while(User::where("api_token", "=", $token_id)->first() instanceof User);
       return $token_id;
+    }
+
+
+    public static function getIdsUrusanHandle(User $user,$id_urusan=null){
+       if($user){
+
+          $ids=$user->HaveUrusan->pluck('id')->toArray();
+          if($id_urusan){
+            if(in_array($id_urusan, $ids)){
+              return $ids;
+            }else{
+              return [];
+            } 
+          }else{
+            if(count($ids)>0){
+              return $ids;
+            }else{
+              return [];
+            }
+          }
+       }
     }
 }

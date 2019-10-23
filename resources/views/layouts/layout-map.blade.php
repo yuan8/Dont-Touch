@@ -46,7 +46,7 @@
       background-size: 100% auto;
       width:100vw;
       height: 100vh;
-      background-image: linear-gradient(344deg, #2AF598 5%, #224abe 62%);
+      background-image: linear-gradient(344deg, #bd9010 5%, #bd9010 62%);
       z-index: 3!important;
       position: fixed;
       top:0;
@@ -59,7 +59,7 @@
       background-size: 100% auto;
       width:100vw;
       height: 100vh;
-      background-image: linear-gradient(344deg, #2AF598 5%, #08AEEA 62%);
+      background-image: linear-gradient(344deg, #bd9010 5%, #bd9010 62%);
       z-index: 2!important;
       position: fixed;
       top:0;
@@ -81,7 +81,7 @@
       /* border:1px solid #000; */
       box-shadow: 1px 5px 7px #222;
       z-index: 10;
-      border-top:5px solid #2AF598;
+      border-top:5px solid #cdd6d2;
       opacity: 1!important;
     }
   </style>
@@ -115,7 +115,7 @@
     <div class="" id="bg">
     </div>
     <div class="" id="title-page">
-      <h4 class="text-center text-gray-900"><b>{{$title}}</b></h4>
+      <h4 class="text-center text-gray-900"><b>{{isset($title)?$title:''}}</b></h4>
     </div>
     @yield('content')
   </body>

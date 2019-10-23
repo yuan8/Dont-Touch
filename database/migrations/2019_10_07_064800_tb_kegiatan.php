@@ -16,21 +16,21 @@ class TbKegiatan extends Migration
         //
         Schema::create('tb_kegiatan', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('kode',20);
-            
-            $table->integer('kode_urusan')->unsigned();
-            $table->integer('kode_bidang_urusan')->unsigned();
-            $table->integer('kode_program')->unsigned();
-
+            $table->bigInteger('id_program')->unsigned();
+            $table->char('kode',8);
+            $table->char('kode_urusan',2)->unsigned();
+            $table->char('kode_bidang_urusan',4)->unsigned();
+            $table->char('kode_program',6)->unsigned();
             $table->string('nama_kegiatan');
-            $table->integer('tahun');
+            $table->integer('session');
+            $table->unique(['kode','kode_urusan','kode_bidang_urusan','kode_program','session']);
 
             $table->timestamps();
 
                
-            $table->foreign('kode_bidang_urusan')
-            ->references('kode_bidang_urusan')
-            ->on('tb_bidang_urusan')
+            $table->foreign('id_program')
+            ->references('id')
+            ->on('tb_program')
             ->onDelete('cascade');
            
         });

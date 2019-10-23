@@ -16,15 +16,24 @@ class TbSubKegiatan extends Migration
         //
         Schema::create('tb_sub_kegiatan', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('kode',9);
+            $table->bigInteger('id_kegiatan');
+            
+            $table->char('kode',10);
+            $table->char('kode_urusan',2);
+            $table->char('kode_bidang_urusan',4);
+            $table->char('kode_program',6);
+            $table->char('kode_kegiatan',8);
+            $table->char('nama_sub_kegiatan');
+            $table->integer('tahun');
 
-            // $table->integer('kode_urusan');
-            // $table->integer('kode_bidang_urusan');
-            // $table->integer('kode_program');
-            // $table->integer('kode_kegiatan');
-            // $table->integer('kode_sub_kegiatan');
-            $table->string('nama_sub_kegiatan');
+            $table->unique(['kode','kode_urusan','kode_bidang_urusan','kode_program','kode_kegiatan','tahun']);
+
             $table->timestamps();
+
+            $table->foreign('id_kegiatan')
+            ->references('id')
+            ->on('tb_kegiatan')
+            ->onDelete('cascade');
         });
     }
 

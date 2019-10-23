@@ -17,9 +17,10 @@ Route::get('/', function () {
 });
 
  Route::get('/vertion', function(){
-    dd('new vertion');
+    // dd('new vertion');
+  // dd(\App\DBS\FormMainOne::all());
 
-  });
+});
 
 
 
@@ -120,6 +121,8 @@ Route::prefix('admin')->middleware('auth:web')->group(function(){
   Route::get('/', 'AdminCTRL@index')->name('admin.index');
 
   Route::prefix('form')->group(function(){
+    Route::get('/mandat', 'AdminCTRL@madat')->name('admin.form.mandat');
+
     Route::get('/index', 'AdminCTRL@form')->name('admin.form');
     Route::get('/form-input-1', 'FormController@form1')->name('admin.form1');
     Route::post('form1/store', 'FormController@Form1Store')->name('form_1.store');
@@ -133,4 +136,22 @@ Route::prefix('admin')->middleware('auth:web')->group(function(){
 
   });
 
+});
+
+
+
+
+Route::prefix('sigkron')->middleware('auth:web')->group(function(){
+
+  Route::get('/','FormSink@index')->name('fs.index');
+  
+  Route::get('/f1','FormSink@form1')->name('fs.f1.index');
+  Route::get('/test',function(){
+    $anu=HP::getIdsUrusanHandle(Auth::user());
+    dd($anu);
+  });
+
+  Route::put('f1/update','FormSink@form1Update')->name('fs.f1.update');
+  Route::delete('f1/delete/','FormSink@form1delete')->name('fs.f1.delete');
+  Route::post('/f1/store','FormSink@Form1Store')->name('fs.form1.store');
 });

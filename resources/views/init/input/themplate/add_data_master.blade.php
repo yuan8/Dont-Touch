@@ -1,7 +1,10 @@
 <?php
   $id_key=rand(0,100).'t_'.date('s_u');
  ?>
- <label for="">{{$title}}</label>
+ <div class="d-sm-flex align-items-center justify-content-between mb-4">        
+  <h6 class="mb-0 ">{{$title}}</h6>
+         <button type="button" style="margin-top:10px" onclick="$('#modal-{{$tb}}-{{$id_key}}').appendTo('body').modal()"  class="btn btn-warning btn-sm d-sm-inline-block" name="button">+</button> 
+</div>
  <select class="form-control" id="f-select-{{$tb}}-{{$id_key}}" {{isset($multiple)?($multiple==false?'':'multiple'):'multiple'}}   name="{{$name_field}}"  placeholder="Berisi Lebih Dari Atau Satu">
    @isset($value_init)
     @foreach($value_init as $val)
@@ -10,7 +13,7 @@
 
    @endisset
  </select>
-<button type="button" style="margin-top:10px" onclick="$('#modal-{{$tb}}-{{$id_key}}').appendTo('body').modal()"  class="btn btn-primary btn-sm" name="button">Tambah {{$title}} Manual</button>
+
 <div class="modal fade" id="modal-{{$tb}}-{{$id_key}}">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -21,7 +24,7 @@
         <textarea name="" id="modal-data-{{$tb}}-{{$id_key}}"  class="form-control" rows="8" cols="80" placeholder="Masukan {{$title}} Baru.."></textarea>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary btn-sm" id="modal_data_button_send_{{$tb}}_{{$id_key}}" name="button">Tambah</button>
+        <button type="button" class="btn btn-warning btn-sm" id="modal_data_button_send_{{$tb}}_{{$id_key}}" name="button">Tambah</button>
       </div>
     </div>
   </div>
@@ -36,6 +39,10 @@
             var data_return=response.data;
             if(data_return.code==200){
                 $('.modal').modal("hide");
+                var last_value=$('#f-select-{{$tb}}-{{$id_key}}').val();
+                last_value.push(2);
+                $('#f-select-{{$tb}}-{{$id_key}}').val(last_value).change();
+
                 Swal.fire({
                   type: 'success',
                   title: 'success',

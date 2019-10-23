@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use DB;
 use Validator;
 use App\DBS\FormMainOne;
+use App\BidangUrusan;
+use Auth;
+use App\Form1;
 class APIForm extends Controller
 {
     //
@@ -52,11 +55,73 @@ class APIForm extends Controller
     }
 
     public function getList(Request $request){
-      $query=("SELECT id as id,".$request->field." as text FROM ".$request->tb." ".
+
+      $query=("SELECT ".$request->field." as id,".$request->field." as text FROM ".$request->tb." ".
       "WHERE ".$request->field." ILIKE ('%".$request->nama."%') ORDER BY ".$request->field." ASC");
 
       return DB::connection(env('DBC2'))
         ->select($query);
+    }
+
+    public function TableMandat(Request $request){
+      $user=Auth::user();
+      $bidang=$request->bidang_id;
+      $mandat=[];
+      if($user->role==1){
+        $bidang=BidangUrusan::find($bidang);
+      }else{
+        $ids=$user->haveUrusan;
+        if($ids){
+          $ids=$ids->pluck('id_bidang');
+          $ids=json_decode($ids,true);
+          if(in_array($bidang, $ids)){
+            $mandat=Form1::where('id_bidang',$bidang)->orderBy('id','DESC')->get();
+            $bidang=BidangUrusan::find($bidang);
+          }else{
+            $bidang=null;
+          }
+
+        }else{
+          $ids=[];
+        }
+      }
+
+      if($bidang){
+        return view('admin.form.component.mandat_table')->with('bidang',$bidang)->with('mandats',$mandat)->render();
+      }else{
+        return 'Role User Not Valid';
+      }
+      
+    }
+
+    public function formMandat(Request $request){
+      $user=Auth::user();
+      $bidang=$request->bidang_id;
+
+      if($user->role==1){
+        $bidang=BidangUrusan::find($bidang);
+      }else{
+        $ids=$user->haveUrusan;
+        if($ids){
+          $ids=$ids->pluck('id_bidang');
+          $ids=json_decode($ids,true);
+          if(in_array($bidang, $ids)){
+            $bidang=BidangUrusan::find($bidang);
+          }else{
+            $bidang=null;
+          }
+
+        }else{
+          $ids=[];
+        }
+      }
+
+      if($bidang){
+        return view('admin.form.component.mandat_input')->with('bidang',$bidang)->render();
+      }else{
+        return 'Role User Not Valid';
+      }
+      
     }
 
     public function getForm1(Request $request){

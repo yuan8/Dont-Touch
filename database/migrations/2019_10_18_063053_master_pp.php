@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class TbUrusan extends Migration
+class MasterPp extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +14,10 @@ class TbUrusan extends Migration
     public function up()
     {
         //
-
-        Schema::create('tb_urusan', function (Blueprint $table) {
+        Schema::create('master_pp', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->char('kode',2);
-            $table->string('nama_urusan');
-            $table->integer('session');
+            $table->string('nama')->unique();
             $table->timestamps();
-            $table->unique(['kode','session']);
         });
     }
 
@@ -33,7 +29,7 @@ class TbUrusan extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('tb_urusan');
+        Schema::dropIfExists('master_pp');
 
     }
 }
