@@ -86,6 +86,7 @@
           </button>
 
           <!-- Topbar Search -->
+         <h5><span><a href="{{route('fs.index')}}" class=" d-sm-inline-block btn btn-warning btn-circle btn-sm"><b><</b> </a></span> {{$data_link->nama_bidang_urusan}}</h5>
           @include('component.nav.search')
 
           <!-- Topbar Navbar -->

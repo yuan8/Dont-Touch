@@ -142,16 +142,15 @@ Route::prefix('admin')->middleware('auth:web')->group(function(){
 
 
 Route::prefix('sigkron')->middleware('auth:web')->group(function(){
-
   Route::get('/','FormSink@index')->name('fs.index');
-  
-  Route::get('/f1','FormSink@form1')->name('fs.f1.index');
-  Route::get('/test',function(){
-    $anu=HP::getIdsUrusanHandle(Auth::user());
-    dd($anu);
-  });
 
-  Route::put('f1/update','FormSink@form1Update')->name('fs.f1.update');
-  Route::delete('f1/delete/','FormSink@form1delete')->name('fs.f1.delete');
-  Route::post('/f1/store','FormSink@Form1Store')->name('fs.form1.store');
+  Route::get('/bidang/{bidang_urusan_link}/f1','FormSink@form1')->name('fs.f1.index');
+
+  // Route::get('/test',function(){
+  //   $anu=HP::getIdsUrusanHandle(Auth::user());
+  //   dd($anu);
+  // });
+  Route::put('bidang/{bidang_urusan?}/f1/update','FormSink@form1Update')->name('fs.f1.update');
+  Route::delete('bidang/{bidang_urusan?}/f1/delete/','FormSink@form1delete')->name('fs.f1.delete');
+  Route::post('bidang/{bidang_urusan?}/f1/store','FormSink@Form1Store')->name('fs.form1.store');
 });

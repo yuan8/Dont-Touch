@@ -16,14 +16,12 @@
 	}
 
 </style>
-<h2> &nbsp;&nbsp;&nbsp;{{Auth::User()->name}}</h2>
 <div class="card">
 	<div class="card-body table-responsive card-border-top-warning">
 		<table class="table table-bordered  table-striped">
 			<thead>
 				
 				@include('form_singkron.component.tm_f1')
-
 
 			</thead>
 			<tbody style="overflow-y: scroll;">

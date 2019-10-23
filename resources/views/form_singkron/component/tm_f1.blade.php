@@ -7,15 +7,8 @@
 <form action="{{route('fs.form1.store')}}" method="post" id="fm-1">
   @csrf
   <tr class="table-dark" style="">
-  <th></th>
-  <th>
-    <div class="form-group">
-      <label>Sub Urusan</label>
-    <select class="form-control" name="f[sub_urusan]" required="">
-      <option value="Anu">Anu</option>
-    </select>
-    </div>
-  </th>
+  <th style="min-width:50px!important;"></th>
+  
   <th id="f_uu">
     
     <div id="ip_uu_tambahan"></div>

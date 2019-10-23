@@ -1,7 +1,7 @@
 <hr class="sidebar-divider my-0">
 
 <li class="nav-item">
-  <a class="nav-link" href="{{route('fs.f1.index')}}">
+  <a class="nav-link" href="{{route('fs.f1.index',['bidang_urusan_link'=>$id_link])}}">
     <div class="row">
       <div class="col-md-1">
         <i class="fas fa-fw fa-file"></i>

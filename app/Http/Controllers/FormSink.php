@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Storage;
 use Auth;
+use App\BidangUrusan;
 class FormSink extends Controller
 {
     //
@@ -32,13 +33,15 @@ class FormSink extends Controller
 
     }
 
-   public function Form1(Request $request){
+   public function Form1($urusan,Request $request){
 		
+   		$data_link=BidangUrusan::find($urusan);
+
 		$data=file_get_contents(storage_path('app/f1_.json'));
 		$data='['.$data.']';
 		$data=json_decode($data,true);
 		
-		return view('form_singkron.form1')->with('datas',$data);
+		return view('form_singkron.form1')->with('datas',$data)->with('id_link',$urusan)->with('data_link',$data_link);
 
     }
 

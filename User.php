@@ -40,6 +40,6 @@ class User extends Authenticatable
 
 
     public function HaveUrusan(){
-        return $this->belongsToMany(BidangUrusan::class,UserBidangUrusan::class,'id_user','id_bidang');
+        return $this->belongsToMany(BidangUrusan::class,UserBidangUrusan::class,'id_bidang','id_user');
     }
 }
