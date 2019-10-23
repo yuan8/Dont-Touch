@@ -183,13 +183,33 @@ class kewenangan extends Seeder
 
         ];
 
+    DB::table('tb_urusan')->insert(array(
+    	'kode'=>1,
+    	'nama_urusan'=>'Wajib',
+    	'session'=>1
+    ));
+
+
 	$value_urusan='';
 	$data_record=[];
+
 	$kode_urusan=0;
 	foreach ($data as $key => $d) {
 		if($value_urusan!=$d[1]){
 			$value_urusan=$d[1];
 			$kode_urusan+=1;
+
+			$data_record_urusan=array(
+				'id_urusan'=>1,
+				'kode'=>$kode_urusan,
+				'kode_urusan'=>1,
+				'nama_bidang_urusan'=>$d[2],
+				'session'=>1
+			);
+			
+			DB::table('tb_bidang_urusan')->insert($data_record_urusan);
+
+
 		}
 
 		$data_record[]=array(
@@ -201,6 +221,8 @@ class kewenangan extends Seeder
 			'kewenangan_provinsi'=>$d[4],
 			'kewenangan_kota_kab'=>$d[5],
 		);
+
+
 
 	}
 
