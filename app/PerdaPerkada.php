@@ -4,13 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Kabupaten extends Model
+class PerdaPerkada extends Model
 {
     //
 
-    protected $table='kabupaten';
-
-
-
-
+    protected $table='perda_perkada';
 }

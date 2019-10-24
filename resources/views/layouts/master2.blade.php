@@ -19,6 +19,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.0/qs.min.js"></script>
 
 
   @include('sweet::alert')
@@ -27,7 +29,10 @@
     const CNDSSApi = axios.create({
           baseURL: '{{url('api')}}',
           timeout: 6000,
-          headers: {'Authorization': '{{(Auth::User())?'Bearer '.Auth::User()->api_token:''}}' }
+          headers: {
+            'Authorization': '{{(Auth::User())?'Bearer '.Auth::User()->api_token:''}}',
+            'Content-Type': 'application/json',
+          }
     });
 
   </script>
@@ -52,7 +57,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-warning sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -86,8 +91,8 @@
           </button>
 
           <!-- Topbar Search -->
-         <h5><span><a href="{{route('fs.index')}}" class=" d-sm-inline-block btn btn-warning btn-circle btn-sm"><b><</b> </a></span> {{$data_link->nama_bidang_urusan}}</h5>
-          @include('component.nav.search')
+         <h5 style="color:#222"><span><a style="color:#222" href="{{route('fs.index')}}" class="border-dark d-sm-inline-block btn btn-warning btn-circle btn-sm"><b> <i class="fa fa-arrow-left"></i></b> </a></span> {{$data_link->nama}}</h5>
+          <!-- @include('component.nav.search') -->
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -215,7 +220,9 @@
   </script>
   @if (Session::has('sweet_alert.alert'))
     <script>
+
         swal({!! Session::get('sweet_alert.alert') !!});
+    
     </script>
 @endif
   @if (Session::has('sweet_alert.alert'))
@@ -238,6 +245,24 @@
       font-family: 'Roboto Condensed';
     }
   </style>
+
+  <div class="modal fade" id="searching_data">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+          <iframe src="" style="width:100%; min-height: 500px"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    function SearchingSatuData(q){
+      var url="https://data.go.id/dataset?q="+q;
+        $('#searching_data iframe').attr('src',url);
+        $('#searching_data').appendTo('body').modal();
+    }
+  </script>
 
 </body>
 

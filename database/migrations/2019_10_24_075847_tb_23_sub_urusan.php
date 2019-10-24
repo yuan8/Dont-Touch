@@ -4,22 +4,22 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Kabupaten extends Migration
+class Tb23SubUrusan extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+  public function up()
     {
         //
-
-        Schema::create('kabupaten',function(Blueprint $table){
-            $table->char('id_kota',6)->unique()->primay()->index();
+        Schema::create('sub_urusan_23', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->bigInteger('id_urusan')->index();
             $table->string('nama');
-            $table->boolean('status_kabupaten');
             $table->timestamps();
+          
         });
     }
 
@@ -31,7 +31,7 @@ class Kabupaten extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('kabupaten');
-        
+        Schema::dropIfExists('sub_urusan_23');
+
     }
 }

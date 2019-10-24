@@ -23,7 +23,9 @@ class TbProgram extends Migration
             $table->string('nama_program');
             $table->integer('session');
             $table->timestamps();
+            
             $table->unique(['kode','kode_urusan','kode_bidang_urusan','session']);
+
              $table->foreign('id_bidang_urusan')
             ->references('id')
             ->on('tb_bidang_urusan')

@@ -14,7 +14,7 @@
 
     </div>
     <div class="menu-dashboard-input" style="bottom:15px; right:30px; position:fixed;z-index:99;">
-        <a href="{{route('admin.form')}}" class="btn btn shadows btn-circle btn-lg text-gray-900 bg-gray-100 border-primary"><b>
+        <a href="{{route('fs.index')}}" class="btn btn shadows btn-circle btn-lg text-gray-900 bg-gray-100 border-primary"><b>
             +
         </b> </a>
     </div>

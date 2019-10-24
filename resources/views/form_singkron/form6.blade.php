@@ -6,20 +6,20 @@
 @section('content')
 
 	<div class="card card-border-top-warning ">
-		<div class="card-body">
+		<div class="card-body ">
 			<table class="table table-bordered  table-striped">
 				<thead>
-					<tr>
+					<tr class="table-dark">
 						<th colspan="8">Kewenagan</th>
 					</tr>
-					<tr>
+					<tr class="table-dark">
 						<th>No</th>
 						<th>Program</th>
 						<th colspan="2">Pusat</th>
 						<th colspan="2">Provinsi</th>
 						<th colspan="2">Kabupaten</th>
 					</tr>
-					<tr>
+					<tr class="table-dark">
 						<th></th>
 						<th></th>
 						<th>Indikator</th>

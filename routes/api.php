@@ -19,10 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::prefix('daerah')->group(function(){
+
     Route::post('kabupaten-from-provinsi-id','API\APIDaerahCTRL@kabupatenFromProvinsiId')->name('api.daerah.kab.id_pro');
+
 });
 Route::prefix('form')->middleware('auth:api')->group(function(){
 	
+  Route::post('get-list-mandat','API\APIForm@getListMandat');
+
   Route::post('form-data-mandat','API\APIForm@tableMandat');
   Route::post('form-input-mandat','API\APIForm@formMandat');
 

@@ -10,9 +10,18 @@ use App\DBS\FormMainOne;
 use App\BidangUrusan;
 use Auth;
 use App\Form1;
+use App\SubUrusan23;
+use App\Mandat;
 class APIForm extends Controller
 {
     //
+
+    public function getListMandat(Request $request){
+      $id_sub_urusan=$request->sub_urusan;
+      $mandat=Mandat::where('id_sub_urusan',$id_sub_urusan)->get();
+      return $mandat;
+
+    }
 
     public function addDataMaster(Request $request){
       $validator=Validator::make($request->all(),[

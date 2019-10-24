@@ -16,11 +16,11 @@ class Provinsi extends Migration
         //
 
         Schema::create('provinsi',function(Blueprint $table){
-            $table->string('id_provinsi')->unique()->primary()->index();
+            $table->char('id_provinsi',2)->unique()->primary()->index();
             $table->string('nama');
+            $table->string('pulau');
             $table->string('nama_singkat');
-            $table->string('ibukota');
-            $table->integer('check');
+            $table->timestamps();
         });
     }
 

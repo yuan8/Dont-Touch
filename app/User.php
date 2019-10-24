@@ -7,6 +7,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\UserBidangUrusan;
 use App\BidangUrusan;
+use App\Urusan23;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -40,6 +42,6 @@ class User extends Authenticatable
 
 
     public function HaveUrusan(){
-        return $this->belongsToMany(BidangUrusan::class,UserBidangUrusan::class,'id_user','id_bidang');
+        return $this->belongsToMany(Urusan23::class,UserRoleUrusan::class,'id_user','id_urusan');
     }
 }

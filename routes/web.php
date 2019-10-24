@@ -123,12 +123,13 @@ Route::prefix('admin')->middleware('auth:web')->group(function(){
   Route::prefix('form')->group(function(){
     Route::get('/mandat', 'AdminCTRL@madat')->name('admin.form.mandat');
 
+
     Route::get('/index', 'AdminCTRL@form')->name('admin.form');
     Route::get('/form-input-1', 'FormController@form1')->name('admin.form1');
     Route::post('form1/store', 'FormController@Form1Store')->name('form_1.store');
+
     Route::get('form1/edit/{id}', 'FormController@Form1Edit')->name('form_1.edit');
     Route::put('form1/update/{id}', 'FormController@Form1Edit')->name('form_1.update');
-
 
 
     Route::get('/form-input-2', 'FormController@form2')->name('admin.form2');
@@ -141,11 +142,26 @@ Route::prefix('admin')->middleware('auth:web')->group(function(){
 
 
 
-Route::prefix('sigkron')->middleware('auth:web')->group(function(){
+Route::prefix('sinkron')->middleware('auth:web')->group(function(){
   Route::get('/','FormSink@index')->name('fs.index');
 
   Route::get('/bidang/{bidang_urusan_link}/f1','FormSink@form1')->name('fs.f1.index');
+  Route::get('/bidang/{bidang_urusan_link}/f1/tambah-mandat','FormSink@form1TambahMandat')->name('fs.f1.tambah');
+
+  Route::get('/bidang/{bidang_urusan_link}/f1/penilaian','FormSink@form1Penilaian')->name('fs.f1.penilaian');
+  Route::get('/bidang/{bidang_urusan_link}/f1/perda-perkada','FormSink@form1PerdaPerkada')->name('fs.f1.perda.perkada');
+  Route::post('/bidang/{bidang_urusan_link}/f1/perda-perkada','FormSink@form1PerdaPerkadaFilter')->name('fs.f1.perda.perkada.filter');
+
+   Route::get('/bidang/{bidang_urusan_link}/f1/perda-perkada/{provinsi}/{kota?}','FormSink@form1PerdaPerkadaPerdaearah')->name('fs.f1.perda.perkada.perdaerah');
+
+ Route::get('/bidang/{bidang_urusan_link}/f1/perda-perkada/{provinsi}/{kota?}/tambah','FormSink@form1PerdaPerkadaPerdaearahTambah')->name('fs.f1.perda.perkada.perdaerah.tambah');
+
+
+
   Route::get('/bidang/{bidang_urusan_link}/f6','FormSink6@index')->name('fs.f6.index');
+  Route::get('/bidang/{bidang_urusan_link}/f4','FormSink4@index')->name('fs.f4.index');
+
+
 
   // Route::get('/test',function(){
   //   $anu=HP::getIdsUrusanHandle(Auth::user());

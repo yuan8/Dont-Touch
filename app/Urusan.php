@@ -14,4 +14,7 @@ class Urusan extends Model
     // {
     //     return 'Y-m-d H:i:s.u';
     // }
+
+
+    public function 
 }

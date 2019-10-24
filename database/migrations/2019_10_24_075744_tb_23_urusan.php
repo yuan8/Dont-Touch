@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Kabupaten extends Migration
+class Tb23Urusan extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,11 @@ class Kabupaten extends Migration
     public function up()
     {
         //
-
-        Schema::create('kabupaten',function(Blueprint $table){
-            $table->char('id_kota',6)->unique()->primay()->index();
+        Schema::create('urusan_23', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('nama');
-            $table->boolean('status_kabupaten');
             $table->timestamps();
+          
         });
     }
 
@@ -31,7 +30,7 @@ class Kabupaten extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('kabupaten');
-        
+        Schema::dropIfExists('urusan_23');
+
     }
 }

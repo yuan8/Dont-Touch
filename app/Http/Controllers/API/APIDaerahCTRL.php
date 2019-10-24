@@ -23,9 +23,18 @@ class APIDaerahCTRL extends Controller
             'data'=>[]
           );
         }else{
-          $kabupatens=Kabupaten::where('id_provinsi',($request->id_provinsi))
-          ->orderBy('nama','ASC')->get();
-          return $kabupatens;
+          $return=[];
+          $kabupatens=Kabupaten::where('id_kota','like',($request->id_provinsi.'%'))
+          ->orderBy('nama','ASC')->get()->toArray();
+
+          $return[]=array('id_kota'=>0,'nama'=>'-- Khusus Provinsi --');
+         
+            foreach ($kabupatens as $key => $value) {
+              $return[]=$value;
+            }
+
+            return $return;
+        
         }
 
     }

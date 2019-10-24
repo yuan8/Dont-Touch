@@ -1,9 +1,9 @@
 <?php
   $id_key=rand(0,100).'t_'.date('s_u');
  ?>
- <div class="d-sm-flex align-items-center justify-content-between mb-4">        
+ <div class="d-sm-flex align-items-center justify-content-between mb-1">        
   <h6 class="mb-0 ">{{$title}}</h6>
-         <button type="button" style="margin-top:10px" onclick="$('#modal-{{$tb}}-{{$id_key}}').appendTo('body').modal()"  class="btn btn-warning btn-sm d-sm-inline-block" name="button">+</button> 
+         <button type="button" style="margin-top:10px;color:#222" onclick="$('#modal-{{$tb}}-{{$id_key}}').appendTo('body').modal()"  class="btn btn-warning btn-sm d-sm-inline-block border-dark" style="color:#222" name="button">+</button> 
 </div>
  <select class="form-control" id="f-select-{{$tb}}-{{$id_key}}" {{isset($multiple)?($multiple==false?'':'multiple'):'multiple'}}   name="{{$name_field}}"  placeholder="Berisi Lebih Dari Atau Satu">
    @isset($value_init)
@@ -42,6 +42,8 @@
                 var last_value=$('#f-select-{{$tb}}-{{$id_key}}').val();
                 last_value.push(2);
                 $('#f-select-{{$tb}}-{{$id_key}}').val(last_value).change();
+                $('#f-select-{{$tb}}-{{$id_key}}').val('');
+                $('#f-select-{{$tb}}-{{$id_key}}').html('');
 
                 Swal.fire({
                   type: 'success',

@@ -55,8 +55,7 @@ class FormController extends Controller
         if(isset($datas['uu'])){
           $main->listUu()->sync($datas['uu']);
         }
-
-
+        
         if(isset($datas['mandat'])){
           $main->listMandat()->sync($datas['mandat']);
         }

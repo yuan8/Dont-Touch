@@ -1,7 +1,7 @@
 @extends('layouts.no-auth')
 
 @section('content')
-<body class="bg-gradient-primary">
+<body class="bg-gradient-warning">
 
   <div class="container">
 
@@ -63,7 +63,7 @@
 
                       <div class="form-group row mb-0">
                           <div class="col-md-12 text-center">
-                              <button type="submit" class="btn btn-primary col-md-12">
+                              <button type="submit" class="btn btn-warning col-md-12">
                                   {{ __('Login') }}
                               </button>
 
