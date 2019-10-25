@@ -233,15 +233,15 @@ class kewenangan extends Seeder
 		);
 
 
-		// $data_record[]=array(
-		// 	'nomer_bidang_urusan'=>$kode_urusan,
-		// 	'nomer_program'=>$d[0],
-		// 	'nama_bidang_urusan'=>$d[1],
-		// 	'nama_program'=>$d[2],
-		// 	'kewenangan_pusat'=>$d[3],
-		// 	'kewenangan_provinsi'=>$d[4],
-		// 	'kewenangan_kota_kab'=>$d[5],
-		// );
+		$data_record[]=array(
+			'nomer_bidang_urusan'=>$kode_urusan,
+			'nomer_program'=>$d[0],
+			'nama_bidang_urusan'=>$d[1],
+			'nama_program'=>$d[2],
+			'kewenangan_pusat'=>$d[3],
+			'kewenangan_provinsi'=>$d[4],
+			'kewenangan_kota_kab'=>$d[5],
+		);
 
 
 		// $data_record_program=array(
@@ -257,7 +257,7 @@ class kewenangan extends Seeder
 	}
 
 
-	// DB::table('kewenangan')->insert($data_record);
+	DB::table('kewenangan')->insert($data_record);
 
 	return 1;
 

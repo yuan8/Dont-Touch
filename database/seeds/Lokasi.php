@@ -51,7 +51,7 @@ class Lokasi extends Seeder
 
         ];
 
-     DB::table('provinsi')->delete();
+    DB::table('provinsi')->delete();
     DB::table('provinsi')->truncate();
 
     DB::table('kabupaten')->delete();
