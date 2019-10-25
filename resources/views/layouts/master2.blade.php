@@ -259,8 +259,9 @@
   <script type="text/javascript">
     function SearchingSatuData(q){
       var url="https://data.go.id/dataset?q="+q;
-        $('#searching_data iframe').attr('src',url);
-        $('#searching_data').appendTo('body').modal();
+      window.open(url,'_blank');
+        // $('#searching_data iframe').attr('src',url);
+        // $('#searching_data').appendTo('body').modal();
     }
   </script>
 
