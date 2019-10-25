@@ -19,7 +19,7 @@
 		<div class="row">
 			<div class="col-md-3">
 				<div class="form-group">
-					<label>Mandat</label>
+					<label>Sub Urusan</label>
 					<select class="form-control" required=""  onchange="
 	getmandat(this)" id="sub_urusan" name="sub_urusan">
 						@foreach($sub_urusans as $sub)
