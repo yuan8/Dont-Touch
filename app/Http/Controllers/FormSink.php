@@ -37,15 +37,15 @@ class FormSink extends Controller
 
     	}
 
-    	$uu=null;
-    	$pp=null;
-    	$perpres=null;
-    	$permen=null;
-    	$mandat=null;
+    	$uu='[]';
+    	$pp='[]';
+    	$perpres='[]';
+    	$permen='[]';
+    	$mandat='[]';
 
     	if(isset($request->uu)){
     		$uu=$request->uu;
-			$uu=json_encode($uu);
+			 $uu=json_encode($uu);
     	}
 
     	if(isset($request->pp)){
