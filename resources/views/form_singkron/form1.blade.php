@@ -44,41 +44,25 @@
 			<tbody style="overflow-y: scroll;">
 				@foreach($datas as $key=> $data)
 				<tr>
-					<td>{{$data['id_sub_urusan']}}</td>
+					<td>{{$data->LinkSubUrusan->nama}}</td>
 					<td>
-						@isset($data->uu)
-							@foreach(json_decode($data->uu) as $val)
-								<a href="javascript:void(0)" onclick="SearchingSatuData('{{$val}}')" >{{$val}}</a>
-							@endforeach
-						@endisset
+						{!!HP::SpliterArrayLink($data->uu)!!}
 					</td>
 					<td>
-						@isset($data->pp)
-							@foreach(json_decode($data->pp) as $val)
-								<a href="javascript:void(0)" onclick="SearchingSatuData('{{$val}}')" >{{$val}}</a>
-							@endforeach
-						@endisset
+						{!!HP::SpliterArrayLink($data->pp)!!}
+						
 					</td>
 					<td>
-						@isset($data->perpres)
-							@foreach(json_decode($data->perpres) as $val)
-								<a href="javascript:void(0)" onclick="SearchingSatuData('{{$val}}')" >{{$val}}</a>
-							@endforeach
-						@endisset
+						{!!HP::SpliterArrayLink($data->perpres)!!}
+						
 					</td>
 					<td>
-						@isset($data->permen)
-							@foreach(json_decode($data->permen) as $val)
-								<a href="javascript:void(0)" onclick="SearchingSatuData('{{$val}}')" >{{$val}}</a>
-							@endforeach
-						@endisset
+						{!!HP::SpliterArrayLink($data->permen)!!}
+					
 					</td>
 					<td>
-							@isset($data->mandat)
-								@foreach(json_decode($data->mandat) as $val)
-									<a href="javascript:void(0)" onclick="SearchingSatuData('{{$val}}')" >{{$val}}</a>
-								@endforeach
-							@endisset
+						{!!HP::SpliterArray($data->mandat)!!}
+							
 					</td>
 
 					<td class="">

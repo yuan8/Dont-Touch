@@ -26,7 +26,7 @@
                       <div class="form-group row">
 
                           <div class="col-md-12">
-                              <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="email" required autocomplete="email" autofocus>
+                              <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Email" required autocomplete="email" autofocus>
 
                               @error('email')
                                   <span class="invalid-feedback" role="alert">
@@ -39,7 +39,10 @@
                       <div class="form-group row">
 
                           <div class="col-md-12">
-                              <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="password" required autocomplete="current-password">
+
+
+
+                              <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" required autocomplete="current-password">
 
                               @error('password')
                                   <span class="invalid-feedback" role="alert">
@@ -47,6 +50,27 @@
                                   </span>
                               @enderror
                           </div>
+                      </div>
+                      <div class="form-group row">
+                         <div class="col-md-12">
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Tahun</span>
+                              </div>
+                              <select class="form-control" name="tahun">
+                                <?php 
+                                  for($i=(date('Y')-2);$i<=(date('Y')+1);$i++ ){
+                                ?>
+                                  <option value="{{$i}}">{{$i}}</option>
+
+                                <?php }?>
+                                
+                              </select>
+
+
+                            </div>
+                         
+                        </div>
                       </div>
 
                       <div class="form-group row">
@@ -60,6 +84,8 @@
                               </div>
                           </div>
                       </div>
+                      
+                     
 
                       <div class="form-group row mb-0">
                           <div class="col-md-12 text-center">

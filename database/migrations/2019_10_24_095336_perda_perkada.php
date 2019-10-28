@@ -18,15 +18,20 @@ class PerdaPerkada extends Migration
 
             $table->bigIncrements('id');
             $table->bigInteger('id_mandat')->unsigned();
+            $table->bigInteger('id_urusan')->unsigned();
             $table->integer('tahun')->nullable();
             $table->char('provinsi',2)->nullable();
             $table->char('kota_kabupaten',6)->nullable();
             $table->mediumText('perda')->nullable();
             $table->mediumText('perkada')->nullable();
 
-            $table->integer('kesesuaian')->default(0);
+            $table->boolean('kesesuaian')->default(0);
+            $table->boolean('telah_dinilai')->default(0);
+
             $table->mediumText('keterangan')->nullable();
             $table->bigInteger('id_user')->unsigned();
+            $table->bigInteger('id_user_penilai')->unsigned()->nullable();
+
 
 
             $table->timestamps();
@@ -35,7 +40,16 @@ class PerdaPerkada extends Migration
             ->on('mandat')
             ->onDelete('cascade');
 
+            $table->foreign('id_urusan')
+            ->references('id')
+            ->on('urusan_23')
+            ->onDelete('cascade');
+
             $table->foreign('id_user')
+            ->references('id')
+            ->on('users');
+
+             $table->foreign('id_user_penilai')
             ->references('id')
             ->on('users');
           

@@ -18,6 +18,8 @@ class Permasalahan extends Migration
 
             $table->bigIncrements('id');
             $table->bigInteger('id_urusan')->unsigned();
+            $table->integer('tahun')->nullable();
+            
 
             $table->bigInteger('id_sub_urusan')->unsigned();
 

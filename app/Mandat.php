@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\SubUrusan23;
+use App\PerdaPerkada;
 class Mandat extends Model
 {
     //
@@ -12,6 +13,8 @@ class Mandat extends Model
 
     protected $fillable=[
      "id_sub_urusan" ,
+     "tahun" ,
+     "id_urusan" ,
 	  "uu" ,
 	  "pp" ,
 	  "perpres" ,
@@ -22,5 +25,13 @@ class Mandat extends Model
 
     public function subUrusan(){
     	return $this->belongsTo(SubUrusan23::class,'id_urusan');
+    }
+
+    public function LinkSubUrusan(){
+        return $this->belongsTo(SubUrusan23::class,'id_sub_urusan');
+    }
+
+     public function HavePerdaPerkada(){
+        return $this->hasMany(PerdaPerkada::class,'id_mandat');
     }
 }

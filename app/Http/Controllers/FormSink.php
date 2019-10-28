@@ -12,12 +12,16 @@ use Validator;
 use App\Mandat;
 use App\Provinsi;
 use App\Kabupaten;
+use App\PerdaPerkada;
 
 class FormSink extends Controller
 {
     //
 
-    public function Form1Store(Request $request){
+
+
+
+    public function Form1Store($urusan,Request $request){
 
 
     	$validator=Validator::make($request->all(),[
@@ -69,6 +73,8 @@ class FormSink extends Controller
 		$data=[
 			'id_sub_urusan'=>$request->sub_urusan,
 			'uu'=>$uu,
+      'tahun'=>session('focus_tahun'),
+      'id_urusan'=>$urusan,
 			'pp'=>$pp,
 			'perpres'=>$perpres,
 			'permen'=>$permen,
@@ -102,9 +108,8 @@ class FormSink extends Controller
 		
  		$programs=Program::where('id_bidang_urusan',$urusan)->first();
  		$data_link=Urusan23::find($urusan);
- 		$ids=$data_link->haveSub()->pluck('id');
 
-		$data=Mandat::whereIn('id_sub_urusan',$ids)->paginate(10);
+		$data=Mandat::where('id_urusan',$urusan)->where('tahun',session('focus_tahun'))->paginate(10);
 
 
 		return view('form_singkron.form1')->with('datas',$data)->with('id_link',$urusan)->with('data_link',$data_link)->with('programs',$programs);
@@ -114,19 +119,18 @@ class FormSink extends Controller
 
     public function form1Penilaian($urusan,Request $request){
 		
- 		$programs=Program::where('id_bidang_urusan',$urusan)->first();
  		$data_link=Urusan23::find($urusan);
-		$data=file_get_contents(storage_path('app/f1_.json'));
-		$data='['.$data.']';
-		$data=json_decode($data,true);
+    $data=Mandat::where('id_urusan',$urusan)
+    ->where('tahun',session('focus_tahun'))->paginate(10);
 		
-		return view('form_singkron.form1_penilaian')->with('datas',$data)->with('id_link',$urusan)->with('data_link',$data_link)->with('programs',$programs);
+		return view('form_singkron.form1_penilaian')->with('datas',$data)->with('id_link',$urusan)->with('data_link',$data_link);
 
     }
     public function form1PerdaPerkada($urusan,Request $request){
 		
  		$data_link=Urusan23::find($urusan);
     $provinsi=Provinsi::all();
+   
   	
 		return view('form_singkron.form1_perdaperkada')->with('id_link',$urusan)->with('data_link',$data_link)->with('provinsis',$provinsi);
     }
@@ -183,10 +187,20 @@ class FormSink extends Controller
         $daerah['id']=$daerah['id_kota'];
         $daerah['pro']=0;
       }
+      $where=[];
+      if($daerah['pro']){
+        $where['provinsi']=(int)$daerah['id'];
+        $where['kota_kabupaten']=null;
+      }else{
+        $where['kota_kabupaten']=(int)$daerah['id'];
+      }
 
-      
 
-      return view('form_singkron.form1_perdaperkada_perdaerah')->with('daerah',$daerah)->with('id_link',$urusan)->with('data_link',$data_link)->with('data_daerah',$kedaerahan);
+
+      $data=PerdaPerkada::where('id_urusan',$urusan)->where('tahun',session('focus_tahun'))
+      ->where($where)->paginate(10);
+
+      return view('form_singkron.form1_perdaperkada_perdaerah')->with('daerah',$daerah)->with('id_link',$urusan)->with('data_link',$data_link)->with('data_daerah',$kedaerahan)->with('data',$data);
 
     }
 
@@ -218,9 +232,31 @@ class FormSink extends Controller
 
     }
 
-    public function form1PerdaPerkadaPerdaearahStore(Request $request){
+    public function form1PerdaPerkadaPerdaearahStore($urusan,$provinsi,$kota_kab,Request $request){
+
+      $perda=isset($request->perda)?$request->perda:[];
+      $perkada=isset($request->perkada)?$request->perkada:[];
+
+      $perkada=json_encode($perkada);
+      $perda=json_encode($perda);
 
 
+  
+
+     $data= PerdaPerkada::create([
+        'perda'=>$perda,
+        'perkada'=>$perkada,
+        'id_user'=>Auth::User()->id,
+        'tahun'=>session('focus_tahun'),
+        'id_mandat'=>$request->mandat,
+        'kota_kabupaten'=>$kota_kab==0?null:$kota_kab,
+        'provinsi'=>$provinsi,
+        'id_urusan'=>$urusan,
+      ]);
+
+     if($data){
+      return back();
+     }
 
     }
 
@@ -242,6 +278,7 @@ class FormSink extends Controller
 
     public function index(){
     	$urusan=Auth::User()->haveUrusan;
+
     	return view('form_singkron.index')->with('urusans',$urusan)->with('title','SUPD2 Data Suport Sistem');
     }
 

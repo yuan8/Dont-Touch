@@ -115,7 +115,7 @@
     <div class="" id="bg">
     </div>
     <div class="" id="title-page">
-      <h4 class="text-center text-gray-900"><b>{{isset($title)?$title:''}}</b></h4>
+      <h4 class="text-center text-gray-900"><b>{{isset($title)?$title:''}} ({{session('focus_tahun')}})</b></h4>
     </div>
     @yield('content')
   </body>

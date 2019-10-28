@@ -14,6 +14,7 @@ class IndetifikasiKebijakanPusat5Tahun extends Model
     protected $fillable=[
     	'id','id_sub_urusan',
         'id_urusan',
+        'tahun',
         'isu_strategis',
     	'kondisi_saat_ini',
     	'arah_kebijakan',

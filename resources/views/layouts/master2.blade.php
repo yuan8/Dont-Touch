@@ -17,6 +17,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="{{url('admin_dist/js/axios.js')}}"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
   
@@ -91,7 +92,7 @@
           </button>
 
           <!-- Topbar Search -->
-         <h5 style="color:#222"><span><a style="color:#222" href="{{route('fs.index')}}" class="border-dark d-sm-inline-block btn btn-warning btn-circle btn-sm"><b> <i class="fa fa-arrow-left"></i></b> </a></span> {{$data_link->nama}}</h5>
+         <h5 style="color:#222"><span><a style="color:#222" href="{{route('fs.index')}}" class="border-dark d-sm-inline-block btn btn-warning btn-circle btn-sm"><b> <i class="fa fa-arrow-left"></i></b> </a></span> {{$data_link->nama}} ({{session('focus_tahun')}})</h5>
           <!-- @include('component.nav.search') -->
 
           <!-- Topbar Navbar -->

@@ -34,6 +34,7 @@ Route::middleware('auth:web')->group(function(){
   Route::get('/test', function(){
     // $anu=App\DBS\FormMainOne::with('listUu')->get()->toJson();
     // return ($anu);
+
     dd(shell_exec('chmode -R 777 '.storage_path('')));
     // return HP::GenerateTokenApi();
 
@@ -155,6 +156,8 @@ Route::prefix('sinkron')->middleware('auth:web')->group(function(){
    Route::get('/bidang/{bidang_urusan_link}/f1/perda-perkada/{provinsi}/{kota?}','FormSink@form1PerdaPerkadaPerdaearah')->name('fs.f1.perda.perkada.perdaerah');
 
  Route::get('/bidang/{bidang_urusan_link}/f1/perda-perkada/{provinsi}/{kota?}/tambah','FormSink@form1PerdaPerkadaPerdaearahTambah')->name('fs.f1.perda.perkada.perdaerah.tambah');
+
+ Route::post('/bidang/{bidang_urusan_link}/f1/perda-perkada/{provinsi}/{kota?}/tambah','FormSink@form1PerdaPerkadaPerdaearahStore')->name('fs.f1.perda.perkada.perdaerah.store');
 
 
 

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use HP;
 use App\User;
 use Illuminate\Http\Request;
-
+use Validator;
 class LoginController extends Controller
 {
     /*
@@ -31,6 +31,15 @@ class LoginController extends Controller
 
      public function login(Request $request)
      {
+
+        $validator=Validator::make($request->all(),[
+            'tahun'=>'required|numeric'
+        ]);
+
+        if($validator->fails()){
+            return back()->withInput()->withError($validator);
+        }
+
          $this->validateLogin($request);
          // If the class is using the ThrottlesLogins trait, we can automatically throttle
          // the login attempts for this application. We'll key this by the username and
@@ -39,9 +48,12 @@ class LoginController extends Controller
              $this->fireLockoutEvent($request);
              return $this->sendLockoutResponse($request);
          }
+
          if ($this->attemptLogin($request)) {
             $user=User::where('email',$request->email)->first();
             $token_api=HP::GenerateTokenApi($user);
+            
+            session(['focus_tahun' => $request->tahun]);
 
             $user->api_token=$token_api;
             $user->save();

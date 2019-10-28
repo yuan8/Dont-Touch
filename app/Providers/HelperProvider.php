@@ -77,4 +77,15 @@ class HelperProvider extends ServiceProvider
 
         return $data_return;
     }
+
+      public static function SpliterArrayLink($data){
+        $data_return='';
+        $data=json_decode($data,true);
+        foreach($data as $d){
+          $data_return.='<a href="javascript:void(0)" onclick="SearchingSatuData(`'.$d.'`)">'.$d.'</a><br>';
+        }
+
+        return $data_return;
+    }
+
 }

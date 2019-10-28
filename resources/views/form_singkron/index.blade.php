@@ -11,6 +11,7 @@
 @section('content')
 
 <div class="container" style="min-width:100vw; margin-top: 100px;">
+
 	<div class=" d-flex justify-content-center align-items-stretch bd-highlight mb-1">
 		@foreach($urusans as $urusan)
 		
@@ -27,5 +28,6 @@
 		
 		@endforeach
 	</div>
+
 </div>
 @stop

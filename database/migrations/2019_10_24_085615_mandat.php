@@ -23,11 +23,20 @@ class Mandat extends Migration
             $table->mediumText('permen')->nullable();
             $table->mediumText('mandat')->nullable();
             $table->bigInteger('id_sub_urusan')->unsigned();
+            $table->bigInteger('id_urusan')->unsigned();
+            $table->integer('tahun')->nullable();
+            
+
             $table->bigInteger('id_user')->unsigned();
             $table->timestamps();
             $table->foreign('id_sub_urusan')
             ->references('id')
             ->on('sub_urusan_23')
+            ->onDelete('cascade');
+
+            $table->foreign('id_urusan')
+            ->references('id')
+            ->on('urusan_23')
             ->onDelete('cascade');
 
             $table->foreign('id_user')

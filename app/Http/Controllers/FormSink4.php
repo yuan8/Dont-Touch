@@ -62,6 +62,7 @@ class FormSink4 extends Controller
             $permasalahan=Permasalahan::create([
                 'id_sub_urusan'=>$request->sub_urusan,
                 'id_urusan'=>$urusan,
+                'tahun'=>session('focus_tahun'),
                 'masalah'=>$masalah,
                 'akar_masalah'=>$akar_masalah,
                 'data_pendukung'=>$data_dukung,

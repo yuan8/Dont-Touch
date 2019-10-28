@@ -8,6 +8,6 @@ class Kabkota extends Model
 {
     //
 
-    protected $table='tb_indikator';
-    protected $fillable=['ID_kota_kab','kode','nama_indikator'];
+    protected $table='kabupaten';
+    protected $fillable=['id_kota','nama'];
 }

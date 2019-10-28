@@ -12,7 +12,7 @@
        
 </div>
 <div class="card card-border-top-warning">
-	<form action="" method="post">
+	<form action="{{route('fs.f1.perda.perkada.perdaerah.store',['id_link'=>$id_link,'provinsi'=>$data_daerah['provinsi'],'kotakab'=>$data_daerah['kotakab']])  }}" method="post">
 		@csrf
 
 			<div class="card-body">
@@ -51,27 +51,8 @@
 					</select>
 				</div>
 			</div>
-			<div class="col-md-3">
-				<div class="form-group">
-					<label>Tahun</label>
-					<input type="hidden" name="kotakab" value="{{$data_daerah['kotakab']}}">
-					<input type="hidden" name="provinsi" value="{{$data_daerah['provinsi']}}">
-					<input type="hidden" name="urusan" value="{{$id_link}}">
-
-					<select class="form-control" id="tahun" require name="tahun">
-						<?php
-							for($i=(date('Y')-6);$i<(date('Y')+6);$i++){
-						?>
-						<option value="{{$i}}">{{$i}}</option>
-
-						<?php 
-							}
-						?>
-					</select>
-					<script type="text/javascript">
-						$('#tahun').select2();
-					</script>
-				</div>
+			<div class="col-md-12">
+				<hr>
 			</div>
 		</div>
 		<div class="row">

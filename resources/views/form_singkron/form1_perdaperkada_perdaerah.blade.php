@@ -20,12 +20,27 @@
 			<thead>
 				<tr class="table-dark card-border-top-warning">
 					<th>
+						Sub Urusan
+					</th>
+					<th>
 						Mandat
 					</th>
 					<th>Perda</th>
 					<th>Perkada</th>
 				</tr>
 			</thead>
+			<tbody>
+				@foreach($data as $d)
+					<tr>
+						<td>{{$d->LinkMandat->LinkSubUrusan->nama}}</td>
+						<td>{!!HP::SpliterArray($d->LinkMandat->mandat)!!}</td>
+						<td>{!!HP::SpliterArray($d->perda)!!}</td>
+						<td>{!!HP::SpliterArray($d->perkada)!!}</td>
+
+
+					</tr>
+				@endforeach
+			</tbody>
 		</table>
 	</div>
 </div>

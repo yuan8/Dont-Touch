@@ -23,6 +23,8 @@ class IndetifikasiKebijakanPusat5Tahun extends Migration
 
             $table->bigInteger('id_sub_urusan')->unsigned();
             $table->bigInteger('id_urusan')->unsigned();
+            $table->integer('tahun')->nullable();
+            
 
             $table->integer('tahun_mulai')->nullable();
             $table->integer('tahun_selesai')->nullable();

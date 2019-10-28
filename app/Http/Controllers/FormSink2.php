@@ -69,6 +69,7 @@ class FormSink2 extends Controller
     	$data=IndetifikasiKebijakanPusat5Tahun::create([
     		'id_sub_urusan'=>$request->sub_urusan,
     		'id_urusan'=>$urusan,
+            'tahun'=>session('focus_tahun'),
     		'kondisi_saat_ini'=>$kondisi_saat_ini,
     		'isu_strategis'=>$isu_strategis,
     		'arah_kebijakan'=>$arah_kebijakan,
