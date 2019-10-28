@@ -22,7 +22,7 @@
 
 
 <li class="nav-item">
-  <a class="nav-link" href="{{route('home')}}">
+  <a class="nav-link" href="{{route('fs.f2.index',['id_link'=>$id_link])}}">
       <div class="row">
       <div class="col-md-1">
         <i class="fas fa-fw fa-file"></i>
@@ -43,7 +43,7 @@
 
 
 <li class="nav-item">
-  <a class="nav-link" href="{{route('home')}}">
+  <a class="nav-link" href="{{route('fs.f3.index',['id_link'=>$id_link])}}">
 
      <div class="row">
       <div class="col-md-1">
@@ -83,7 +83,7 @@
 </li>
 
 <li class="nav-item">
-  <a class="nav-link" href="{{route('home')}}">
+  <a class="nav-link" href="{{route('fs.f5.index',['id_link'=>$id_link])}}">
     <div class="row">
       <div class="col-md-1">
         <i class="fas fa-fw fa-file"></i>
@@ -122,7 +122,7 @@
 </li>
 
 <li class="nav-item">
-  <a class="nav-link" href="{{route('home')}}">
+  <a class="nav-link" href="{{route('fs.f7.index',['id_link'=>$id_link])}}">
     <div class="row">
       <div class="col-md-1">
         <i class="fas fa-fw fa-file"></i>
@@ -142,7 +142,7 @@
 </li>
 
 <li class="nav-item">
-  <a class="nav-link" href="{{route('home')}}">
+  <a class="nav-link" href="{{route('fs.f8.index',['id_link'=>$id_link])}}">
      <div class="row">
       <div class="col-md-1">
         <i class="fas fa-fw fa-file"></i>
@@ -163,7 +163,7 @@
 
 
 <li class="nav-item">
-  <a class="nav-link" href="{{route('home')}}">
+  <a class="nav-link" href="{{route('fs.f9.index',['id_link'=>$id_link])}}">
       <div class="row">
       <div class="col-md-1">
         <i class="fas fa-fw fa-file"></i>
@@ -184,7 +184,7 @@
 
 <li class="nav-item">
 
-  <a class="nav-link" href="{{route('home')}}">
+  <a class="nav-link" href="{{route('fs.f10.index',['id_link'=>$id_link])}}">
      <div class="row">
       <div class="col-md-1">
         <i class="fas fa-fw fa-file"></i>

@@ -159,7 +159,32 @@ Route::prefix('sinkron')->middleware('auth:web')->group(function(){
 
 
   Route::get('/bidang/{bidang_urusan_link}/f6','FormSink6@index')->name('fs.f6.index');
+  Route::get('/bidang/{bidang_urusan_link}/f2','FormSink2@index')->name('fs.f2.index');
+  Route::get('/bidang/{bidang_urusan_link}/f2/tambah','FormSink2@create')->name('fs.f2.tambah');
+
+    Route::post('/bidang/{bidang_urusan_link}/f2/tambah','FormSink2@store')->name('fs.f2.store');
+
+  Route::get('/bidang/{bidang_urusan_link}/f3','FormSink3@index')->name('fs.f3.index');
+
+
   Route::get('/bidang/{bidang_urusan_link}/f4','FormSink4@index')->name('fs.f4.index');
+
+  Route::get('/bidang/{bidang_urusan_link}/f4/tambah','FormSink4@create')->name('fs.f4.tambah');
+
+  Route::post('/bidang/{bidang_urusan_link}/f4/tambah','FormSink4@store')->name('fs.f4.store');
+
+  Route::get('/bidang/{bidang_urusan_link}/f5','FormSink5@index')->name('fs.f5.index');
+  Route::get('/bidang/{bidang_urusan_link}/f6','FormSink6@index')->name('fs.f6.index');
+  Route::get('/bidang/{bidang_urusan_link}/f7','FormSink7@index')->name('fs.f7.index');
+  Route::get('/bidang/{bidang_urusan_link}/f8','FormSink8@index')->name('fs.f8.index');
+  Route::get('/bidang/{bidang_urusan_link}/f9','FormSink8@index')->name('fs.f9.index');
+  Route::get('/bidang/{bidang_urusan_link}/f10','FormSink10@index')->name('fs.f10.index');
+
+
+
+
+
+
 
 
 

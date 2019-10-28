@@ -6,7 +6,7 @@
 
 <div id="{{$field_db}}-{{$key}}-them" style="display: none;">
   <div class="input-group mb-3 animated flipInX"  style="display:none;">
-      <textarea  class="form-control "  rows="3" cols="80" aria-describedby="basic-addon2" placeholder="Input {{$title}}...."></textarea>
+      <textarea  class="form-control"   rows="3" cols="80" aria-describedby="basic-addon2" placeholder="Input {{$title}}...."></textarea>
       <div class="input-group-append">
         <button class="btn btn-danger" onclick="$(this).parent().parent().remove();" type="button">Hapus</button>
       </div>
@@ -16,7 +16,7 @@
 <div class="" id="container-{{$field_db}}-{{$key}}">
 
 </div>
-<button type="button" class="btn btn-warning btn-sm" id="button-tambah-{{$field_db}}-{{$key}}" name="button">Tambah {{$title}}</button>
+<button type="button" class="btn btn-warning btn-sm" id="button-tambah-{{$field_db}}-{{$key}}" name="button" style="margin-bottom: 10px;">Tambah {{$title}}</button>
 <script type="text/javascript">
   var COUNT_{{$field_db}}_{{$key}}_them_COUNT=0;
   function action_button_{{$key}}_{{$field_db}}(value=''){

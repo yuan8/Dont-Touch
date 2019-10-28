@@ -66,4 +66,15 @@ class HelperProvider extends ServiceProvider
           }
        }
     }
+
+
+    public static function SpliterArray($data){
+        $data_return='';
+        $data=json_decode($data,true);
+        foreach($data as $d){
+          $data_return.='<p>'.$d.'</p>';
+        }
+
+        return $data_return;
+    }
 }
