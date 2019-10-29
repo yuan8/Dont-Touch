@@ -197,7 +197,6 @@ class FormSink extends Controller
 
       $data=PerdaPerkada::where('id_urusan',$urusan)->where('tahun',session('focus_tahun'))
       ->where($where)->paginate(10);
-      dd($data);
 
       return view('form_singkron.form1_perdaperkada_perdaerah')->with('daerah',$daerah)->with('id_link',$urusan)->with('data_link',$data_link)->with('data_daerah',$kedaerahan)->with('data',$data);
 
