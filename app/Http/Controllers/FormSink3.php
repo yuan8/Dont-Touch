@@ -12,4 +12,10 @@ class FormSink3 extends Controller
     	$data_link=Urusan23::find($urusan);
     	return view('form_singkron.form3')->with('id_link',$urusan)->with('data_link',$data_link);
     }
+
+
+     public function create($urusan){
+    	$data_link=Urusan23::find($urusan);
+    	return view('form_singkron.form3_tambah')->with('id_link',$urusan)->with('data_link',$data_link);
+    }
 }

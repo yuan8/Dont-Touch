@@ -18,7 +18,7 @@ class APIForm extends Controller
 
     public function getListMandat(Request $request){
       $id_sub_urusan=$request->sub_urusan;
-      $mandat=Mandat::where('id_sub_urusan',$id_sub_urusan)->where('mandat','!=','[]')->get();
+      $mandat=Mandat::where('id_sub_urusan',$id_sub_urusan)->where('tahun',$request->tahun)->where('mandat','!=','[]')->get();
       return $mandat;
 
     }

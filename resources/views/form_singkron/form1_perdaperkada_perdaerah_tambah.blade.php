@@ -84,7 +84,8 @@
 		var val=$(dom).val();
 		console.log(val);
 		var data={
-			sub_urusan:val
+			sub_urusan:val,
+			tahun:{{session('focus_tahun')}}
 		}
 
 		CNDSSApi.post('/form/get-list-mandat',data).then(function(res){
