@@ -119,4 +119,6 @@
     </div>
     @yield('content')
   </body>
+    @include('sweetalert::alert')
+  
 </html>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Permasalahan extends Migration
+class ProPN extends Migration
 {
     /**
      * Run the migrations.
@@ -14,27 +14,27 @@ class Permasalahan extends Migration
     public function up()
     {
         //
-        Schema::create('permasalahan', function (Blueprint $table) {
+          Schema::create('indetifikasi_kebijakan_tahunan_pro_pn', function (Blueprint $table) {
 
             $table->bigIncrements('id');
             $table->bigInteger('id_urusan')->unsigned();
+            $table->bigInteger('id_indetifikasi_kebijakan_tahunan')->unsigned();
+
             $table->integer('tahun')->nullable();
-
-            $table->char('provinsi',2)->nullable();
-            $table->char('kota_kabupaten',6)->nullable();
-
-            $table->mediumText('masalah_pokok')->nullable();
-            $table->mediumText('masalah')->nullable();
-            $table->mediumText('akar_masalah')->nullable();
-            $table->mediumText('data_pendukung')->nullable();
+            $table->Text('pro_pn');
+          
             $table->bigInteger('id_user')->unsigned();
 
             $table->timestamps();
-           
 
-             $table->foreign('id_urusan')
+            $table->foreign('id_urusan')
             ->references('id')
             ->on('urusan_23')
+            ->onDelete('cascade');
+
+            $table->foreign('id_indetifikasi_kebijakan_tahunan')
+            ->references('id')
+            ->on('indetifikasi_kebijakan_tahunan')
             ->onDelete('cascade');
 
             $table->foreign('id_user')
@@ -52,7 +52,7 @@ class Permasalahan extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('permasalahan');
-
+        Schema::dropIfExists('indetifikasi_kebijakan_tahunan_pro_pn');
+        
     }
 }

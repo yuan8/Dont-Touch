@@ -24,7 +24,7 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.0/qs.min.js"></script>
 
 
-  @include('sweet::alert')
+ 
   <script type="text/javascript">
 
     const CNDSSApi = axios.create({
@@ -219,26 +219,8 @@
     $(".select-box").chosen();
     $("textarea").css('height',38);
   </script>
-  @if (Session::has('sweet_alert.alert'))
-    <script>
-
-        swal({!! Session::get('sweet_alert.alert') !!});
-    
-    </script>
-@endif
-  @if (Session::has('sweet_alert.alert'))
-    <script>
-        swal({
-            text: "{!! Session::get('sweet_alert.text') !!}",
-            title: "{!! Session::get('sweet_alert.title') !!}",
-            timer: {!! Session::get('sweet_alert.timer') !!},
-            icon: "{!! Session::get('sweet_alert.type') !!}",
-            buttons: "{!! Session::get('sweet_alert.buttons') !!}",
-
-            // more options
-        });
-    </script>
-@endif
+  
+  
 
   <link rel="stylesheet" href="{{asset('admin_dist/css/custome.css?v='.date('i:s'))}}">
    <style type="text/css">
@@ -265,7 +247,7 @@
         // $('#searching_data').appendTo('body').modal();
     }
   </script>
-
+   @include('sweetalert::alert')
 </body>
 
 </html>

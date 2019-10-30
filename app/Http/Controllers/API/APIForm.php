@@ -208,7 +208,7 @@ class APIForm extends Controller
             form_1_main.k_keterangan,
             form_1_main.k_kesesuaian
             from form_1_main
-            left join form_1_pp on form_1_pp.id = form_1_main.k_pp
+            left join form_1_pp  on form_1_pp.id = form_1_main.k_pp
             left join form_1_uu on form_1_uu.id = form_1_main.k_uu
             left join form_1_perpres on form_1_perpres.id = form_1_main.k_perpres
             left join form_1_permen on form_1_permen.id = form_1_main.k_permen

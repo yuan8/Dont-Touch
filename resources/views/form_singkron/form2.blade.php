@@ -13,7 +13,7 @@
 <hr>
 
 <div class="card card-border-top-warning">
-	<div class="card-body">
+	<div class="card-body table-responsive">
 		<table class="table table-stripted table-bordered card-border-top-warning">
 		<thead>
 			<tr class="table-dark">
@@ -25,7 +25,7 @@
 				<th rowspan="2" >Sub Urusan</th>
 				<th colspan="3">Kewenangan</th>
 				<th rowspan="2">Keterangan</th>
-				<th rowspan="2">Action</th>
+				<th rowspan="2" style="min-width: 100px;">Action</th>
 
 			</tr>
 			<tr class="table-dark">
@@ -69,7 +69,41 @@
 						@endif
 					</td>
 					<td>{!!$d->keterangan!!}</td>
-					<td></td>
+					<td>
+						<a href="{{route('fs.f2.show',['id_link'=>$id_link,'id'=>$d->id])}}" class="btn btn-warning btn-circle">
+							<i class="fa fa-edit"></i>
+						</a>
+						<a href="javascript:void(0)" onclick="$('#modal-delete-{{$d->id}}').appendTo('body').modal()" class="btn btn-danger btn-circle">
+							<i class="fa fa-trash"></i>
+						</a>
+
+							<div class="modal fade" id='modal-delete-{{$d->id}}' tabindex="-1" role="dialog">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title">Konfirmasi Penghapusan</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						        <p>Apakah Anda Yakin Menhapus Data Ini</p>
+						      </div>
+						      <div class="modal-footer">
+						      	<form action="{{route('fs.f2.delete',['id_link'=>$id_link,'id'=>$d->id])}}" method="post">
+						      		@csrf
+						      		@method('delete')
+						        	<input type="hidden"  name="id" value="{{$d->id}}">
+						        	<button type="submit" class="btn btn-danger">Delete</button>
+
+						      	</form>
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+
+					</td>
 				</tr>
 			@endforeach
 			

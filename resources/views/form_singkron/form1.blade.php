@@ -67,7 +67,7 @@
 
 					<td class="">
 						<div class="btn-group">
-						<a href="" class="btn btn-warning" >Edit</a>
+						<a href="{{route('fs.f1.edit',['id_link'=>$id_link,'id'=>$data->id])}}" class="btn btn-warning" >Edit</a>
 							<button class="btn btn-danger" onclick="$('#modal-delete-{{$data->id}}').appendTo('body').modal()" >Delete</button>
 						</div>
 						<div class="modal fade" id='modal-delete-{{$data->id}}' tabindex="-1" role="dialog">

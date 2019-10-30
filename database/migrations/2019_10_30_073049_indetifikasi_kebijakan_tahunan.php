@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Permasalahan extends Migration
+class IndetifikasiKebijakanTahunan extends Migration
 {
     /**
      * Run the migrations.
@@ -14,25 +14,22 @@ class Permasalahan extends Migration
     public function up()
     {
         //
-        Schema::create('permasalahan', function (Blueprint $table) {
+         Schema::create('indetifikasi_kebijakan_tahunan', function (Blueprint $table) {
 
             $table->bigIncrements('id');
             $table->bigInteger('id_urusan')->unsigned();
             $table->integer('tahun')->nullable();
-
-            $table->char('provinsi',2)->nullable();
-            $table->char('kota_kabupaten',6)->nullable();
-
-            $table->mediumText('masalah_pokok')->nullable();
-            $table->mediumText('masalah')->nullable();
-            $table->mediumText('akar_masalah')->nullable();
-            $table->mediumText('data_pendukung')->nullable();
+            $table->Text('prioritas_nasional');
+            $table->Text('program_prioritas')->nullable();
+            $table->Text('kegiatan_prioritas')->nullable();
+            $table->Text('target')->nullable();
+            $table->Text('lokus')->nullable();
+            $table->Text('pelaksana')->nullable();
             $table->bigInteger('id_user')->unsigned();
 
             $table->timestamps();
-           
 
-             $table->foreign('id_urusan')
+            $table->foreign('id_urusan')
             ->references('id')
             ->on('urusan_23')
             ->onDelete('cascade');
@@ -52,7 +49,6 @@ class Permasalahan extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('permasalahan');
-
+        Schema::dropIfExists('indetifikasi_kebijakan_tahunan');
     }
 }

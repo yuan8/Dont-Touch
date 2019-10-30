@@ -6,9 +6,12 @@
          <button type="button" style="margin-top:10px;color:#222" onclick="$('#modal-{{$tb}}-{{$id_key}}').appendTo('body').modal()"  class="btn btn-warning btn-sm d-sm-inline-block border-dark" style="color:#222" name="button">+</button> 
 </div>
  <select class="form-control" id="f-select-{{$tb}}-{{$id_key}}" {{isset($multiple)?($multiple==false?'':'multiple'):'multiple'}}    name="{{$name_field}}"  placeholder="Berisi Lebih Dari Atau Satu">
-   @isset($value_init)
-    @foreach($value_init as $val)
-      <option value="{{$val['id']}}" selected >{{$val[$field_db]}}</option>
+   @isset($value)
+   @if(!is_array($value))
+    <?php $value=json_decode($value,true); ?>
+   @endif
+    @foreach($value as $val)
+      <option value="{{$val}}" selected >{{$val}}</option>
     @endforeach
 
    @endisset

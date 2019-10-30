@@ -16,11 +16,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
- Route::get('/vertion', function(){
-    // dd('new vertion');
-  // dd(\App\DBS\FormMainOne::all());
+ Route::post('/vertion', function(Illuminate\Http\Request $request){
+    dd($request->all());
+});
+
+
+  Route::get('/vertion', function(){
+    return view('test');
 
 });
+
+
 
 
 
@@ -144,35 +150,73 @@ Route::prefix('admin')->middleware('auth:web')->group(function(){
 
 
 Route::prefix('sinkron')->middleware('auth:web')->group(function(){
+
+  Route::get('/bidang/{bidang_urusan_link}/f1/perdaerah','FormSink@Form1Perdaerah')->name('fs.f1.perdaerah');
+
   Route::get('/','FormSink@index')->name('fs.index');
 
   Route::get('/bidang/{bidang_urusan_link}/f1','FormSink@form1')->name('fs.f1.index');
+  Route::get('/bidang/{bidang_urusan_link}/f1/edit/{id}','FormSink@form1Edit')->name('fs.f1.edit');
+
+  Route::put('/bidang/{bidang_urusan_link}/f1/edit/{id}','FormSink@form1Update')->name('fs.f1.update');
+
   Route::get('/bidang/{bidang_urusan_link}/f1/tambah-mandat','FormSink@form1TambahMandat')->name('fs.f1.tambah');
+
+  Route::get('/bidang/{bidang_urusan_link}/f1/edit/mandat/perdaerah/{mandat}/{provinsi?}/{kota_kab?}/{level}','FormSink@form1EditMandatPerdaerah')->name('fs.f1.edit_mandat_perdaerah');
 
   Route::get('/bidang/{bidang_urusan_link}/f1/penilaian','FormSink@form1Penilaian')->name('fs.f1.penilaian');
   Route::get('/bidang/{bidang_urusan_link}/f1/perda-perkada','FormSink@form1PerdaPerkada')->name('fs.f1.perda.perkada');
   Route::post('/bidang/{bidang_urusan_link}/f1/perda-perkada','FormSink@form1PerdaPerkadaFilter')->name('fs.f1.perda.perkada.filter');
 
-   Route::get('/bidang/{bidang_urusan_link}/f1/perda-perkada/{provinsi}/{kota?}','FormSink@form1PerdaPerkadaPerdaearah')->name('fs.f1.perda.perkada.perdaerah');
+  Route::get('/bidang/{bidang_urusan_link}/f1/perda-perkada/{provinsi}/{kota?}','FormSink@form1PerdaPerkadaPerdaearah')->name('fs.f1.perda.perkada.perdaerah');
 
- Route::get('/bidang/{bidang_urusan_link}/f1/perda-perkada/{provinsi}/{kota?}/tambah','FormSink@form1PerdaPerkadaPerdaearahTambah')->name('fs.f1.perda.perkada.perdaerah.tambah');
+  Route::get('/bidang/{bidang_urusan_link}/f1/perda-perkada/{provinsi}/{kota?}/tambah','FormSink@form1PerdaPerkadaPerdaearahTambah')->name('fs.f1.perda.perkada.perdaerah.tambah');
 
- Route::post('/bidang/{bidang_urusan_link}/f1/perda-perkada/{provinsi}/{kota?}/tambah','FormSink@form1PerdaPerkadaPerdaearahStore')->name('fs.f1.perda.perkada.perdaerah.store');
+  Route::post('/bidang/{bidang_urusan_link}/f1/perda-perkada/up-or-store','FormSink@form1PerdaPerkadaPerdaearahUpStore')->name('fs.f1.perda.perkada.perda.up.or.store');
+
+  Route::post('/bidang/{bidang_urusan_link}/f1/perda-perkada/delete','FormSink@form1PerdaPerkadaPerdaearahDelete')->name('fs.f1.perda.perkada.perda.delete');
+
+  Route::post('/bidang/{bidang_urusan_link}/f1/perda-perkada/{provinsi}/{kota?}/tambah','FormSink@form1PerdaPerkadaPerdaearahStore')->name('fs.f1.perda.perkada.perdaerah.store');
 
 
 
   Route::get('/bidang/{bidang_urusan_link}/f6','FormSink6@index')->name('fs.f6.index');
+
+
+
   Route::get('/bidang/{bidang_urusan_link}/f2','FormSink2@index')->name('fs.f2.index');
+
+  Route::get('/bidang/{bidang_urusan_link}/f2/edit/{id}','FormSink2@show')->name('fs.f2.show');
+  Route::put('/bidang/{bidang_urusan_link}/f2/edit/{id}','FormSink2@update')->name('fs.f2.update');
+
+  Route::delete('/bidang/{bidang_urusan_link}/f2/edit/{id}','FormSink2@delete')->name('fs.f2.delete');
+
   Route::get('/bidang/{bidang_urusan_link}/f2/tambah','FormSink2@create')->name('fs.f2.tambah');
 
     Route::post('/bidang/{bidang_urusan_link}/f2/tambah','FormSink2@store')->name('fs.f2.store');
 
   Route::get('/bidang/{bidang_urusan_link}/f3','FormSink3@index')->name('fs.f3.index');
+  Route::get('/bidang/{bidang_urusan_link}/f3/tambah','FormSink3@create')->name('fs.f3.tambah');
+
+  Route::post('/bidang/{bidang_urusan_link}/f3/tambah','FormSink3@store')->name('fs.f3.store');
+
+  Route::put('/bidang/{bidang_urusan_link}/f3/edit/{id}','FormSink3@update')->name('fs.f3.update');
+
+   Route::get('/bidang/{bidang_urusan_link}/f3/edit/{id}','FormSink3@show')->name('fs.f3.show');
+
+  Route::delete('/bidang/{bidang_urusan_link}/f3/delete/{id}','FormSink3@delete')->name('fs.f3.delete');
+
 
 
   Route::get('/bidang/{bidang_urusan_link}/f4','FormSink4@index')->name('fs.f4.index');
 
-  Route::get('/bidang/{bidang_urusan_link}/f4/tambah','FormSink4@create')->name('fs.f4.tambah');
+  Route::get('/bidang/{bidang_urusan_link}/f4/{provinsi?}/{kota_kabupaten?}/tambah','FormSink4@create')->name('fs.f4.tambah');
+
+  Route::get('/bidang/{bidang_urusan_link}/f4/show/{id}','FormSink4@show')->name('fs.f4.show');
+
+  Route::put('/bidang/{bidang_urusan_link}/f4/show/{id}','FormSink4@update')->name('fs.f4.update');
+
+  Route::delete('/bidang/{bidang_urusan_link}/f4/delete/{id}','FormSink4@delete')->name('fs.f4.delete');
 
   Route::post('/bidang/{bidang_urusan_link}/f4/tambah','FormSink4@store')->name('fs.f4.store');
 
@@ -195,7 +239,7 @@ Route::prefix('sinkron')->middleware('auth:web')->group(function(){
   //   $anu=HP::getIdsUrusanHandle(Auth::user());
   //   dd($anu);
   // });
-  Route::put('bidang/{bidang_urusan?}/f1/update','FormSink@form1Update')->name('fs.f1.update');
+  // Route::put('bidang/{bidang_urusan?}/f1/update','FormSink@form1Update')->name('fs.f1.update');
   Route::delete('bidang/{bidang_urusan?}/f1/delete/','FormSink@form1delete')->name('fs.f1.delete');
   Route::post('bidang/{bidang_urusan?}/f1/store','FormSink@Form1Store')->name('fs.form1.store');
 

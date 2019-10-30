@@ -5,7 +5,7 @@
  ?>
 
 <div id="{{$field_db}}-{{$key}}-them" style="display: none;">
-  <div class="input-group mb-3 animated flipInX"  style="display:none;">
+  <div class="input-group mb-3 animated flipInX"  >
       <textarea  class="form-control"   rows="3" cols="80" aria-describedby="basic-addon2" placeholder="Input {{$title}}...."></textarea>
       <div class="input-group-append">
         <button class="btn btn-danger" onclick="$(this).parent().parent().remove();" type="button">Hapus</button>
@@ -14,7 +14,20 @@
 </div>
 <label for="">{{$title}}</label>
 <div class="" id="container-{{$field_db}}-{{$key}}">
+  @isset($value)
+    @if(!is_array($value))
+      <?php $value=json_decode($value); ?>
+    @endif
+    @foreach ($value as $i => $v)
+       <div class="input-group mb-3 animated flipInX" >
+          <textarea  class="form-control" name="{{str_replace('[]','['.$i.']',$name_field)}}"   rows="3" cols="80" aria-describedby="basic-addon2" placeholder="Input {{$title}}....">{!!nl2br($v)!!}</textarea>
+          <div class="input-group-append">
+            <button class="btn btn-danger" onclick="$(this).parent().parent().remove();" type="button">Hapus</button>
+          </div>
+      </div>
+    @endforeach
 
+  @endisset
 </div>
 <button type="button" class="btn btn-warning btn-sm" id="button-tambah-{{$field_db}}-{{$key}}" name="button" style="margin-bottom: 10px;">Tambah {{$title}}</button>
 <script type="text/javascript">
@@ -23,6 +36,12 @@
     var them_perkada=$('#{{$field_db}}-{{$key}}-them').html();
     COUNT_{{$field_db}}_{{$key}}_them_COUNT+=1;
    
+    console.log(them_perkada);
+    console.log($('#{{$field_db}}-{{$key}}-them'));
+    console.log('#{{$field_db}}-{{$key}}-them');
+
+
+
     $('#container-{{$field_db}}-{{$key}}').append(them_perkada);
     $('#container-{{$field_db}}-{{$key}} div').css('display','flex');
     $('#container-{{$field_db}}-{{$key}} div').removeAttr('id');
@@ -35,6 +54,7 @@
 
     autosize($('#container-{{$field_db}}-{{$key}} textarea'));
   }
+
   $('#button-tambah-{{$field_db}}-{{$key}}').on('click',function(){
       action_button_{{$key}}_{{$field_db}}();
   });

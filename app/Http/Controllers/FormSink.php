@@ -13,12 +13,239 @@ use App\Mandat;
 use App\Provinsi;
 use App\Kabupaten;
 use App\PerdaPerkada;
-
+use DB;
 class FormSink extends Controller
 {
-    //
+    
+
+    public function form1Update($urusan,$id,Request $request){
+      $mandat_db=Mandat::find($id);
+      if($mandat_db){
 
 
+        $uu='[]';
+        $pp='[]';
+        $perpres='[]';
+        $permen='[]';
+        $mandat='[]';
+
+
+
+        if(isset($request->uu)){
+          $uu=$request->uu;
+           $uu=json_encode($uu);
+        }
+
+        if(isset($request->pp)){
+          $pp=$request->pp;
+           $pp=json_encode($pp);
+        }
+
+        if(isset($request->perpres)){
+          $perpres=$request->perpres;
+           $perpres=json_encode($perpres);
+        }
+        if(isset($request->permen)){
+          $permen=$request->permen;
+           $permen=json_encode($permen);
+        }
+        if(isset($request->mandat)){
+            $mandat=$request->mandat;
+           $mandat=json_encode($mandat);
+
+        }
+        $mandat_db->update([
+          'id_sub_urusan'=>$request->sub_urusan,
+          'uu'=>$uu,
+          'pp'=>$pp,
+          'permen'=>$permen,
+          'perpres'=>$perpres,
+          'mandat'=>$mandat,
+        ]);
+
+        return back();
+      }
+
+    }
+
+    public function form1Edit($urusan,$id,Request $request){
+      $data_link=Urusan23::find($urusan);
+      $id_link=$urusan;
+      $sub_urusans=SubUrusan23::where('id_urusan',$urusan)->get();
+
+      $mandat=Mandat::find($id);
+
+      return view('form_singkron.form1_edit')->with('id_link',$id_link)->with('data_link',$data_link)->with('mandat',$mandat)->with('sub_urusans',$sub_urusans);
+
+    }
+
+    public function form1PerdaPerkadaPerdaearahDelete($urusan,Request $request){
+      $perda_perkada=PerdaPerkada::find($request->perda_perkada);
+      if($perda_perkada){
+        $perda_perkada->delete();
+        return back();
+      }
+    }
+
+    public function form1PerdaPerkadaPerdaearahUpStore($urusan,Request $request){
+        if(isset($request->perda_perkada)){
+          $perdaperkada=PerdaPerkada::find($request->perda_perkada);
+          $perda=isset($request->perda)?$request->perda:[];
+          $perkada=isset($request->perkada)?$request->perkada:[];
+          $perkada=json_encode($perkada);
+          $perda=json_encode($perda);
+
+           $perdaperkada=$perdaperkada->update([
+            'tahun'=>session('focus_tahun'),
+            'perda'=>$perda,
+            'id_mandat'=>$request->mandat,
+            'id_urusan'=>$urusan,
+            'perkada'=>$perkada,
+            'kesesuaian'=>$request->kesesuaian,
+            'keterangan'=>$request->keterangan,
+            'id_user'=>Auth::User()->id,
+            'telah_dinilai'=>1,
+
+          ]);
+
+        }else{
+
+          $perda=isset($request->perda)?$request->perda:[];
+          $perkada=isset($request->perkada)?$request->perkada:[];
+          $perkada=json_encode($perkada);
+          $perda=json_encode($perda);
+
+          $d=PerdaPerkada::create([
+            'tahun'=>session('focus_tahun'),
+            'perda'=>$perda,
+            'id_mandat'=>$request->mandat,
+            'id_urusan'=>$urusan,
+            'perkada'=>$perkada,
+            'provinsi'=>$request->provinsi,
+            'kota_kabupaten'=>$request->kota_kabupaten,
+            'kesesuaian'=>$request->kesesuaian,
+            'telah_dinilai'=>1,
+
+            'keterangan'=>$request->keterangan,
+            'id_user'=>Auth::User()->id,
+          ]);
+
+          return back();
+        }
+          return back();
+
+
+    }
+
+
+    public function form1EditMandatPerdaerah($urusan,$mandat,$provinsi=null,$kota_kabupaten,$level,Request $request){
+      $data_link=Urusan23::find($urusan);
+      $id_link=$urusan;
+
+      if($level==1){
+        $level='provinsi';
+        $daerah=Provinsi::where('id_provinsi',$provinsi)->first()->toArray();
+        $daerah['kota_kabupaten']=0;
+        $daerah['id_provinsi']=(int) $daerah['id_provinsi'];
+        $daerah['provinsi']=(int) $daerah['id_provinsi'];
+        $daerah['id_kota']=0;
+
+
+        $daerah['nama']='PROVINSI '.$daerah['nama'];
+
+
+      }else{
+        $level='kota_kabupaten';
+        $daerah=Kabupaten::where('id_kota',$kota_kabupaten)->first()->toArray();
+        $daerah['provinsi']=substr((int)$daerah['id_kota'], 0, 2);
+        
+      }
+
+
+      $mandat_db=Mandat::find($mandat);
+      $perdaperkada=PerdaPerkada::where('id_mandat',$mandat)->where('id_urusan',$urusan)
+      ->where($level,$provinsi==0?$kota_kabupaten:$provinsi)
+      ->where('tahun',session('focus_tahun'))
+      ->first();
+      
+      return view('form_singkron.form1_tambah_perda_perkada')
+        ->with('id_link',$id_link)
+        ->with('data_link',$data_link)
+        ->with('mandat',$mandat_db)
+        ->with('daerah',$daerah)
+
+        ->with('perdaperkada',$perdaperkada);
+    
+
+    }
+
+    public function Form1Perdaerah($urusan,Request $request){
+      $data_link=Urusan23::find($urusan);
+      $where=[];
+      if(isset($request->q)){
+        $where=[['nama','like','%'.$request->q.'%']];
+      }else{
+        
+
+      }
+
+      $first = DB::table('provinsi')->select(['id_provinsi as id','nama']);
+      if(isset($request->q)){
+        $first=$first->where('nama','Ilike','%'.$request->q.'%');
+      }
+
+      $daerah = DB::table('kabupaten')
+              ->select(['id_kota as id','nama'])
+              ->union($first)->orderBy('id','ASC');
+
+      if(isset($request->q)){
+        $daerah=$daerah->where('nama','Ilike','%'.$request->q.'%');
+      }
+
+      $daerah=$daerah->paginate(10);
+      $daerah->appends(['q'=>$request->q]);
+             
+
+      $back=$daerah;
+      $kota_kab=$daerah->toArray();
+      $kota_kab= (array) $kota_kab['data'];
+
+      foreach ($kota_kab as $key => $value) {
+        $kota_kab[$key]= (array) $kota_kab[$key];
+        $kota_kab[$key]['mandat']=[];
+        $kota_kab[$key]['id']=(int) $kota_kab[$key]['id'];
+        $kota_kab[$key]['id']=(string) $kota_kab[$key]['id'];
+
+        $mandat=Mandat::where('id_urusan',$urusan)->where('tahun',session('focus_tahun'))->with('LinkSubUrusan')->get()->toArray();
+      
+        if(strlen($kota_kab[$key]['id'])>2){
+          $level='kota_kabupaten';
+          $kota_kab[$key]['level']=2;
+          $where=[['kota_kabupaten',$kota_kab[$key]['id']]];
+        }else{
+          $level='provinsi';
+          $kota_kab[$key]['level']=1;
+          $kota_kab[$key]['nama']='PROVINSI '.$kota_kab[$key]['nama'];
+          $where=[['provinsi',$kota_kab[$key]['id']],['kota_kabupaten',0]];
+        }
+
+        foreach ($mandat as $m) {
+           $mx=PerdaPerkada::where('id_urusan',$urusan)->where('tahun',session('focus_tahun'))->where('id_mandat',$m['id'])->where($where)->first();
+           if($mx){
+           $mx=$mx->toArray();
+
+           }
+           $m['perda_perkada']=$mx;
+
+          $kota_kab[$key]['mandat'][]=$m;
+        }
+
+
+      }
+
+      return view('form_singkron.form1_perdaearah')->with('id_link',$urusan)->with('data_link',$data_link)->with('datas',$kota_kab)->with('link',$back);
+
+    }
 
 
     public function Form1Store($urusan,Request $request){
@@ -47,42 +274,48 @@ class FormSink extends Controller
     	$permen='[]';
     	$mandat='[]';
 
+
+
     	if(isset($request->uu)){
     		$uu=$request->uu;
-			 $uu=json_encode($uu);
+			   $uu=json_encode($uu);
     	}
 
     	if(isset($request->pp)){
     		$pp=$request->pp;
-			$pp=json_encode($pp);
+			   $pp=json_encode($pp);
     	}
+
     	if(isset($request->perpres)){
     		$perpres=$request->perpres;
-			$perpres=json_encode($perpres);
+			   $perpres=json_encode($perpres);
     	}
     	if(isset($request->permen)){
     		$permen=$request->permen;
-			$permen=json_encode($permen);
+			   $permen=json_encode($permen);
     	}
     	if(isset($request->mandat)){
-    		$mandat=$request->mandat;
-			$mandat=json_encode($mandat);
+    		  $mandat=$request->mandat;
     	}
 	 	
 	
-		$data=[
-			'id_sub_urusan'=>$request->sub_urusan,
-			'uu'=>$uu,
-      'tahun'=>session('focus_tahun'),
-      'id_urusan'=>$urusan,
-			'pp'=>$pp,
-			'perpres'=>$perpres,
-			'permen'=>$permen,
-			'mandat'=>$mandat,
-			'id_user'=>Auth::User()->id
-		];
+		foreach ($mandat as $key => $value) {
+      # code...
+      $data=[
+        'id_sub_urusan'=>$request->sub_urusan,
+        'uu'=>$uu,
+        'tahun'=>session('focus_tahun'),
+        'id_urusan'=>$urusan,
+        'pp'=>$pp,
+        'perpres'=>$perpres,
+        'permen'=>$permen,
+        'mandat'=>json_encode([$value]),
+        'id_user'=>Auth::User()->id
+      ];
 
-		$res=Mandat::create($data);
+      $res=Mandat::create($data);
+    }
+
 		if($res){
 			return back();
 		}else{
@@ -135,30 +368,6 @@ class FormSink extends Controller
 		return view('form_singkron.form1_perdaperkada')->with('id_link',$urusan)->with('data_link',$data_link)->with('provinsis',$provinsi);
     }
 
-   public  function Form1Update(Request $request){
-		
-		$data=file_get_contents(storage_path('app/f1_.json'));
-		$koma=$data;
-		if($koma!=""){
-			$koma=',';
-		}else{
-			$koma="";
-		}
-		$data='['.$data.']';
-		$data=json_decode($data,true);
-		$data[$request->key]=json_encode($request->f);
-		if($data){
-			if(file_exists(storage_path('app/f1_.json'))){
-				Storage::append('f1_.json', $koma.$data);	
-
-			}else{
-				Storage::append('f1_.json',$data);	
-			}
-		}
-		
-		return view('form_singkron.form1')->with('datas',$data);
-
-    }
 
 
     public function form1PerdaPerkadaFilter($urusan,Request $request){
