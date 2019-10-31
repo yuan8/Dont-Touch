@@ -31,6 +31,9 @@ Route::get('/', function () {
 
 
 Route::get('/excel', 'ExcelSIPD@read');
+Route::get('/profile', 'UserController@profile')->name('profile');
+
+
 Route::get('/excel-download', 'ExcelSIPD@getExcel');
 
 Auth::routes();

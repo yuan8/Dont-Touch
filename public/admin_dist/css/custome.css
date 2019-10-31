@@ -137,6 +137,10 @@ body{
     width: max-content;
 }
 
-.table-responsive>.table-bordered th,.table-responsive>.table-bordered td{
-  max-width: 250px!important;
+.table-responsive >.table-bordered th,.table-responsive>.table-bordered td{
+  max-width: 300px!important;
+}
+
+.border-warning{
+  border: 2px solid #f6c23e;
 }

@@ -6,7 +6,7 @@
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-1">        
   <h5 class="mb-0 ">DATA PERMASALAHAN URUSAN</h5>
-        <a href="{{route('fs.f4.tambah',['id_link'=>$id_link])}}" class="border-bottom-primary  d-sm-inline-block btn btn-warning" style="margin-bottom: 10px; color:#222;">Tambah Permasalahan</a>
+        <!-- <a href="{{route('fs.f4.tambah',['id_link'=>$id_link])}}" class="border-bottom-primary  d-sm-inline-block btn btn-warning" style="margin-bottom: 10px; color:#222;">Tambah Permasalahan</a> -->
 </div>
 <hr>
 
