@@ -20,8 +20,8 @@ class PerdaPerkada extends Migration
             $table->bigInteger('id_mandat')->unsigned();
             $table->bigInteger('id_urusan')->unsigned();
             $table->integer('tahun')->nullable();
-            $table->char('provinsi',2)->nullable();
-            $table->char('kota_kabupaten',6)->nullable();
+            $table->string('provinsi',2)->nullable();
+            $table->string('kota_kabupaten',6)->nullable();
             $table->mediumText('perda')->nullable();
             $table->mediumText('perkada')->nullable();
 

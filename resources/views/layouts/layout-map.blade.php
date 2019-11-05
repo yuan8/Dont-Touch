@@ -121,4 +121,15 @@
   </body>
     @include('sweetalert::alert')
   
+
+ <script src="{{url('')}}/admin_dist/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+  <!-- Core plugin JavaScript-->
+  <script src="{{url('')}}/admin_dist/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{{url('')}}/admin_dist/js/sb-admin-2.min.js"></script>
+
+  
 </html>

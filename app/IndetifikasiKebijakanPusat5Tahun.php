@@ -9,7 +9,7 @@ class IndetifikasiKebijakanPusat5Tahun extends Model
     //
 
 
-    protected $table="indetifikasi_kebijakan_pusat5_tahun";
+    protected $table="identifikasi_kebijakan_pusat5_tahun";
 
     protected $fillable=[
     	'id','id_sub_urusan',

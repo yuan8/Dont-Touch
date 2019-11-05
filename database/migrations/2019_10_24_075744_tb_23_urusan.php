@@ -17,6 +17,8 @@ class Tb23Urusan extends Migration
         Schema::create('urusan_23', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nama');
+            $table->string('nomenklatur_provinsi',5)->nullable();
+            $table->string('nomenklatur_kabkota',5)->nullable();
             $table->timestamps();
           
         });

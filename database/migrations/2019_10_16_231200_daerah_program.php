@@ -17,10 +17,10 @@ class DaerahProgram extends Migration
        Schema::create('daerah_program', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('id_bidang_urusan')->unsigned();
-            $table->char('kode',6);
-            $table->char('kode_daerah',12);
-            $table->char('kode_urusan',2)->unsigned();
-            $table->char('kode_bidang_urusan',4)->unsigned();
+            $table->string('kode',6);
+            $table->string('kode_daerah',12);
+            $table->string('kode_urusan',2)->unsigned();
+            $table->string('kode_bidang_urusan',4)->unsigned();
             // $table->string('nama_program');
             $table->integer('tahun');
             $table->timestamps();

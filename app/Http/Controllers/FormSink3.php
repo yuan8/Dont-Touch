@@ -10,6 +10,19 @@ use App\ProPN;
 class FormSink3 extends Controller
 {
     //
+    public function update_indikator($urusan,$id,Request $request){
+        $data=IndetifikasiKebijakanTahunan::find($id);
+        if($data){
+            $data->indikator=$request->indikator;
+            $data->target_akumulatif=$request->target_akumulatif;
+            $data->target_akumulatif_satuan=$request->target_akumulatif_satuan;
+
+            $data->save();
+            return back();
+        }else{
+        }
+    }
+
 
     public function index($urusan){
     	$data_link=Urusan23::find($urusan);
@@ -51,7 +64,7 @@ class FormSink3 extends Controller
 	    			if($pro_pn!=""){
 	    				ProPN::create([
 		    				'id_urusan'=>$urusan,
-		    				'id_indetifikasi_kebijakan_tahunan'=>$id,
+		    				'id_identifikasi_kebijakan_tahunan'=>$id,
 		    				'tahun'=>session('focus_tahun'),
 		    				'pro_pn'=> $pro_pn,
 		    				'id_user'=>Auth::User()->id

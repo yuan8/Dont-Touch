@@ -16,7 +16,7 @@ class Kabupaten extends Migration
         //
 
         Schema::create('kabupaten',function(Blueprint $table){
-            $table->char('id_kota',6)->unique()->primay()->index();
+            $table->string('id_kota',6)->unique()->primay()->index();
             $table->string('nama');
             $table->boolean('status_kabupaten');
             $table->timestamps();

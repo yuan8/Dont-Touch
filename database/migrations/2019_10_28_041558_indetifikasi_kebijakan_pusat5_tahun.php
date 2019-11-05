@@ -17,7 +17,7 @@ class IndetifikasiKebijakanPusat5Tahun extends Migration
 
         
 
-          Schema::create('indetifikasi_kebijakan_pusat5_tahun', function (Blueprint $table) {
+          Schema::create('identifikasi_kebijakan_pusat5_tahun', function (Blueprint $table) {
 
             $table->bigIncrements('id');
 
@@ -66,7 +66,7 @@ class IndetifikasiKebijakanPusat5Tahun extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('indetifikasi_kebijakan_pusat5_tahun');
+        Schema::dropIfExists('identifikasi_kebijakan_pusat5_tahun');
 
     }
 }

@@ -16,7 +16,7 @@ class Provinsi extends Migration
         //
 
         Schema::create('provinsi',function(Blueprint $table){
-            $table->char('id_provinsi',2)->unique()->primary()->index();
+            $table->string('id_provinsi',2)->unique()->primary()->index();
             $table->string('nama');
             $table->string('pulau');
             $table->string('nama_singkat');

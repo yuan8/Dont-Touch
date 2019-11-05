@@ -39,4 +39,14 @@ Route::prefix('form')->middleware('auth:api')->group(function(){
 
 });
 
+
+Route::prefix('nomenklatur')->middleware('auth:api')->group(function(){
+  
+    Route::post('program-to-kegiatan-provinsi','NomenKlaturCTRL@getKegiatanProvinsiFromProgram')->name('nomen.program.kegiatan');
+    Route::post('kegiatan-to-sub_kegiatan-provinsi','NomenKlaturCTRL@getSubKegiatanProvinsiFromKegiatan')->name('nomen.kegiatan.sub_kegiatan');
+
+});
+
+
+
 Route::get('them-tr-f1','API\FormController@Trf1');

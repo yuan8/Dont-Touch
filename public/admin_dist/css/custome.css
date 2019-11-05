@@ -88,7 +88,7 @@ textarea.form-control{
 }
 
 .card-border-top-warning{
-  border-top: 3px solid #f6c23e;
+  border-top: 3px solid #f6c23e!important;
 }
 
 .card-border-top-dark{
@@ -118,23 +118,30 @@ body{
   color:#222;
 }
 
-.btn-warning{
-  color:#222;
-  border:1px solid #222;
-}
+
 
 .btn{
   border:1px solid #222;
+
   
 }
+
+.btn-warning{
+  color:#222;
+  border:1px solid #222!important;
+  /*background-color:transparent!important;*/
+  color: #222!important;
+  box-shadow: 1px 3px 2px #222;
+}
+
 
 .table td{
   color:#222;
 }
 
 .table-responsive>.table-bordered {
-    border: 0;
     width: max-content;
+    min-width: 100%;
 }
 
 .table-responsive >.table-bordered th,.table-responsive>.table-bordered td{
@@ -143,4 +150,22 @@ body{
 
 .border-warning{
   border: 2px solid #f6c23e;
+}
+
+.padding-space{
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+}
+
+.card-shadow{
+  box-shadow: 1px 6px 1px #5e634352;
+}
+
+.badge{
+  white-space: nowrap; 
+  max-width: 100%; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  border: 1px solid #000000;
 }

@@ -17,8 +17,8 @@ class TbBidangUrusan extends Migration
         Schema::create('tb_bidang_urusan', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('id_urusan')->unsigned();
-            $table->char('kode',4);
-            $table->char('kode_urusan',2);
+            $table->string('kode',4);
+            $table->string('kode_urusan',2);
             $table->string('nama_bidang_urusan');
             $table->integer('session');
             $table->timestamps(6);

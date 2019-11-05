@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ProPN extends Migration
+class IntegrasiProvinsi extends Migration
 {
     /**
      * Run the migrations.
@@ -14,34 +14,27 @@ class ProPN extends Migration
     public function up()
     {
         //
-          Schema::create('identifikasi_kebijakan_tahunan_pro_pn', function (Blueprint $table) {
+
+         Schema::create('integrasi_provinsi', function (Blueprint $table) {
 
             $table->bigIncrements('id');
-            $table->bigInteger('id_urusan')->unsigned();
-            $table->bigInteger('id_identifikasi_kebijakan_tahunan')->unsigned();
-
-            $table->integer('tahun')->nullable();
-            $table->text('pro_pn');
-          
+            $table->bigInteger('id_identifikasi_kebijakan_tahunan')->unsigned()->nullable();
+            $table->string('kode_sub_kegiatan')->unsigned()->nullable();
             $table->bigInteger('id_user')->unsigned();
-
+            $table->bigInteger('id_urusan')->unsigned();
+            $table->integer('tahun')->nullable();
+            $table->unique(['id_identifikasi_kebijakan_tahunan','kode_sub_kegiatan']);
+            
             $table->timestamps();
-
             $table->foreign('id_urusan')
             ->references('id')
             ->on('urusan_23')
             ->onDelete('cascade');
 
-            $table->foreign('id_identifikasi_kebijakan_tahunan')
-            ->references('id')
-            ->on('identifikasi_kebijakan_tahunan')
-            ->onDelete('cascade');
 
-            $table->foreign('id_user')
-            ->references('id')
-            ->on('users');
-          
         });
+
+
     }
 
     /**
@@ -52,7 +45,7 @@ class ProPN extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('identifikasi_kebijakan_tahunan_pro_pn');
-        
+        Schema::dropIfExists('integrasi_provinsi');
+
     }
 }

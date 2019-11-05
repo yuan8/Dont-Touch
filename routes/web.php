@@ -16,15 +16,67 @@ Route::get('/', function () {
     return view('welcome');
 });
 
- Route::post('/vertion', function(Illuminate\Http\Request $request){
-    dd($request->all());
+ Route::get('/vertion', function(Illuminate\Http\Request $request){
+    $datas=DB::table('master_nomenklatur_provinsi')->get();
+    foreach($datas as $d){
+      $susun='';
+      $jenis=null;
+
+      if($d->urusan){
+        $susun.=$d->urusan;
+        if($d->bidang_urusan){
+          $susun.='.'.$d->bidang_urusan;
+          if($d->program){
+            $susun.='.'.$d->program;
+             if($d->kegiatan){
+                $susun.='.'.$d->kegiatan;
+                if($d->sub_kegiatan){
+                    $susun.='.'.$d->kegiatan;
+                    $susun.='.'.$d->sub_kegiatan;
+
+                    $jenis='sub_kegiatan';
+                    
+                 }else{
+                    $jenis='kegiatan';
+                  }
+
+              }else{
+                $jenis='program';
+              }
+          }else{
+          $jenis='bidang_urusan';
+        }
+
+        }else{
+          $jenis='urusan';
+        }
+
+      }
+
+      $aaaah=[
+        'kode'=>$susun,
+        'jenis'=>$jenis,
+
+      ];
+      if($jenis=='program'){
+        $aaaah['nomenklatur']=ucwords(strtolower($d->nomenklatur));
+      }
+
+      DB::table('master_nomenklatur_provinsi')->where('id',$d->id)->update($aaaah);
+
+      
+
+
+    }
+
+
 });
 
 
-  Route::get('/vertion', function(){
-    return view('test');
+//   Route::get('/vertion', function(){
+//     return view('test');
 
-});
+// });
 
 
 
@@ -168,10 +220,13 @@ Route::prefix('sinkron')->middleware('auth:web')->group(function(){
   Route::get('/bidang/{bidang_urusan_link}/f1/edit/mandat/perdaerah/{mandat}/{provinsi?}/{kota_kab?}/{level}','FormSink@form1EditMandatPerdaerah')->name('fs.f1.edit_mandat_perdaerah');
 
   Route::get('/bidang/{bidang_urusan_link}/f1/penilaian','FormSink@form1Penilaian')->name('fs.f1.penilaian');
+
   Route::get('/bidang/{bidang_urusan_link}/f1/perda-perkada','FormSink@form1PerdaPerkada')->name('fs.f1.perda.perkada');
+
   Route::post('/bidang/{bidang_urusan_link}/f1/perda-perkada','FormSink@form1PerdaPerkadaFilter')->name('fs.f1.perda.perkada.filter');
 
   Route::get('/bidang/{bidang_urusan_link}/f1/perda-perkada/{provinsi}/{kota?}','FormSink@form1PerdaPerkadaPerdaearah')->name('fs.f1.perda.perkada.perdaerah');
+
 
   Route::get('/bidang/{bidang_urusan_link}/f1/perda-perkada/{provinsi}/{kota?}/tambah','FormSink@form1PerdaPerkadaPerdaearahTambah')->name('fs.f1.perda.perkada.perdaerah.tambah');
 
@@ -196,9 +251,12 @@ Route::prefix('sinkron')->middleware('auth:web')->group(function(){
 
   Route::get('/bidang/{bidang_urusan_link}/f2/tambah','FormSink2@create')->name('fs.f2.tambah');
 
-    Route::post('/bidang/{bidang_urusan_link}/f2/tambah','FormSink2@store')->name('fs.f2.store');
+  Route::post('/bidang/{bidang_urusan_link}/f2/tambah','FormSink2@store')->name('fs.f2.store');
 
   Route::get('/bidang/{bidang_urusan_link}/f3','FormSink3@index')->name('fs.f3.index');
+
+  Route::put('/bidang/{bidang_urusan_link}/f3/edit/indikator/{id}','FormSink3@update_indikator')->name('fs.f3.update_indikator');
+
   Route::get('/bidang/{bidang_urusan_link}/f3/tambah','FormSink3@create')->name('fs.f3.tambah');
 
   Route::post('/bidang/{bidang_urusan_link}/f3/tambah','FormSink3@store')->name('fs.f3.store');
@@ -215,9 +273,12 @@ Route::prefix('sinkron')->middleware('auth:web')->group(function(){
 
   Route::get('/bidang/{bidang_urusan_link}/f4/{provinsi?}/{kota_kabupaten?}/tambah','FormSink4@create')->name('fs.f4.tambah');
 
+
   Route::get('/bidang/{bidang_urusan_link}/f4/show/{id}','FormSink4@show')->name('fs.f4.show');
 
+
   Route::put('/bidang/{bidang_urusan_link}/f4/show/{id}','FormSink4@update')->name('fs.f4.update');
+
 
   Route::delete('/bidang/{bidang_urusan_link}/f4/delete/{id}','FormSink4@delete')->name('fs.f4.delete');
 
@@ -226,6 +287,12 @@ Route::prefix('sinkron')->middleware('auth:web')->group(function(){
   Route::get('/bidang/{bidang_urusan_link}/f5','FormSink5@index')->name('fs.f5.index');
   Route::get('/bidang/{bidang_urusan_link}/f6','FormSink6@index')->name('fs.f6.index');
   Route::get('/bidang/{bidang_urusan_link}/f7','FormSink7@index')->name('fs.f7.index');
+
+  Route::get('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}','FormSink7@showIndetifikasiTahunan')->name('fs.f7.show.identifikasi.tahunan');
+
+
+ Route::post('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/provinsi','FormSink7@add_sub_urusan_provinsi')->name('fs.f7.show.identifikasi.add_sub_provinsi');
+
   Route::get('/bidang/{bidang_urusan_link}/f8','FormSink8@index')->name('fs.f8.index');
   Route::get('/bidang/{bidang_urusan_link}/f9','FormSink8@index')->name('fs.f9.index');
   Route::get('/bidang/{bidang_urusan_link}/f10','FormSink10@index')->name('fs.f10.index');

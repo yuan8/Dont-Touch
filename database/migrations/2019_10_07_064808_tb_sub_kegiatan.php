@@ -18,12 +18,12 @@ class TbSubKegiatan extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('id_kegiatan');
             
-            $table->char('kode',10);
-            $table->char('kode_urusan',2);
-            $table->char('kode_bidang_urusan',4);
-            $table->char('kode_program',6);
-            $table->char('kode_kegiatan',8);
-            $table->char('nama_sub_kegiatan');
+            $table->string('kode',10);
+            $table->string('kode_urusan',2);
+            $table->string('kode_bidang_urusan',4);
+            $table->string('kode_program',6);
+            $table->string('kode_kegiatan',8);
+            $table->string('nama_sub_kegiatan');
             $table->integer('tahun');
 
             $table->unique(['kode','kode_urusan','kode_bidang_urusan','kode_program','kode_kegiatan','tahun']);

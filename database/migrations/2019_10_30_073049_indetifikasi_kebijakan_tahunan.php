@@ -14,7 +14,7 @@ class IndetifikasiKebijakanTahunan extends Migration
     public function up()
     {
         //
-         Schema::create('indetifikasi_kebijakan_tahunan', function (Blueprint $table) {
+         Schema::create('identifikasi_kebijakan_tahunan', function (Blueprint $table) {
 
             $table->bigIncrements('id');
             $table->bigInteger('id_urusan')->unsigned();
@@ -25,8 +25,10 @@ class IndetifikasiKebijakanTahunan extends Migration
             $table->Text('target')->nullable();
             $table->Text('lokus')->nullable();
             $table->Text('pelaksana')->nullable();
+            $table->Text('indikator')->nullable();
+            $table->Text('target_akumulatif')->nullable();
+            $table->string('target_akumulatif_satuan')->nullable();
             $table->bigInteger('id_user')->unsigned();
-
             $table->timestamps();
 
             $table->foreign('id_urusan')
@@ -49,6 +51,6 @@ class IndetifikasiKebijakanTahunan extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('indetifikasi_kebijakan_tahunan');
+        Schema::dropIfExists('identifikasi_kebijakan_tahunan');
     }
 }

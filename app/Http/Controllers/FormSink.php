@@ -484,7 +484,8 @@ class FormSink extends Controller
 
 
     public function index(){
-    	$urusan=Auth::User()->haveUrusan;
+    	$urusan=Auth::User()->haveUrusan->pluck('id');
+      $urusan=Urusan23::whereIn('id',$urusan)->orderBy('nama','DESC')->get();
 
     	return view('form_singkron.index')->with('urusans',$urusan)->with('title','SUPD2 Data Suport Sistem');
     }
