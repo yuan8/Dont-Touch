@@ -10,6 +10,7 @@ use App\NomenKlaturProvinsi;
 use App\IntegrasiProvinsi;
 use Auth;
 use App\Satuan;
+use App\IntegrasikotaKab;
 class FormSink7 extends Controller
 {
     //
@@ -40,6 +41,15 @@ class FormSink7 extends Controller
         $data_link=Urusan23::find($urusan);
         $data=IndetifikasiKebijakanTahunan::find($id);
 
+        $d=IntegrasiProvinsi::where('id_identifikasi_kebijakan_tahunan',$id)
+        ->where('kode_sub_kegiatan',$request->sub_urusan_provinsi)
+        ->where('tahun',session('focus_tahun'))
+        ->where('id_urusan',$urusan)->first();
+
+        if($d){
+            return back();
+        }
+
         IntegrasiProvinsi::create([
             'id_identifikasi_kebijakan_tahunan'=>$id,
             'kode_sub_kegiatan'=>$request->sub_urusan_provinsi,
@@ -49,5 +59,32 @@ class FormSink7 extends Controller
         ]);
 
         return back();
+    }
+
+
+    public function add_sub_urusan_kotakab(Request $request,$urusan,$id){
+
+        $data_link=Urusan23::find($urusan);
+        $data=IndetifikasiKebijakanTahunan::find($id);
+
+        $d=IntegrasikotaKab::where('id_identifikasi_kebijakan_tahunan',$id)
+        ->where('kode_sub_kegiatan',$request->sub_urusan_provinsi)
+        ->where('tahun',session('focus_tahun'))
+        ->where('id_urusan',$urusan)->first();
+        
+        if($d){
+            return back();
+        }
+
+        IntegrasikotaKab::create([
+            'id_identifikasi_kebijakan_tahunan'=>$id,
+            'kode_sub_kegiatan'=>$request->sub_urusan_provinsi,
+            'id_user'=>Auth::User()->id,
+            'tahun'=>session('focus_tahun'),
+            'id_urusan'=>$urusan
+        ]);
+
+        return back();
+
     }
 }

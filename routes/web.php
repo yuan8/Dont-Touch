@@ -12,12 +12,13 @@
 */
 
 Route::get('/', function () {
-    Alert::success('Success Message', 'Optional Title');
-    return view('welcome');
+
+      return redirect('home');
+
 });
 
  Route::get('/vertion', function(Illuminate\Http\Request $request){
-    $datas=DB::table('master_nomenklatur_provinsi')->get();
+    $datas=DB::table('master_nomenklatur_kabkota')->get();
     foreach($datas as $d){
       $susun='';
       $jenis=null;
@@ -62,7 +63,7 @@ Route::get('/', function () {
         $aaaah['nomenklatur']=ucwords(strtolower($d->nomenklatur));
       }
 
-      DB::table('master_nomenklatur_provinsi')->where('id',$d->id)->update($aaaah);
+      DB::table('master_nomenklatur_kabkota')->where('id',$d->id)->update($aaaah);
 
       
 
@@ -292,6 +293,8 @@ Route::prefix('sinkron')->middleware('auth:web')->group(function(){
 
 
  Route::post('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/provinsi','FormSink7@add_sub_urusan_provinsi')->name('fs.f7.show.identifikasi.add_sub_provinsi');
+
+ Route::post('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/kota_kabupaten','FormSink7@add_sub_urusan_kotakab')->name('fs.f7.show.identifikasi.add_sub_kotakab');
 
   Route::get('/bidang/{bidang_urusan_link}/f8','FormSink8@index')->name('fs.f8.index');
   Route::get('/bidang/{bidang_urusan_link}/f9','FormSink8@index')->name('fs.f9.index');

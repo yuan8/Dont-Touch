@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Urusan23;
 use App\ProPN;
 use App\IntegrasiProvinsi;
+use App\IntegrasikotaKab;
 
 
 class IndetifikasiKebijakanTahunan extends Model
@@ -39,6 +40,10 @@ class IndetifikasiKebijakanTahunan extends Model
 
     public function HaveSubUrusanProvinsi(){
         return $this->hasMany(IntegrasiProvinsi::class,'id_identifikasi_kebijakan_tahunan');
+    }
+
+      public function HaveSubUrusanKabKota(){
+        return $this->hasMany(IntegrasikotaKab::class,'id_identifikasi_kebijakan_tahunan');
     }
 
 
