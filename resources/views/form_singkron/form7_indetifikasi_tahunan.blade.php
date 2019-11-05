@@ -75,7 +75,7 @@
 
 				</div>
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<div class="form-group">
 					<label>Target Akumulatif Satuan</label>
 					<select class="form-control" required="" name="target_akumulatif_satuan" required="">
@@ -181,10 +181,9 @@
 								          Option
 								        </a>
 								        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								          <a class="dropdown-item" href="#">Action</a>
-								          <a class="dropdown-item" href="#">Another action</a>
-								          <div class="dropdown-divider"></div>
-								          <a class="dropdown-item" href="#">Something else here</a>
+								          <a class="dropdown-item" href="#">Update</a>
+								          <a class="dropdown-item" href="#">Delete</a>
+								          
 								        </div>
 								      </li>
 								     
