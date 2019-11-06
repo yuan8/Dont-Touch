@@ -294,7 +294,7 @@ class FormSink extends Controller
 			   $permen=json_encode($permen);
     	}
     	if(isset($request->mandat)){
-    		  $mandat=($request->mandat);
+    		  $mandat=$request->mandat;
     	}
 	 	
 	
@@ -307,16 +307,21 @@ class FormSink extends Controller
         'pp'=>$pp,
         'perpres'=>$perpres,
         'permen'=>$permen,
-        
         'id_user'=>Auth::User()->id
       ];
-      
+
       if($mandat){
-        'mandat'=>json_encode([$value]),
+        foreach ($mandat as $key => $value) {
+         $data2=$data;
+         $data2['mandat']=json_encode([$value]);
+         Mandat::create($data2);
+        }
+        
+      }else{
+        Mandat::create($data);
       }
 
-      $res=Mandat::create($data);
-
+    $res=1;
 		if($res){
 			return back();
 		}else{
