@@ -37,7 +37,7 @@ class APIForm extends Controller
           'data'=>[]
         );
       }else{
-        $return=DB::connection(env('DBC2'))->table($request->tb)
+        $return=DB::table($request->tb)
         ->insert(
           [
             $request->field=>$request->data
@@ -68,8 +68,7 @@ class APIForm extends Controller
       $query=("SELECT ".$request->field." as id,".$request->field." as text FROM ".$request->tb." ".
       "WHERE ".$request->field." ILIKE ('%".$request->nama."%') ORDER BY ".$request->field." ASC");
 
-      return DB::connection(env('DBC2'))
-        ->select($query);
+      return DB::select($query);
     }
 
     public function TableMandat(Request $request){

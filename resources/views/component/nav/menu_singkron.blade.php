@@ -120,26 +120,27 @@
     </div>
    </a>
 </li>
-
 <li class="nav-item">
-  <a class="nav-link" href="{{route('fs.f7.index',['id_link'=>$id_link])}}">
-    <div class="row">
-      <div class="col-md-1">
-        <i class="fas fa-fw fa-file"></i>
-      </div>
-    <div class="col-md-10">
-       
-        <span>
-           From 7
-          <br>
-          INTEGRASI
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
           
-        </span>
-      </div>
-    </div>
-   
-  </a>
+            <i class="fas fa-fw fa-file"></i>
+           <span>
+               From 7
+              
+              
+            </span>
+          </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Manu Integrasi:</h6>
+            <a class="collapse-item" href="{{route('fs.f7.index',['id_link'=>$id_link])}}">INTEGRASI</a>
+            <a class="collapse-item" href="{{route('fs.f7.identifikasi.integrasi_provinsi',['id_link'=>$id_link])}}">INTEGRASI PROVINSI</a>
+            <a class="collapse-item" href="cards.html">INTEGRASI KOTA KABUPATEN</a>
+
+          </div>
+        </div>
 </li>
+
 
 <li class="nav-item">
   <a class="nav-link" href="{{route('fs.f8.index',['id_link'=>$id_link])}}">

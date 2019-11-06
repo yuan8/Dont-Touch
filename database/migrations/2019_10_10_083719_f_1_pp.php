@@ -14,7 +14,7 @@ class F1Pp extends Migration
      public function up()
      {
          //
-         Schema::connection('pgsql2')->create('form_1_pp',function(Blueprint $table){
+         Schema::create('form_1_pp',function(Blueprint $table){
            $table->bigIncrements('id')->index();
            $table->text('nama_pp');
            $table->timestamps();

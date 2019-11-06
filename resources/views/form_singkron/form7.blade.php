@@ -43,18 +43,23 @@
 
 						</td>
 						<td>
-							<p>{!!nl2br($d->target_akumulatif)!!}</p>
+							<p>{{($d->target_akumulatif)}} {{($d->target_akumulatif_satuan)}}</p>
 
 						</td>
 						<td>
 							@foreach($d->HaveSubUrusanProvinsi as $subp)
-								<span class="badge badge-primary">{{ $subp->nomenklatur->programUp()->nomenklatur}}</span> 
-								<span class="badge badge-info">{{ $subp->nomenklatur->kegiatanUp()->nomenklatur}}</span>
+								<span class="badge badge-primary">{{ $subp->nomenklatur->programUp()['nomenklatur']}}</span> 
+								<span class="badge badge-info">{{ $subp->nomenklatur->kegiatanUp()['nomenklatur']}}</span>
 								<p>{{$subp->nomenklatur->nomenklatur}}</p>
 							@endforeach
 
 						</td>
 						<td>
+							@foreach($d->HaveSubUrusanKabKota as $subp)
+								<span class="badge badge-primary">{{ $subp->nomenklatur->programUp()['nomenklatur']}}</span> 
+								<span class="badge badge-info">{{ $subp->nomenklatur->kegiatanUp()['nomenklatur']}}</span>
+								<p>{{$subp->nomenklatur->nomenklatur}}</p>
+							@endforeach
 							
 						</td>
 

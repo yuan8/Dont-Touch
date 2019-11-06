@@ -14,7 +14,7 @@ class F1Uu extends Migration
      public function up()
      {
          //
-         Schema::connection('pgsql2')->create('form_1_uu',function(Blueprint $table){
+         Schema::create('form_1_uu',function(Blueprint $table){
            $table->bigIncrements('id')->index();
            $table->text('nama_uu');
            $table->timestamps();

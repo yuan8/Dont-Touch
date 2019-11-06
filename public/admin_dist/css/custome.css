@@ -169,3 +169,7 @@ body{
   text-overflow: ellipsis; 
   border: 1px solid #000000;
 }
+
+.border-top-primary{
+  border-top: 3px solid #4e73df!important
+}

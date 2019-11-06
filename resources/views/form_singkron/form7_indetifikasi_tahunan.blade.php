@@ -171,32 +171,53 @@
 
 						</div>
 						<hr>
-
+						<table class="table">
+							
+						
 						@foreach($data->HaveSubUrusanProvinsi as $subp)
-							<nav class="navbar navbar-expand-lg navbar-light bg-dark" style="margin-bottom: 10px;">
-								  <div class="collapse navbar-collapse pull-right" id="navbarSupportedContent">
-								    <ul class="navbar-nav mr-auto form-inline">
-								      <li class="nav-item dropdown">
-								        <a class="nav-link dropdown-toggle btn-xs btn btn-warning" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								          Option
-								        </a>
-								        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								          <a class="dropdown-item" href="#">Update</a>
-								          <a class="dropdown-item" href="#">Delete</a>
-								          
-								        </div>
-								      </li>
-								     
-								    </ul>
-								   
-								  </div>
-							</nav>
+						<tr class="bg-primary">
+								<td colspan="" style="color:#fff">
+									{{ $subp->nomenklatur->programUp()['nomenklatur']}}
+								</td>
+								<td>
+									<nav class="navbar navbar-expand-lg navbar-light bg-primary" style="margin:0px;padding: 0px;">
+										  <div class="collapse navbar-collapse pull-right" id="navbarSupportedContent">
+										    <ul class="navbar-nav mr-auto form-inline">
+										      <li class="nav-item dropdown">
+										        <a class="nav-link dropdown-toggle btn-sm btn btn-warning" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										          <i class="fa fa-bars"></i>
+										        </a>
+										        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+										      
+										          <a class="dropdown-item" href="#">Delete</a>
+										          
+										        </div>
+										      </li>
+										     
+										    </ul>
+										   
+										  </div>
+									</nav>
 
-							<span class="badge badge-primary">{{ $subp->nomenklatur->programUp()->nomenklatur}}</span> 
-							<span class="badge badge-info">{{ $subp->nomenklatur->kegiatanUp()->nomenklatur}}</span>
-							<p>{{$subp->nomenklatur->nomenklatur}}</p>
-							<hr>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<p style="margin-left: 20px;">{{ $subp->nomenklatur->kegiatanUp()['nomenklatur']}}</p>
+								</td>
+							</tr>
+							
+							<tr class="">
+									<td colspan="2">
+										<p style="margin-left: 40px;">{{$subp->nomenklatur->nomenklatur}}</p>
+									</td>
+								
+							</tr>
+							
+							
 						@endforeach
+						</table>
+
 					</div>
 					<div class="col-md-6 padding-space border-bottom-info">
 						<div class="d-sm-flex align-items-center justify-content-between mb-0">        
@@ -204,7 +225,6 @@
 						    <a href="javascript:void(0)" class="border-bottom-primary  d-sm-inline-block btn btn-warning" style="margin-bottom: 10px; color:#222;" onclick="$('#modal-add-sub-urusan-kab-{{$data->id}}').appendTo('body').modal()" >
 						    	<i class="fa fa-plus"></i>
 						    </a>
-
 						<div class="modal fade" id='modal-add-sub-urusan-kab-{{$data->id}}' tabindex="-1" role="dialog">
 						  <div class="modal-dialog modal-lg" role="document">
 						    <div class="modal-content ">
@@ -270,32 +290,50 @@
 
 
 
-
+						<table class="table">
 						@foreach($data->HaveSubUrusanKabKota as $subp)
-							<nav class="navbar navbar-expand-lg navbar-light bg-dark" style="margin-bottom: 10px;">
-								  <div class="collapse navbar-collapse pull-right" id="navbarSupportedContent">
-								    <ul class="navbar-nav mr-auto form-inline">
-								      <li class="nav-item dropdown">
-								        <a class="nav-link dropdown-toggle btn-xs btn btn-warning" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								          Option
-								        </a>
-								        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								          <a class="dropdown-item" href="#">Update</a>
-								          <a class="dropdown-item" href="#">Delete</a>
-								          
-								        </div>
-								      </li>
-								     
-								    </ul>
-								   
-								  </div>
-							</nav>
+							<tr class="bg-info">
+								<td colspan="" style="color:#fff">
+									{{ $subp->nomenklatur->programUp()['nomenklatur']}}
+								</td>
+								<td>
+									<nav class="navbar navbar-expand-lg navbar-light bg-info" style="margin:0px;padding: 0px;">
+										  <div class="collapse navbar-collapse pull-right" id="navbarSupportedContent">
+										    <ul class="navbar-nav mr-auto form-inline">
+										      <li class="nav-item dropdown">
+										        <a class="nav-link dropdown-toggle btn-sm btn btn-warning" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										          <i class="fa fa-bars"></i>
+										        </a>
+										        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+										      
+										          <a class="dropdown-item" href="#">Delete</a>
+										          
+										        </div>
+										      </li>
+										     
+										    </ul>
+										   
+										  </div>
+									</nav>
 
-							<span class="badge badge-primary">{{ $subp->nomenklatur->programUp()->nomenklatur}}</span> 
-							<span class="badge badge-info">{{ $subp->nomenklatur->kegiatanUp()->nomenklatur}}</span>
-							<p>{{$subp->nomenklatur->nomenklatur}}</p>
-							<hr>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<p style="margin-left: 20px;">{{ $subp->nomenklatur->kegiatanUp()['nomenklatur']}}</p>
+								</td>
+							</tr>
+							
+							<tr class="">
+									<td colspan="2">
+										<p style="margin-left: 40px;">{{$subp->nomenklatur->nomenklatur}}</p>
+									</td>
+								
+							</tr>
+							
+							
 						@endforeach
+						</table>
 						
 					</div>
 			</div>

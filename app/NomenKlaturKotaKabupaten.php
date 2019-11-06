@@ -12,12 +12,12 @@ class NomenKlaturKotaKabupaten extends Model
 
     public function programUp(){
 
-    	return DB::table('master_nomenklatur_kabkota')->where('urusan',$this->urusan)->where('bidang_urusan',$this->bidang_urusan)->where('program',$this->program)->where('jenis','program')->first();
+    	return (array) DB::table('master_nomenklatur_kabkota')->where('urusan',$this->urusan)->where('bidang_urusan',$this->bidang_urusan)->where('program',$this->program)->where('jenis','program')->first();
     }
 
 
     public function kegiatanUp(){
 
-    	return DB::table('master_nomenklatur_kabkota')->where('urusan',$this->urusan)->where('bidang_urusan',$this->bidang_urusan)->where('program',$this->program)->where('kegiatan',$this->kegiatan)->where('jenis','kegiatan')->first();
+    	return (array) DB::table('master_nomenklatur_kabkota')->where('urusan',$this->urusan)->where('bidang_urusan',$this->bidang_urusan)->where('program',$this->program)->where('kegiatan',$this->kegiatan)->where('jenis','kegiatan')->first();
     }
 }

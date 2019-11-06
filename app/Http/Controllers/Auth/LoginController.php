@@ -50,13 +50,13 @@ class LoginController extends Controller
          }
 
          if ($this->attemptLogin($request)) {
-            $user=User::where('email',$request->email)->first();
-            $token_api=HP::GenerateTokenApi($user);
+            // $user=User::where('email',$request->email)->first();
+            // $token_api=HP::GenerateTokenApi($user);
             
             session(['focus_tahun' => $request->tahun]);
 
-            $user->api_token=$token_api;
-            $user->save();
+            // $user->api_token=$token_api;
+            // $user->save();
 
             return $this->sendLoginResponse($request);
          }

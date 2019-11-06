@@ -14,7 +14,7 @@ class F1Permen extends Migration
      public function up()
      {
          //
-         Schema::connection('pgsql2')->create('form_1_permen',function(Blueprint $table){
+         Schema::create('form_1_permen',function(Blueprint $table){
            $table->bigIncrements('id')->index();
            $table->text('nama_permen');
            $table->timestamps();
