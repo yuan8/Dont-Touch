@@ -271,7 +271,7 @@ class FormSink extends Controller
     	$pp='[]';
     	$perpres='[]';
     	$permen='[]';
-    	$mandat='[]';
+    	$mandat=[];
 
 
 
@@ -311,13 +311,14 @@ class FormSink extends Controller
       ];
 
       if($mandat){
-        foreach ($mandat as $key => $value) {
+        foreach($mandat as $key => $value) {
          $data2=$data;
          $data2['mandat']=json_encode([$value]);
          Mandat::create($data2);
         }
         
       }else{
+        $data['mandat']=json_encode([]);
         Mandat::create($data);
       }
 
@@ -326,6 +327,7 @@ class FormSink extends Controller
 			return back();
 		}else{
 
+      
 		}
 	
 		
