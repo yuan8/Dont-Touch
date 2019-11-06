@@ -110,13 +110,13 @@ class FormSink3 extends Controller
 	    		]
     		);
     		$id=$data->id;
-    		$propn=ProPN::where('id_indetifikasi_kebijakan_tahunan',$id)->delete();
+    		$propn=ProPN::where('id_identifikasi_kebijakan_tahunan',$id)->delete();
     		if($request->pro_pn){
     			foreach($request->pro_pn as $pro_pn){
 	    			if($pro_pn!=""){
 	    				ProPN::create([
 		    				'id_urusan'=>$urusan,
-		    				'id_indetifikasi_kebijakan_tahunan'=>$id,
+		    				'id_identifikasi_kebijakan_tahunan'=>$id,
 		    				'tahun'=>session('focus_tahun'),
 		    				'pro_pn'=> $pro_pn,
 		    				'id_user'=>Auth::User()->id
