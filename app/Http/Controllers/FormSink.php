@@ -294,7 +294,7 @@ class FormSink extends Controller
 			   $permen=json_encode($permen);
     	}
     	if(isset($request->mandat)){
-    		  $mandat=json_encode($request->mandat);
+    		  $mandat=($request->mandat);
     	}
 	 	
 	
