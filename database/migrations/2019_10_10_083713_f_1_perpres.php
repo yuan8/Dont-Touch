@@ -29,7 +29,7 @@ class F1Perpres extends Migration
      public function down()
      {
          //
-         Schema::connection('pgsql2')->dropIfExists('form_1_perpres');
+         Schema::dropIfExists('form_1_perpres');
 
      }
 }

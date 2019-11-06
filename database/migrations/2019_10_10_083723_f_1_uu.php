@@ -29,7 +29,7 @@ class F1Uu extends Migration
      public function down()
      {
          //
-         Schema::connection('pgsql2')->dropIfExists('form_1_uu');
+         Schema::dropIfExists('form_1_uu');
 
      }
 }

@@ -29,7 +29,7 @@ class F1Permen extends Migration
      public function down()
      {
          //
-         Schema::connection('pgsql2')->dropIfExists('form_1_permen');
+         Schema::dropIfExists('form_1_permen');
 
      }
 }

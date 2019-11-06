@@ -29,7 +29,7 @@ class F1Pp extends Migration
      public function down()
      {
          //
-         Schema::connection('pgsql2')->dropIfExists('form_1_pp');
+         Schema::dropIfExists('form_1_pp');
 
      }
 }

@@ -68,7 +68,7 @@ class APIForm extends Controller
       $query=("SELECT ".$request->field." as id,".$request->field." as text FROM ".$request->tb." ".
       "WHERE ".$request->field." ILIKE ('%".$request->nama."%') ORDER BY ".$request->field." ASC");
 
-      return DB::select($query);
+      return DB::connection('pgsql')->select($query);
     }
 
     public function TableMandat(Request $request){
