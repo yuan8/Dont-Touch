@@ -27,7 +27,7 @@ class APIForm extends Controller
       $validator=Validator::make($request->all(),[
         'tb'=>'required|string',
         'field'=>'required|string',
-        'data'=>'required|unique:'.env('DBC2').'.'.$request->tb.','.$request->field,
+        'data'=>'required|unique:'.$request->tb.','.$request->field,
       ]);
 
       if($validator->fails()){
