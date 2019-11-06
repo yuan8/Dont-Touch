@@ -307,9 +307,13 @@ class FormSink extends Controller
         'pp'=>$pp,
         'perpres'=>$perpres,
         'permen'=>$permen,
-        'mandat'=>json_encode([$value]),
+        
         'id_user'=>Auth::User()->id
       ];
+      
+      if($mandat){
+        'mandat'=>json_encode([$value]),
+      }
 
       $res=Mandat::create($data);
 
