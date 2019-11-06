@@ -263,7 +263,6 @@ class FormSink extends Controller
 
     	if($validator->fails()){
     		return 500;
-
     	}else{
 
     	}
@@ -295,11 +294,10 @@ class FormSink extends Controller
 			   $permen=json_encode($permen);
     	}
     	if(isset($request->mandat)){
-    		  $mandat=$request->mandat;
+    		  $mandat=json_encode($request->mandat);
     	}
 	 	
 	
-		foreach ($mandat as $key => $value) {
       # code...
       $data=[
         'id_sub_urusan'=>$request->sub_urusan,
@@ -314,7 +312,6 @@ class FormSink extends Controller
       ];
 
       $res=Mandat::create($data);
-    }
 
 		if($res){
 			return back();

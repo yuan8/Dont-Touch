@@ -106,8 +106,8 @@ class FormSink7 extends Controller
             }
         }
 
-        $provinsis=$provinsis->paginate(10);
-        $provinsis=$provinsis->appends('q');
+        $provinsis=$provinsis->paginate(5);
+        $provinsis=$provinsis->appends(['q'=>$request->q]);
 
         foreach ($provinsis->items() as $key => $d) {
             $d=json_decode($d,true);

@@ -4,17 +4,19 @@
 
 @stop
 @section('content')
+<a href="{{route('fs.f7.index',['id_link'=>$id_link])}}" class="btn btn-info btn-circle"> <i class="fa fa-arrow-left"></i> </a>
+<small> Integrasi</small>
 <hr>
 <h5>INTEGRASI PROVINSI</h5> 
 <hr>
 
 <form action="{{url()->current()}}" method="get">
 	<div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Search.." name="q" value="{{isset($_GET['q'])?$_GET['q']:''}}" aria-label="" aria-describedby="basic-addon2">
-  <div class="input-group-append">
-    <button type="submit" class="btn btn-warning">Search</button>
-  </div>
-</div>
+  		<input type="text" class="form-control" placeholder="Search.." name="q" value="{{isset($_GET['q'])?$_GET['q']:''}}" aria-label="" aria-describedby="basic-addon2">
+		  <div class="input-group-append">
+		    <button type="submit" class="btn btn-warning">Search</button>
+		  </div>
+	</div>
 </form>
 
 <div class="card">
@@ -40,7 +42,7 @@
 					<th>Nilai Target Daerah</th>
 					<th>Action</th>
 				</tr>
-				<?php foreach ($d['data'] as $key => $i): ?>
+				<?php foreach ($d['data'] as  $i): ?>
 					<tr>
 						<td>
 							{{$i['indetifikasi_kebijakan_tahunan']['prioritas_nasional']}}</td>
@@ -60,19 +62,18 @@
 							{{$i['target_daerah']}} {{$i['indetifikasi_kebijakan_tahunan']['target_akumulatif_satuan']}}
 						</td>
 						<td>
-							<button type="button" class="btn btn-warning btn-circle" onclick="$('#modal-integrasi-{{$d['id_provinsi']}}').appendTo('body').modal()">
+							<button type="button" class="btn btn-warning btn-circle" onclick="$('#modal-integrasi-{{$d['id_provinsi']}}-{{$i['id']}}').appendTo('body').modal()">
 								<i class="fa fa-edit"></i>
 							</button>
 						</td>
 
-						<div class="modal fade " id="modal-integrasi-{{$d['id_provinsi']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal fade " id="modal-integrasi-{{$d['id_provinsi']}}-{{$i['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						  <div class="modal-dialog" role="document">
 						    <div class="modal-content border-top-primary">
 						    	<form action="{{route('fs.f7.store_integrasi_target_provinsi',['id_link'=>$id_link,'id'=>$i['id']])}}" method="post">
 						    			@csrf
 						    			<input type="hidden"  name="kode_daerah" value="{{$d['id_provinsi']}}">
 						    			<input type="hidden" name="id_integrasi" value="{{$i['id']}}">
-
 						    		  <div class="modal-header">
 								        <h5 class="modal-title" id="exampleModalLabel">{{$d['nama']}}</h5>
 								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -86,7 +87,7 @@
 								        	<hr>
 								        	<label>Traget Daerah</label>
 								        	<div class="input-group mb-3">
-											  <input type="number" class="form-control" value="" name="target_daerah" required="" aria-describedby="basic-addon2">
+											  <input type="number" class="form-control" value="{{$i['target_daerah']}}" name="target_daerah" required="" aria-describedby="basic-addon2">
 											  <div class="input-group-append">
 											    <span class="input-group-text" id="basic-addon2">
 											    	{{$i['indetifikasi_kebijakan_tahunan']['target_akumulatif_satuan']}}
@@ -113,6 +114,8 @@
 				@endforeach
 			</tbody>
 		</table>
+
+		{{$data_paginate->links()}}
 	</div>
 </div>
 @stop
