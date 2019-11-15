@@ -30,8 +30,10 @@
 	<tbody>
 		@foreach($datas as $d)
 			<tr>
-				<td>{!!nl2br($d->prioritas_nasional)!!}</td>
-				<td>{!!nl2br($d->program_prioritas)!!}</td>
+				
+				<td>{{($d->prioritas_nasional!=null)?$d->HavePn()->where('tahun',session('focus_tahun'))->first()->nama_pn:null}}</td>
+
+				<td>{{($d->program_prioritas!=null)?$d->HavePp()->where('tahun',session('focus_tahun'))->first()->nama_pp:null}}</td>
 				<td>{!!nl2br($d->kegiatan_prioritas)!!}</td>
 				<td>
 					@foreach($d->HaveProPN as $propn)

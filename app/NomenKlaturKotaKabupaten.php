@@ -7,7 +7,9 @@ use DB;
 class NomenKlaturKotaKabupaten extends Model
 {
     //
-     protected $table='master_nomenklatur_kabkota';
+    protected $table='master_nomenklatur_kabkota';
+    protected $appends = array('kegiatan_detail','program_detail');
+     
 
 
     public function programUp(){
@@ -19,5 +21,19 @@ class NomenKlaturKotaKabupaten extends Model
     public function kegiatanUp(){
 
     	return (array) DB::table('master_nomenklatur_kabkota')->where('urusan',$this->urusan)->where('bidang_urusan',$this->bidang_urusan)->where('program',$this->program)->where('kegiatan',$this->kegiatan)->where('jenis','kegiatan')->first();
+    }
+
+
+    public function getkegiatanDetailAttribute()
+    {
+        return $this->kegiatanUp();
+
+    }
+
+  
+    public function getProgramDetailAttribute()
+    {
+        return $this->programUp(); 
+
     }
 }

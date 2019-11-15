@@ -14,54 +14,52 @@ use App\Provinsi;
 use App\Kabupaten;
 use App\PerdaPerkada;
 use DB;
+use Alert;
 class FormSink extends Controller
 {
     
 
     public function form1Update($urusan,$id,Request $request){
       $mandat_db=Mandat::find($id);
+      $data=[];
       if($mandat_db){
+        if($mandat_db->jenis==0){
+          // jenis mandat 
+          if(!isset($request->set_mandat)){
+            // berubah menjadi kegiatan 
+            $mandat_db->HavePerdaPerkada()->delete();
+            $data['jenis']=1;
+            $data['mandat']=null;
 
+          }else{
+             if(isset($request->mandat)){
+              $data['mandat']=$request->mandat;
+            }else{
+               Alert::success('Mandat Tidak Terisi','error');
+                return back();
+            }
+          }
+        }else{
 
-        $uu='[]';
-        $pp='[]';
-        $perpres='[]';
-        $permen='[]';
-        $mandat='[]';
-
-
-
-        if(isset($request->uu)){
-          $uu=$request->uu;
-           $uu=json_encode($uu);
+          if(isset($request->set_mandat)){
+            $data['jenis']=0;
+            if(isset($request->mandat)){
+              $data['mandat']=$request->mandat;
+            }else{
+               Alert::success('Mandat Tidak Terisi','error');
+                return back();
+            }
+          }else{
+            $data['mandat']=null;
+          }
         }
 
-        if(isset($request->pp)){
-          $pp=$request->pp;
-           $pp=json_encode($pp);
-        }
-
-        if(isset($request->perpres)){
-          $perpres=$request->perpres;
-           $perpres=json_encode($perpres);
-        }
-        if(isset($request->permen)){
-          $permen=$request->permen;
-           $permen=json_encode($permen);
-        }
-        if(isset($request->mandat)){
-            $mandat=$request->mandat;
-           $mandat=json_encode($mandat);
-
-        }
-        $mandat_db->update([
-          'id_sub_urusan'=>$request->sub_urusan,
-          'uu'=>$uu,
-          'pp'=>$pp,
-          'permen'=>$permen,
-          'perpres'=>$perpres,
-          'mandat'=>$mandat,
-        ]);
+        $data['id_sub_urusan']=$request->sub_urusan;
+        $mandat_db->update($data);
+        $mandat_db->listUu()->sync($request->uu);
+        $mandat_db->listPp()->sync($request->pp);
+        $mandat_db->listPerpres()->sync($request->perpres);
+        $mandat_db->listPermen()->sync($request->permen);
 
         return back();
       }
@@ -101,7 +99,7 @@ class FormSink extends Controller
             'id_mandat'=>$request->mandat,
             'id_urusan'=>$urusan,
             'perkada'=>$perkada,
-            'kesesuaian'=>$request->kesesuaian,
+            'penilaian'=>$request->kesesuaian,
             'keterangan'=>$request->keterangan,
             'id_user'=>Auth::User()->id,
             'telah_dinilai'=>1,
@@ -123,9 +121,8 @@ class FormSink extends Controller
             'perkada'=>$perkada,
             'provinsi'=>$request->provinsi,
             'kota_kabupaten'=>$request->kota_kabupaten,
-            'kesesuaian'=>$request->kesesuaian,
+            'penilaian'=>$request->kesesuaian,
             'telah_dinilai'=>1,
-
             'keterangan'=>$request->keterangan,
             'id_user'=>Auth::User()->id,
           ]);
@@ -149,8 +146,6 @@ class FormSink extends Controller
         $daerah['id_provinsi']=(int) $daerah['id_provinsi'];
         $daerah['provinsi']=(int) $daerah['id_provinsi'];
         $daerah['id_kota']=0;
-
-
         $daerah['nama']='PROVINSI '.$daerah['nama'];
 
 
@@ -161,22 +156,21 @@ class FormSink extends Controller
         
       }
 
-
       $mandat_db=Mandat::find($mandat);
       $perdaperkada=PerdaPerkada::where('id_mandat',$mandat)->where('id_urusan',$urusan)
       ->where($level,$provinsi==0?$kota_kabupaten:$provinsi)
+      ->where($level==1?'kota_kabupaten':'provinsi',0)
+
       ->where('tahun',session('focus_tahun'))
       ->first();
-      
+
+
       return view('form_singkron.form1_tambah_perda_perkada')
         ->with('id_link',$id_link)
         ->with('data_link',$data_link)
         ->with('mandat',$mandat_db)
         ->with('daerah',$daerah)
-
         ->with('perdaperkada',$perdaperkada);
-    
-
     }
 
     public function Form1Perdaerah($urusan,Request $request){
@@ -233,7 +227,6 @@ class FormSink extends Controller
            $mx=PerdaPerkada::where('id_urusan',$urusan)->where('tahun',session('focus_tahun'))->where('id_mandat',$m['id'])->where($where)->first();
            if($mx){
            $mx=$mx->toArray();
-
            }
            $m['perda_perkada']=$mx;
 
@@ -252,12 +245,14 @@ class FormSink extends Controller
 
 
     	$validator=Validator::make($request->all(),[
-    		'sub_urusan'=>'required|exists:sub_urusan_23,id',
+    		'sub_urusan'=>'required|exists:master_sub_urusan,id',
     		'uu'=>'nullable',
     		'pp'=>'nullable',
     		'perpres'=>'nullable',
     		'permen'=>'nullable',
     		'mandat'=>'nullable',
+        'set_mandat'=>'nullable',
+
     	]);
 
 
@@ -267,60 +262,43 @@ class FormSink extends Controller
 
     	}
 
-    	$uu='[]';
-    	$pp='[]';
-    	$perpres='[]';
-    	$permen='[]';
-    	$mandat=[];
 
 
+      
+      $mandat=isset($request->mandat)?$request->mandat:null;
+      $data=[];
+      $data['id_sub_urusan']=$request->sub_urusan;
+      $data['id_urusan']=$urusan;
+      $data['tahun']=session('focus_tahun');
+      $data['id_user']=Auth::User()->id;
 
-    	if(isset($request->uu)){
-    		$uu=$request->uu;
-			   $uu=json_encode($uu);
-    	}
-
-    	if(isset($request->pp)){
-    		$pp=$request->pp;
-			   $pp=json_encode($pp);
-    	}
-
-    	if(isset($request->perpres)){
-    		$perpres=$request->perpres;
-			   $perpres=json_encode($perpres);
-    	}
-    	if(isset($request->permen)){
-    		$permen=$request->permen;
-			   $permen=json_encode($permen);
-    	}
-    	if(isset($request->mandat)){
-    		  $mandat=$request->mandat;
-    	}
-	 	
-	
-      # code...
-      $data=[
-        'id_sub_urusan'=>$request->sub_urusan,
-        'uu'=>$uu,
-        'tahun'=>session('focus_tahun'),
-        'id_urusan'=>$urusan,
-        'pp'=>$pp,
-        'perpres'=>$perpres,
-        'permen'=>$permen,
-        'id_user'=>Auth::User()->id
-      ];
-
-      if($mandat){
-        foreach($mandat as $key => $value) {
-         $data2=$data;
-         $data2['mandat']=json_encode([$value]);
-         Mandat::create($data2);
+      if($mandat==null){
+          
+        if(!isset($request->set_mandat)){
+          $data['jenis']=1;
+          $mandat_db=Mandat::create($data);
+          $mandat_db->listUu()->sync($request->uu);
+          $mandat_db->listPp()->sync($request->pp);
+          $mandat_db->listPerpres()->sync($request->perpres);
+          $mandat_db->listPermen()->sync($request->permen);
         }
-        
+
       }else{
-        $data['mandat']=json_encode([]);
-        Mandat::create($data);
+
+      foreach ($mandat as $key => $d) {
+          if(($d!='')AND($d!=null)){
+            $data['mandat']=$d;
+            $data['jenis']=0;
+
+            $mandat_db=Mandat::create($data);
+            $mandat_db->listUu()->sync($request->uu);
+            $mandat_db->listPerpres()->sync($request->perpres);
+            $mandat_db->listPermen()->sync($request->permen);
+          }
+
+        }
       }
+
 
     $res=1;
 		if($res){
@@ -340,20 +318,18 @@ class FormSink extends Controller
   	$data_link=Urusan23::find($urusan);
   	$sub_urusans=SubUrusan23::where('id_urusan',$urusan)->get();
 
-
     return view('form_singkron.form1_tambah_mandat')->with('sub_urusans',$sub_urusans)->with('id_link',$urusan)->with('data_link',$data_link);
 
   }
 
    public function Form1($urusan,Request $request){
 		
- 		$programs=Program::where('id_bidang_urusan',$urusan)->first();
  		$data_link=Urusan23::find($urusan);
 
-		$data=Mandat::where('id_urusan',$urusan)->where('tahun',session('focus_tahun'))->paginate(10);
+		$data=Mandat::where('id_urusan',$urusan)->where('tahun',session('focus_tahun'))->orderBy('id','DESC')->paginate(10);
 
 
-		return view('form_singkron.form1')->with('datas',$data)->with('id_link',$urusan)->with('data_link',$data_link)->with('programs',$programs);
+		return view('form_singkron.form1')->with('datas',$data)->with('id_link',$urusan)->with('data_link',$data_link);
 
     }
 
@@ -455,8 +431,6 @@ class FormSink extends Controller
       $perkada=json_encode($perkada);
       $perda=json_encode($perda);
 
-
-  
 
      $data= PerdaPerkada::create([
         'perda'=>$perda,

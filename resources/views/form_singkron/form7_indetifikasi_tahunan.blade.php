@@ -39,10 +39,10 @@
 			<tbody>
 				<tr>
 					<td>
-						{!!nl2br($data->prioritas_nasional)!!}
+						<p>{!!($data->prioritas_nasional!=null)?$data->HavePn->nama_pn:''!!}</p>
 					</td>
 					<td>
-						{!!nl2br($data->program_prioritas)!!}
+						<p>{!!($data->program_prioritas!=null)?$data->HavePp->nama_pp:''!!}</p>
 					</td>
 					<td>
 						{!!nl2br($data->kegiatan_prioritas)!!}
@@ -132,7 +132,6 @@
 
 									        <div id="container_kegiatan_pro">
 								        		<label>Kegiatan</label>
-
 									        	<select id="kegiatan_pro" class="form-control col-md-12" style="width:100%;">
 								        			
 								        		</select>
@@ -144,11 +143,7 @@
 									        	<select id="sub_kegiatan_pro" name="sub_urusan_provinsi" class="form-control col-md-12" required="" style="width:100%;">
 								        			
 								        		</select>
-						        	
-								        		
-									        	
 									        </div>
-
 						        	</div>
 						        </div>
 
@@ -180,24 +175,36 @@
 									{{ $subp->nomenklatur->programUp()['nomenklatur']}}
 								</td>
 								<td>
-									<nav class="navbar navbar-expand-lg navbar-light bg-primary" style="margin:0px;padding: 0px;">
-										  <div class="collapse navbar-collapse pull-right" id="navbarSupportedContent">
-										    <ul class="navbar-nav mr-auto form-inline">
-										      <li class="nav-item dropdown">
-										        <a class="nav-link dropdown-toggle btn-sm btn btn-warning" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										          <i class="fa fa-bars"></i>
-										        </a>
-										        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-										      
-										          <a class="dropdown-item" href="#">Delete</a>
-										          
-										        </div>
-										      </li>
-										     
-										    </ul>
-										   
-										  </div>
-									</nav>
+									<button class="btn btn-danger" onclick="$('#modal-delete-indetifikasi-{{$subp->id}}').appendTo('body').modal()">
+										<i class="fa fa-trash"></i>
+									</button>
+
+
+									<div class="modal fade" id='modal-delete-indetifikasi-{{$subp->id}}' tabindex="-1" role="dialog">
+									  <div class="modal-dialog " role="document">
+									    <div class="modal-content ">
+										      <div class="modal-header">
+										        <h5 class="modal-title">Hapus Sub Kegiatan Provinsi</h5>
+										        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										          <span aria-hidden="true">&times;</span>
+										        </button>
+										      </div>
+									     	 <form action="{{route('fs.f7.show.identifikasi.delete_sub_provinsi',['id_link'=>$id_link,'id'=>$subp->id])}}" method="post">
+									      		@csrf
+									      		@method('DELETE');
+										      <div class="modal-body">
+										       <p>Apakah Anda Yakin Akan Menghapus Data Sub Kegiatan "<span class="text-primary">{{$subp->nomenklatur->nomenklatur}}</span>"?</p>
+										      </div>
+										      <div class="modal-footer">
+										        	<button type="submit" class="btn btn-danger ">
+										        		<i class="fa fa-trash"></i>
+										        	</button>
+										      </div>
+									      	</form>
+
+									    </div>
+									  </div>
+									</div>
 
 								</td>
 							</tr>
@@ -225,65 +232,59 @@
 						    <a href="javascript:void(0)" class="border-bottom-primary  d-sm-inline-block btn btn-warning" style="margin-bottom: 10px; color:#222;" onclick="$('#modal-add-sub-urusan-kab-{{$data->id}}').appendTo('body').modal()" >
 						    	<i class="fa fa-plus"></i>
 						    </a>
-						<div class="modal fade" id='modal-add-sub-urusan-kab-{{$data->id}}' tabindex="-1" role="dialog">
-						  <div class="modal-dialog modal-lg" role="document">
-						    <div class="modal-content ">
-						      <div class="modal-header">
-						        <h5 class="modal-title">Tambah Sub Kegiatan Kota Kabupaten</h5>
-						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						          <span aria-hidden="true">&times;</span>
-						        </button>
-						      </div>
-						      <form action="{{route('fs.f7.show.identifikasi.add_sub_kotakab',['id_link'=>$id_link,'id'=>$data->id])}}" method="post">
-						      		@csrf
-						      <div class="modal-body">
-						        <div class="row">
-						        	<div class="col-md-12">
-						        		<div class="form-group">
-								        	<label>Program</label>
-								        	<select id="program_kab" class="form-control col-md-12" style="width:100%;">
-							        			@foreach($program_provinsi as $program)
-							        				<option value="{{$program->kode}}">{{$program->nomenklatur}}</option>
-							        			@endforeach
-								        	</select>
-						        	
-								        	
-									        </div>
-
-									        <div id="container_kegiatan_kab">
-								        		<label>Kegiatan</label>
-
-									        	<select id="kegiatan_kab" class="form-control col-md-12" style="width:100%;">
-								        			
-								        		</select>
-						        	
-									        </div>
-									        <br>
-									        <div id="container_sub_kegiatan_kab">
-									        	<label>Sub Kegiatan</label>
-									        	<select id="sub_kegiatan_kab" name="sub_urusan_provinsi" class="form-control col-md-12" required="" style="width:100%;">
-								        			
-								        		</select>
-						        	
-								        		
+							<div class="modal fade" id='modal-add-sub-urusan-kab-{{$data->id}}' tabindex="-1" role="dialog">
+							  <div class="modal-dialog modal-lg" role="document">
+							    <div class="modal-content ">
+							      <div class="modal-header">
+							        <h5 class="modal-title">Tambah Sub Kegiatan Kota Kabupaten</h5>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          <span aria-hidden="true">&times;</span>
+							        </button>
+							      </div>
+							      <form action="{{route('fs.f7.show.identifikasi.add_sub_kotakab',['id_link'=>$id_link,'id'=>$data->id])}}" method="post">
+							      		@csrf
+							      <div class="modal-body">
+							        <div class="row">
+							        	<div class="col-md-12">
+							        		<div class="form-group">
+									        	<label>Program</label>
+									        	<select id="program_kab" class="form-control col-md-12" style="width:100%;">
+								        			@foreach($program_provinsi as $program)
+								        				<option value="{{$program->kode}}">{{$program->nomenklatur}}</option>
+								        			@endforeach
+									        	</select>
+							        	
 									        	
-									        </div>
+										        </div>
 
-						        	</div>
-						        </div>
+										        <div id="container_kegiatan_kab">
+									        		<label>Kegiatan</label>
 
+										        	<select id="kegiatan_kab" class="form-control col-md-12" style="width:100%;">
+									        			
+									        		</select>
+							        	
+										        </div>
+										        <br>
+										        <div id="container_sub_kegiatan_kab">
+										        	<label>Sub Kegiatan</label>
+										        	<select id="sub_kegiatan_kab" name="sub_urusan_provinsi" class="form-control col-md-12" required="" style="width:100%;">
+									        			
+									        		</select>
+										        </div>
+							        	</div>
+							        </div>
+							      </div>
+							      <div class="modal-footer">
+							        	<input type="hidden"  name="id" value="{{$data->id}}">
+							        	<button type="submit" class="btn btn-warning border-bottom-info">Tambah</button>
+							        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							      </div>
+							      	</form>
 
-						      </div>
-						      <div class="modal-footer">
-						        	<input type="hidden"  name="id" value="{{$data->id}}">
-						        	<button type="submit" class="btn btn-warning border-bottom-info">Tambah</button>
-						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						      </div>
-						      	</form>
-
-						    </div>
-						  </div>
-						</div>
+							    </div>
+							  </div>
+							</div>
 
 						</div>
 						<hr>
@@ -297,24 +298,36 @@
 									{{ $subp->nomenklatur->programUp()['nomenklatur']}}
 								</td>
 								<td>
-									<nav class="navbar navbar-expand-lg navbar-light bg-info" style="margin:0px;padding: 0px;">
-										  <div class="collapse navbar-collapse pull-right" id="navbarSupportedContent">
-										    <ul class="navbar-nav mr-auto form-inline">
-										      <li class="nav-item dropdown">
-										        <a class="nav-link dropdown-toggle btn-sm btn btn-warning" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										          <i class="fa fa-bars"></i>
-										        </a>
-										        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-										      
-										          <a class="dropdown-item" href="#">Delete</a>
-										          
-										        </div>
-										      </li>
-										     
-										    </ul>
-										   
-										  </div>
-									</nav>
+									<button class="btn btn-danger" onclick="$('#modal-delete-indetifikasi-kota-kab-{{$subp->id}}').appendTo('body').modal()">
+									<i class="fa fa-trash"></i>
+									</button>
+
+
+									<div class="modal fade" id='modal-delete-indetifikasi-kota-kab-{{$subp->id}}' tabindex="-1" role="dialog">
+									  <div class="modal-dialog " role="document">
+									    <div class="modal-content ">
+										      <div class="modal-header">
+										        <h5 class="modal-title">Hapus Sub Kegiatan Kota Kabupaten</h5>
+										        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										          <span aria-hidden="true">&times;</span>
+										        </button>
+										      </div>
+									     	 <form action="{{route('fs.f7.show.identifikasi.delete_sub_kotakab',['id_link'=>$id_link,'id'=>$subp->id])}}" method="post">
+									      		@csrf
+									      		@method('DELETE');
+										      <div class="modal-body">
+										       <p>Apakah Anda Yakin Akan Menghapus Data Sub Kegiatan "<span class="text-primary">{{$subp->nomenklatur->nomenklatur}}</span>"?</p>
+										      </div>
+										      <div class="modal-footer">
+										        	<button type="submit" class="btn btn-danger ">
+										        		<i class="fa fa-trash"></i>
+										        	</button>
+										      </div>
+									      	</form>
+
+									    </div>
+									  </div>
+									</div>
 
 								</td>
 							</tr>

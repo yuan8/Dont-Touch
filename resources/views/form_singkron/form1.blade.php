@@ -16,6 +16,11 @@
 	}
 
 </style>
+<div class="col-md-12">
+	<span style="width:20px; height:20px; background-color:#fbe490c2;">.</span> Mandat <span style="width:30px; height:20px; background-color:#fbe490c2;">.</span> Kegiatan
+</div>
+	<hr>
+
 <h5>IDENTIFIKASI KEBIJAKAN (K/L)</h5>
 <hr>
 
@@ -31,40 +36,20 @@
 		<table class="table table-bordered  table-striped">
 			<thead>
 				<tr class="table-dark card-border-top-warning">
+					<th>Action</th>		
+
 					<th>Sub Urusan</th>
 					<th>Undang Undang</th>
 					<th>Peraturan Pemerintah</th>
 					<th>Peraturan Presiden</th>
 					<th>Permen</th>
 					<th>Mandat</th>		
-					<th>Action</th>		
 				</tr>
 
 			</thead>
 			<tbody style="overflow-y: scroll;">
 				@foreach($datas as $key=> $data)
-				<tr>
-					<td>{{$data->LinkSubUrusan->nama}}</td>
-					<td>
-						{!!HP::SpliterArrayLink($data->uu)!!}
-					</td>
-					<td>
-						{!!HP::SpliterArrayLink($data->pp)!!}
-						
-					</td>
-					<td>
-						{!!HP::SpliterArrayLink($data->perpres)!!}
-						
-					</td>
-					<td>
-						{!!HP::SpliterArrayLink($data->permen)!!}
-					
-					</td>
-					<td>
-						{!!HP::SpliterArray($data->mandat)!!}
-							
-					</td>
-
+				<tr style="{{$data['jenis']==1?'background:#fbe490c2;':''}}">
 					<td class="">
 						<div class="btn-group">
 						<a href="{{route('fs.f1.edit',['id_link'=>$id_link,'id'=>$data->id])}}" class="btn btn-warning" >Edit</a>
@@ -98,6 +83,30 @@
 
 							
 					</td>
+					<td>{{$data->LinkSubUrusan->nama}}</td>
+					<td>
+						{!!HP::SpliterArrayLink2($data->ListUu)!!}
+					</td>
+					<td>
+
+						{!!HP::SpliterArrayLink2($data->ListPp)!!}
+						
+						
+					</td>
+					<td>
+						{!!HP::SpliterArrayLink2($data->ListPerpres)!!}
+						
+					</td>
+					<td>
+						{!!HP::SpliterArrayLink2($data->ListPermen)!!}
+					
+					</td>
+					<td>
+						{!!($data->mandat)!!}
+							
+					</td>
+
+					
 				
 				</tr>
 

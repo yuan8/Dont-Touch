@@ -37,7 +37,6 @@
 					</th>
 					<th>Indikator</th>
 					<th>Nomenklatur</th>
-
 					<th>Nilai Target Akumulatif</th>
 					<th>Nilai Target Daerah</th>
 					<th>Action</th>
@@ -45,8 +44,15 @@
 				<?php foreach ($d['data'] as  $i): ?>
 					<tr>
 						<td>
-							{{$i['indetifikasi_kebijakan_tahunan']['prioritas_nasional']}}</td>
-						<td>{{$i['indetifikasi_kebijakan_tahunan']['kegiatan_prioritas']}}</td>
+							{{isset($i['indetifikasi_kebijakan_tahunan']['have_pn'])?$i['indetifikasi_kebijakan_tahunan']['have_pn']['nama_pn']:''}}</td>
+						<td>
+							<p>
+								{{isset($i['indetifikasi_kebijakan_tahunan']['have_pp'])?$i['indetifikasi_kebijakan_tahunan']['have_pp']['nama_pp']:''}}
+							</p>
+							<p class="text-primary">
+								{{$i['indetifikasi_kebijakan_tahunan']['kegiatan_prioritas']}}	
+							</p>
+						</td>
 						<td>{{$i['indetifikasi_kebijakan_tahunan']['indikator']}}</td>
 						
 						<td>
@@ -85,7 +91,7 @@
 								        	
 								        	<p class="text-primary">{{$i['nomenklatur']['nomenklatur']}}</p>
 								        	<hr>
-								        	<label>Traget Daerah</label>
+								        	<label>Target Daerah</label>
 								        	<div class="input-group mb-3">
 											  <input type="number" class="form-control" value="{{$i['target_daerah']}}" name="target_daerah" required="" aria-describedby="basic-addon2">
 											  <div class="input-group-append">

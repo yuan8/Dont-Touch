@@ -7,7 +7,8 @@ use App\Urusan23;
 use App\ProPN;
 use App\IntegrasiProvinsi;
 use App\IntegrasikotaKab;
-
+use App\MasterProgramPrioritas;
+use App\MasterPrioritasNasional;
 
 class IndetifikasiKebijakanTahunan extends Model
 {
@@ -33,7 +34,7 @@ class IndetifikasiKebijakanTahunan extends Model
 
     ];
 
-    public function HaveProPN(){
+    public function HaveProPn(){
         return $this->hasMany(ProPN::class,'id_identifikasi_kebijakan_tahunan');
     }
 
@@ -42,8 +43,17 @@ class IndetifikasiKebijakanTahunan extends Model
         return $this->hasMany(IntegrasiProvinsi::class,'id_identifikasi_kebijakan_tahunan');
     }
 
-      public function HaveSubUrusanKabKota(){
+    public function HaveSubUrusanKabKota(){
         return $this->hasMany(IntegrasikotaKab::class,'id_identifikasi_kebijakan_tahunan');
+    }
+
+
+    public function HavePn(){
+        return $this->belongsTo(MasterPrioritasNasional::class,'prioritas_nasional');
+    }
+
+    public function HavePp(){
+        return $this->belongsTo(MasterProgramPrioritas::class,'program_prioritas');
     }
 
 

@@ -14,11 +14,12 @@ class Tb23Urusan extends Migration
     public function up()
     {
         //
-        Schema::create('urusan_23', function (Blueprint $table) {
+        Schema::create('master_urusan', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nama');
             $table->string('nomenklatur_provinsi',5)->nullable();
             $table->string('nomenklatur_kabkota',5)->nullable();
+            $table->unique(['nomenklatur_provinsi','nomenklatur_kabkota']);
             $table->timestamps();
           
         });
@@ -32,7 +33,7 @@ class Tb23Urusan extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('urusan_23');
+        Schema::dropIfExists('master_urusan');
 
     }
 }

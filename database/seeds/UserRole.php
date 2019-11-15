@@ -66,14 +66,14 @@ class UserRole extends Seeder
 
     	DB::table('user_role_urusan')->insert($urusans);
 
-        $datas=DB::table('urusan_23_plus')->get();
+        // $datas=DB::table('urusan_23_plus')->get();
 
-        foreach ($datas as $key => $value) {
-            DB::table('urusan_23')->where('id',$value->id)->update([
-                'nomenklatur_provinsi'=>$value->nomenklatur_provinsi,
-                'nomenklatur_kabkota'=>$value->nomenklatur_kabkota
-            ]);
-        }
+        // foreach ($datas as $key => $value) {
+        //     DB::table('urusan_23')->where('id',$value->id)->update([
+        //         'nomenklatur_provinsi'=>$value->nomenklatur_provinsi,
+        //         'nomenklatur_kabkota'=>$value->nomenklatur_kabkota
+        //     ]);
+        // }
 
 
 

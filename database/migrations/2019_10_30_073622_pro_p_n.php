@@ -20,7 +20,7 @@ class ProPN extends Migration
             $table->bigInteger('id_urusan')->unsigned();
             $table->bigInteger('id_identifikasi_kebijakan_tahunan')->unsigned();
 
-            $table->integer('tahun')->nullable();
+            $table->integer('tahun')->length(4)->nullable();
             $table->text('pro_pn');
           
             $table->bigInteger('id_user')->unsigned();
@@ -29,7 +29,7 @@ class ProPN extends Migration
 
             $table->foreign('id_urusan')
             ->references('id')
-            ->on('urusan_23')
+           ->on('master_urusan')
             ->onDelete('cascade');
 
             $table->foreign('id_identifikasi_kebijakan_tahunan')

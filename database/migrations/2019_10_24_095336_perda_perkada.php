@@ -19,13 +19,16 @@ class PerdaPerkada extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('id_mandat')->unsigned();
             $table->bigInteger('id_urusan')->unsigned();
-            $table->integer('tahun')->nullable();
+            $table->integer('tahun')->length(4)->nullable();
             $table->string('provinsi',2)->nullable();
             $table->string('kota_kabupaten',6)->nullable();
             $table->mediumText('perda')->nullable();
             $table->mediumText('perkada')->nullable();
 
-            $table->boolean('kesesuaian')->default(0);
+            $table->boolean('jenis')->default(0);
+            
+            $table->boolean('penilaian')->default(0)->comment('jika mandat kegiatan maka berubah menjadi dilaksanakan atau belum');
+
             $table->boolean('telah_dinilai')->default(0);
 
             $table->mediumText('keterangan')->nullable();
@@ -42,7 +45,7 @@ class PerdaPerkada extends Migration
 
             $table->foreign('id_urusan')
             ->references('id')
-            ->on('urusan_23')
+           ->on('master_urusan')
             ->onDelete('cascade');
 
             $table->foreign('id_user')

@@ -54,12 +54,30 @@ class Lokasi extends Seeder
     DB::table('provinsi')->delete();
     DB::table('provinsi')->truncate();
 
+    DB::connection('pgsql2')->table('provinsi')->delete();
+    DB::connection('pgsql2')->table('provinsi')->truncate();
+
+
     DB::table('kabupaten')->delete();
     DB::table('kabupaten')->truncate();
+
+    DB::connection('pgsql2')->table('kabupaten')->delete();
+    DB::connection('pgsql2')->table('kabupaten')->truncate();
+
 
 
         foreach ($provinsi as $key => $value) {
         	DB::table('provinsi')->insert(
+        		[
+
+        		'id_provinsi'=>$value[0],
+        		'nama'=>$value[1],
+        		'pulau'=>$value[2],
+        		'nama_singkat'=>$value[3]
+        		]
+        	);
+
+        	DB::connection('pgsql2')->table('provinsi')->insert(
         		[
 
         		'id_provinsi'=>$value[0],
@@ -590,6 +608,15 @@ class Lokasi extends Seeder
 
         foreach ($kota as $key => $value) {
         	DB::table('kabupaten')->insert(
+        		[
+        		'id_kota'=>$value[0],
+        		'nama'=>$value[1],
+        		'status_kabupaten'=>$value[2],
+
+        		]
+        	);
+
+        	DB::connection('pgsql2')->table('kabupaten')->insert(
         		[
         		'id_kota'=>$value[0],
         		'nama'=>$value[1],

@@ -22,7 +22,7 @@ class DaerahProgram extends Migration
             $table->string('kode_urusan',2)->unsigned();
             $table->string('kode_bidang_urusan',4)->unsigned();
             // $table->string('nama_program');
-            $table->integer('tahun');
+            $table->integer('tahun')->length(4);
             $table->timestamps();
             $table->unique(['kode','kode_urusan','kode_bidang_urusan','tahun','kode_daerah']);
              $table->foreign('id_bidang_urusan')

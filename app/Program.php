@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Program extends Model
 {
     //
-    protected $table='tb_program';
+    protected $table='program_23';
     protected $fillable=['id','kode','nama_program'];
 }

@@ -16,7 +16,7 @@ class TbIndikatorElement extends Migration
          //
          Schema::create('tb_indikator_element', function (Blueprint $table) {
              $table->bigIncrements('id');
-             $table->integer('tahun');
+             $table->integer('tahun')->length(4);
              $table->bigInteger('id_indikator')->unsigned();
              $table->bigInteger('id_element')->unsigned();
              $table->timestamps();

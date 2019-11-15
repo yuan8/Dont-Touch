@@ -13,6 +13,8 @@ use App\Satuan;
 use App\IntegrasikotaKab;
 use App\Provinsi;
 use App\IntegrasiTargetDaerahProvinsi;
+use App\IntegrasiTargetDaerahKotaKab;
+use App\Kabupaten;
 class FormSink7 extends Controller
 {
     //
@@ -95,10 +97,11 @@ class FormSink7 extends Controller
 
         $integrasi=IntegrasiProvinsi::with(['nomenklatur'=>function($query){
             $query;
-        },'IndetifikasiKebijakanTahunan'])
+        },'IndetifikasiKebijakanTahunan.HavePn','IndetifikasiKebijakanTahunan.HavePp'])
         ->where('tahun',session('focus_tahun'))
         ->where('id_urusan',$urusan)->get()->toArray();
      
+
         $provinsis=Provinsi::orderBy('nama','ASC');
         if(isset($request->q)){
             if($request->q!=''){
@@ -112,7 +115,9 @@ class FormSink7 extends Controller
         foreach ($provinsis->items() as $key => $d) {
             $d=json_decode($d,true);
             $d['data']=$integrasi;
+            
             foreach ($d['data'] as $k=> $dd) {
+
                 $target=IntegrasiTargetDaerahProvinsi::where('id_integrasi',$dd['id'])->where('kode_daerah',$d['id_provinsi'])
                 ->where('tahun',session('focus_tahun'))
                 ->where('id_urusan',$urusan)->first();
@@ -161,4 +166,110 @@ class FormSink7 extends Controller
         return back();
 
     }
+
+    public function delete_sub_urusan_provinsi($urusan,$id){
+        $d=IntegrasiProvinsi::find($id);
+        if($d){
+            $d->delete();
+        }
+
+        else{
+
+        }
+
+        return back();
+
+    }
+
+    public function delete_sub_urusan_kotakab($urusan,$id){
+        $d=IntegrasikotaKab::find($id);
+        if($d){
+            $d->delete();
+        }
+
+        else{
+
+        }
+
+        return back();
+    }
+
+
+    public function integrasi_kota_kabupaten($urusan,Request $request){
+          $data_link=Urusan23::find($urusan);
+
+        $data_return=[];
+
+        $integrasi=IntegrasikotaKab::with(['nomenklatur'=>function($query){
+            $query;
+        },'IndetifikasiKebijakanTahunan.HavePn','IndetifikasiKebijakanTahunan.HavePp'])
+        ->where('tahun',session('focus_tahun'))
+        ->where('id_urusan',$urusan)->get()->toArray();
+     
+
+        $provinsis=Kabupaten::orderBy('nama','ASC');
+        if(isset($request->q)){
+            if($request->q!=''){
+                 $provinsis->where('nama','ILIKE','%'.(isset($request->q)?$request->q:null).'%');
+            }
+        }
+
+        $provinsis=$provinsis->paginate(5);
+        $provinsis=$provinsis->appends(['q'=>$request->q]);
+
+        foreach ($provinsis->items() as $key => $d) {
+            $d=json_decode($d,true);
+            $d['data']=$integrasi;
+            
+            foreach ($d['data'] as $k=> $dd) {
+
+                $target=IntegrasiTargetDaerahKotaKab::where('id_integrasi',$dd['id'])->where('kode_daerah',$d['id_kota'])
+                ->where('tahun',session('focus_tahun'))
+                ->where('id_urusan',$urusan)->first();
+
+                if($target){
+                    $target=$target->target_daerah;
+                }else{
+                    $target=0;
+                }
+
+                $d['data'][$k]['target_daerah']=$target;
+                
+            }
+
+            $data_return[]= $d;
+        }
+
+        return view('form_singkron.form7_integrasi_kotakab')->with('id_link',$urusan)->with('data_link',$data_link)->with('provinsis',$data_return)->with('data_paginate',$provinsis);
+    }
+
+
+     public function store_integrasi_target_kota_kabupaten(Request $request,$urusan,$id){
+
+        $d=IntegrasiTargetDaerahKotaKab::where('id_urusan',$urusan)
+        ->where('kode_daerah',$request->kode_daerah)
+        ->where('tahun',session('focus_tahun'))
+        ->where('id_integrasi',$request->id_integrasi)
+        ->first();
+
+        if($d){
+            $d->target_daerah=$request->target_daerah;
+            $d->id_user=Auth::User()->id;
+            $d->save();
+        }else{
+            IntegrasiTargetDaerahKotaKab::create([
+                'kode_daerah'=>$request->kode_daerah,
+                'tahun'=>session('focus_tahun'),
+                'id_integrasi'=>$request->id_integrasi,
+                'id_user'=>Auth::User()->id,
+                'target_daerah'=>$request->target_daerah,
+                'id_urusan'=>$urusan
+            ]);
+
+        }
+
+        return back();
+
+    }
+
 }

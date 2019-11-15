@@ -33,39 +33,72 @@
 					<tr class="table-dark">
 						<th>Sub Urusan</th>
 						<th>
-							Mandat
+							Mandat / Kegiatan
 						</th>
 						<th>Perda</th>
 						<th>Perkada</th>
-						<th>Kesesuaian</th>
+						<th>Kesesuaian / Pelaksanaan</th>
 						<th>Keterangan</th>
 						<th>Action</th>
 
 
 					</tr>
 					<?php foreach ($d['mandat'] as $key => $value): ?>
-						<tr>
+						<tr  style="{{$value['jenis']==1?'background:#fbe490c2;':''}}">
 							<td>{{$value['link_sub_urusan']?$value['link_sub_urusan']['nama']:''}}</td>
 							<td>
-								{!!HP::SpliterArray($value['mandat'])!!}
-							</td>
-							<td>
-								{!!HP::SpliterArrayLink(($value['perda_perkada'])?$value['perda_perkada']['perda']:'[]')!!}
-							</td>
-							<td>
-								{!!HP::SpliterArrayLink(($value['perda_perkada'])?$value['perda_perkada']['perkada']:'[]')!!}
-							</td>
-							<td>
-								@if(($value['perda_perkada'])?$value['perda_perkada']['telah_dinilai']:0)
-
-									@if(($value['perda_perkada'])?$value['perda_perkada']['kesesuaian']:0)
-										<button class="btn btn-sm btn-info">Sesuai</button>
-									@else
-										<button class="btn btn-sm btn-danger">Tidak Sesuai</button>
-
-									@endif
+								@if($value['jenis']==1)
+									-
 								@else
-									<button class="btn btn-sm btn-success">Belum Dinilai</button>
+									{!!($value['mandat'])!!}
+								@endif
+								
+							</td>
+							<td>
+								@if($value['jenis']==1)
+									-
+								@else
+									{!!HP::SpliterArrayLink(($value['perda_perkada'])?$value['perda_perkada']['perda']:'[]')!!}
+								@endif
+							</td>
+							<td>
+								@if($value['jenis']==1)
+									-
+								@else
+									{!!HP::SpliterArrayLink(($value['perda_perkada'])?$value['perda_perkada']['perkada']:'[]')!!}
+								@endif
+								
+							</td>
+							<td>
+								@if($value['jenis']==0)
+									@if(($value['perda_perkada'])?$value['perda_perkada']['telah_dinilai']:0)
+
+										@if(($value['perda_perkada'])?$value['perda_perkada']['penilaian']:0)
+											<button class="btn btn-sm btn-info">Sesuai</button>
+										@else
+											<button class="btn btn-sm btn-danger">Tidak Sesuai</button>
+
+										@endif
+									@else
+										<button class="btn btn-sm btn-success">Belum Dinilai</button>
+									@endif
+
+								@else
+
+									@if(($value['perda_perkada'])?$value['perda_perkada']['telah_dinilai']:0)
+
+										@if(($value['perda_perkada'])?$value['perda_perkada']['penilaian']:0)
+
+											<button class="btn btn-sm btn-info">Dilaksanakan</button>
+										@else
+											<button class="btn btn-sm btn-danger">Belum Dilaksanakan</button>
+										@endif
+									@else
+										<button class="btn btn-sm btn-danger">Belum Dilaksanakan</button>
+									@endif
+
+
+
 								@endif
 							</td>
 							<td>{!!nl2br($value['perda_perkada']?$value['perda_perkada']['keterangan']:'')!!}</td>
@@ -75,7 +108,6 @@
 								'mandat'=>$value['id'],
 								'provinsi'=>$d['level']==1?$d['id']:0,
 								'kota_kabupaten'=>$d['level']==2?$d['id']:0,'level'=>$d['level']
-
 								])}}" class="btn btn-warning  btn-circle">
 									<i class="fa fa-edit"></i>
 								</a>

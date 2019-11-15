@@ -33,11 +33,10 @@
 				@foreach($data as $d)
 					<tr>
 						<td>{{$d->LinkMandat->LinkSubUrusan->nama}}</td>
-						<td>{!!HP::SpliterArray($d->LinkMandat->mandat)!!}</td>
+						<td>{!!($d->LinkMandat->mandat)!!}</td>
 						<td>{!!HP::SpliterArray($d->perda)!!}</td>
 						<td>{!!HP::SpliterArray($d->perkada)!!}</td>
 						
-
 
 					</tr>
 				@endforeach

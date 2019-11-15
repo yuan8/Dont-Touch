@@ -21,16 +21,16 @@
 						<th>PP</th>
 						<th>PERPRES</th>
 						<th>PERMEN</th>
-						<th>MANDAT</th>
+						<th>{{$mandat->jenis==0?'MANDAT':'KEGIATAN'}}</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>{!!HP::SpliterArrayLink($mandat->uu)!!}</td>
-						<td>{!!HP::SpliterArrayLink($mandat->pp)!!}</td>
-						<td>{!!HP::SpliterArrayLink($mandat->perpres)!!}</td>
-						<td>{!!HP::SpliterArrayLink($mandat->permen)!!}</td>
-						<td>{!!HP::SpliterArray($mandat->mandat)!!}</td>
+						<td>{!!HP::SpliterArrayLink2($mandat->ListUu)!!}</td>
+						<td>{!!HP::SpliterArrayLink2($mandat->ListPp)!!}</td>
+						<td>{!!HP::SpliterArrayLink2($mandat->ListPerpres)!!}</td>
+						<td>{!!HP::SpliterArrayLink2($mandat->ListPermen)!!}</td>
+						<td>{!!nl2br($mandat->mandat)!!}</td>
 					</tr>
 				</tbody>
 				
@@ -52,15 +52,19 @@
 					@if($perdaperkada)
 					<input type="hidden" name="perda_perkada" value="{{$perdaperkada['id']}}">
 					@endif
-					<div class="form-group">
+					@if($mandat->jenis==0)
+						<div class="form-group">
 						@if($perdaperkada)
 							@include('init.input.themplate.add_multy_data',['field_db'=>'a','name_field'=>'perda[]','title'=>'Perda','tb'=>'ab','value'=>$perdaperkada['perda']])
 						@else
 							@include('init.input.themplate.add_multy_data',['field_db'=>'a','name_field'=>'perda[]','title'=>'Perda','tb'=>'ab'])
 						@endif
-					</div>
+						</div>
+					@endif
 				</div>
 				<div class="col-md-6">
+					@if($mandat->jenis==0)
+
 					<div class="form-group">
 						@if($perdaperkada)
 							@include('init.input.themplate.add_multy_data',['field_db'=>'b','name_field'=>'perkada[]','title'=>'Perkada','tb'=>'bc','value'=>$perdaperkada['perkada']])
@@ -68,22 +72,26 @@
 							@include('init.input.themplate.add_multy_data',['field_db'=>'b','name_field'=>'perkada[]','title'=>'Perkada','tb'=>'bc'])
 						@endif
 					</div>
+					@endif
+
 				</div>
 			</div>
 			  <div class="row">
 		      <div class="col-md-6">
 		        <div class="form-group">
-		          <label for="">Kesesuian NSPK dan Kebijakan Daerah</label>
+		          <label for="">{{$mandat->jenis==0?'Kesesuian NSPK dan Kebijakan Daerah':'Pelaksanaan Kegiatan'}}</label>
 		          <div class='custom-control custom-checkbox'>
-		            <input type='radio' name='kesesuaian' required value='1' class='custom-control-input' checked='' id='ckf1-1'>
-		            <label class='custom-control-label' for='ckf1-1'>Sesuai</label>
+		            <input type='radio' name='kesesuaian' required value='1' class='custom-control-input' {{isset($perdaperkada->penilaian)?($perdaperkada->penilaian==1?'checked':''):''}} id='ckf1-1'>
+		            <label class='custom-control-label' for='ckf1-1'>{{$mandat->jenis==0?'Sesuai':'Dilaksanakan'}}</label>
 		          </div>
 		          <div class='custom-control custom-checkbox'>
-		            <input type='radio' name='kesesuaian' required value='0' class='custom-control-input' id='ckf1-2'>
-		            <label class='custom-control-label' for='ckf1-2'>Tidak Susuai Sesuai</label>
+		            <input type='radio' name='kesesuaian' required value='0' class='custom-control-input' id='ckf1-2' {{isset($perdaperkada->penilaian)?($perdaperkada->penilaian==1?'':'checked'):'checked'}} >
+		            <label class='custom-control-label' for='ckf1-2'>{{$mandat->jenis==0?'Tidak Susuai Sesuai':'Belum Dilaksanakan'}}</label>
 		          </div>
 		        </div>
 		      </div>
+
+		     
 		      <div class="col-md-6">
 		        <div class="form-group">
 		          <label for="">Keterangan</label>

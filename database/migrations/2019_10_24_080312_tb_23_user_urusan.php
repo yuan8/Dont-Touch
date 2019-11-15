@@ -23,7 +23,7 @@ class Tb23UserUrusan extends Migration
 
             $table->foreign('id_urusan')
             ->references('id')
-            ->on('urusan_23')
+            ->on('master_urusan')
             ->onDelete('cascade');
 
             $table->foreign('id_user')

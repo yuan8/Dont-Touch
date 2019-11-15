@@ -18,7 +18,7 @@ class Permasalahan extends Migration
 
             $table->bigIncrements('id');
             $table->bigInteger('id_urusan')->unsigned();
-            $table->integer('tahun')->nullable();
+            $table->integer('tahun')->length(4)->nullable();
 
             $table->string('provinsi',2)->nullable();
             $table->string('kota_kabupaten',6)->nullable();
@@ -34,7 +34,7 @@ class Permasalahan extends Migration
 
              $table->foreign('id_urusan')
             ->references('id')
-            ->on('urusan_23')
+           ->on('master_urusan')
             ->onDelete('cascade');
 
             $table->foreign('id_user')

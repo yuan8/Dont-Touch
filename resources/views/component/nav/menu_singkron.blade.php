@@ -135,7 +135,7 @@
             <h6 class="collapse-header">Manu Integrasi:</h6>
             <a class="collapse-item" href="{{route('fs.f7.index',['id_link'=>$id_link])}}">INTEGRASI</a>
             <a class="collapse-item" href="{{route('fs.f7.identifikasi.integrasi_provinsi',['id_link'=>$id_link])}}">INTEGRASI PROVINSI</a>
-            <a class="collapse-item" href="cards.html">INTEGRASI KOTA KABUPATEN</a>
+            <a class="collapse-item" href="{{route('fs.f7.identifikasi.integrasi_kota_kabupaten',['id_link'=>$id_link])}}">INTEGRASI KOTA KABUPATEN</a>
 
           </div>
         </div>

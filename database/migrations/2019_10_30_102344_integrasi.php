@@ -21,7 +21,7 @@ class Integrasi extends Migration
             $table->bigInteger('id_identifikasi_kebijakan_tahunan')->unsigned()->nullable();
             $table->bigInteger('id_mandat')->unsigned()->nullable();
             $table->bigInteger('id_urusan')->unsigned();
-            $table->integer('tahun')->nullable();
+            $table->integer('tahun')->length(4)->nullable();
             $table->string('kode_sub_kegiatan',10);
             $table->text('indikator');
             $table->integer('target_daerah');
@@ -40,7 +40,7 @@ class Integrasi extends Migration
 
             $table->foreign('id_urusan')
             ->references('id')
-            ->on('urusan_23')
+           ->on('master_urusan')
             ->onDelete('cascade');
 
             

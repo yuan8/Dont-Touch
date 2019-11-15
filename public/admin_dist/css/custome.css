@@ -173,3 +173,9 @@ body{
 .border-top-primary{
   border-top: 3px solid #4e73df!important
 }
+
+.page-item.active .page-link{
+  background-color: #f6c23e;
+  border-color: #f6c23e;
+  color:#222;
+}

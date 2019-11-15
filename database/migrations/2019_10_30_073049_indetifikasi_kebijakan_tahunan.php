@@ -18,9 +18,9 @@ class IndetifikasiKebijakanTahunan extends Migration
 
             $table->bigIncrements('id');
             $table->bigInteger('id_urusan')->unsigned();
-            $table->integer('tahun')->nullable();
-            $table->Text('prioritas_nasional');
-            $table->Text('program_prioritas')->nullable();
+            $table->integer('tahun')->length(4)->nullable();
+            $table->bigInteger('prioritas_nasional')->unsigned();
+            $table->bigInteger('program_prioritas')->nullable()->unsigned();;
             $table->Text('kegiatan_prioritas')->nullable();
             $table->Text('target')->nullable();
             $table->Text('lokus')->nullable();
@@ -33,8 +33,19 @@ class IndetifikasiKebijakanTahunan extends Migration
 
             $table->foreign('id_urusan')
             ->references('id')
-            ->on('urusan_23')
+           ->on('master_urusan')
             ->onDelete('cascade');
+
+            $table->foreign('prioritas_nasional')
+            ->references('id')
+            ->on('master_prioritas_nasional')
+            ->onDelete('cascade');
+
+            $table->foreign('program_prioritas')
+            ->references('id')
+            ->on('master_program_prioritas')
+            ->onDelete('cascade');
+
 
             $table->foreign('id_user')
             ->references('id')

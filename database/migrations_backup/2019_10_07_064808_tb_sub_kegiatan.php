@@ -24,7 +24,7 @@ class TbSubKegiatan extends Migration
             $table->string('kode_program',6);
             $table->string('kode_kegiatan',8);
             $table->string('nama_sub_kegiatan');
-            $table->integer('tahun');
+            $table->integer('tahun')->length(4);
 
             $table->unique(['kode','kode_urusan','kode_bidang_urusan','kode_program','kode_kegiatan','tahun']);
 

@@ -31,17 +31,27 @@
 					</script>
 				</div>
 			</div>
+			<div class="col-md-6" >
+				<div class="form-check">
+					    
+					<label>Mandat / Kegiatan</label>
+					<br>
+					  <label class="form-check-label">
+						<input type="checkbox" data-onstyle="warning" data-offstyle="danger" id="toggle-two" checked data-toggle="toggle" data-size="xs" data-on="Mandat" data-off="Kegiatan" onchange="changeMandatBtn(this)" name="set_mandat">
+					  </label>
+				</div>
+			</div>
 			<div class="col-md-12">
 				<hr>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				   @include('init.input.themplate.add_data_master',['field_db'=>'nama_uu','name_field'=>'uu[]','title'=>'UU','tb'=>'form_1_uu'])
+				   @include('init.input.themplate.add_data_master',['field_db'=>'nama','name_field'=>'uu[]','title'=>'UU','tb'=>'master_uu','use_id'=>true])
 			</div>
 
 			<div class="col-md-6">
-				   @include('init.input.themplate.add_data_master',['field_db'=>'nama_pp','name_field'=>'pp[]','title'=>'PP','tb'=>'form_1_pp'])
+				   @include('init.input.themplate.add_data_master',['field_db'=>'nama','name_field'=>'pp[]','title'=>'PP','tb'=>'master_pp','use_id'=>true])
   
 			</div>
 			<div class="col-md-12">
@@ -50,10 +60,10 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				   @include('init.input.themplate.add_data_master',['field_db'=>'nama_perpres','name_field'=>'perpres[]','title'=>'Perpres','tb'=>'form_1_perpres'])
+				   @include('init.input.themplate.add_data_master',['field_db'=>'nama','name_field'=>'perpres[]','title'=>'Perpres','tb'=>'master_perpres','use_id'=>true])
 			</div>
 			<div class="col-md-6">
-				  @include('init.input.themplate.add_data_master',['field_db'=>'nama_permen','name_field'=>'permen[]','title'=>'Permen','tb'=>'form_1_permen'])
+				  @include('init.input.themplate.add_data_master',['field_db'=>'nama','name_field'=>'permen[]','title'=>'Permen','tb'=>'master_permen','use_id'=>true])
 			</div>
 			<div class="col-md-12">
 				<hr>
@@ -61,7 +71,7 @@
 
 		</div>
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-12" id="container-mandat-front">
 				   @include('init.input.themplate.add_multy_data',['field_db'=>'mandat','name_field'=>'mandat[]','title'=>'Mandat Ke Daerah','tb'=>'form_1_permen'])
 			</div>
 		</div>
@@ -71,5 +81,27 @@
 	</div>
 	</form>
 </div>
+<div id="container-mandat-back" style="display: none"></div>
+
+
+<script type="text/javascript">
+
+	function changeMandatBtn(dom){
+		var d=$(dom).prop('checked');
+		if(d){
+			if($('#container-mandat-back').html()!=''){
+				var vd=$('#container-mandat-back').html();
+				$('#container-mandat-front').html(vd);
+			}else{
+
+			}
+		}else{
+			var vd=$('#container-mandat-front').html();
+				$('#container-mandat-back').html(vd);
+				$('#container-mandat-front').html('');
+
+		}
+	}
+</script>
 
 @stop

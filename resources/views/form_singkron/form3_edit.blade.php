@@ -15,14 +15,12 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class=form-group>
-					<label>Prioritas Nasional</label>
-					<textarea class="form-control" required="" name="prioritas_nasional">{!!nl2br($data->prioritas_nasional)!!}</textarea>
+					@include('init.input.themplate.add_data_master',['field_db'=>'nama_pn','name_field'=>'pn[]','title'=>'Prioritas Nasional','tb'=>'master_prioritas_nasional','tahun'=>session('focus_tahun'),'multiple'=>false,'value'=>isset($data->HavePn)?[$data->HavePn->toArray()]:[],'use_id'=>true])
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class=form-group>
-					<label>Program Prioritas</label>
-					<textarea class="form-control" required="" name="program_prioritas">{!!nl2br($data->prioritas_nasional)!!}</textarea>
+					@include('init.input.themplate.add_data_master',['field_db'=>'nama_pp','name_field'=>'pp[]','title'=>'Program Prioritas','tb'=>'master_program_prioritas','tahun'=>session('focus_tahun'),'multiple'=>false,'value'=>isset($data->HavePp)?[$data->HavePp->toArray()]:[],'use_id'=>true])
 				</div>
 			</div>
 		</div>
@@ -30,7 +28,7 @@
 			<div class="col-md-3">
 				<div class="form-group">
 					<label>Kegiatan Prioritas</label>
-					<textarea class="form-control" required="" name="kegiatan_prioritas">{!!nl2br($data->prioritas_nasional)!!}</textarea>
+					<textarea class="form-control" required="" name="kegiatan_prioritas">{!!nl2br($data->kegiatan_prioritas)!!}</textarea>
 				</div>
 			</div>
 			<div class="col-md-3">

@@ -23,7 +23,7 @@ class IndetifikasiKebijakanPusat5Tahun extends Migration
 
             $table->bigInteger('id_sub_urusan')->unsigned();
             $table->bigInteger('id_urusan')->unsigned();
-            $table->integer('tahun')->nullable();
+            $table->integer('tahun')->length(4)->nullable();
             
 
             $table->integer('tahun_mulai')->nullable();
@@ -43,12 +43,12 @@ class IndetifikasiKebijakanPusat5Tahun extends Migration
             $table->timestamps();
             $table->foreign('id_sub_urusan')
             ->references('id')
-            ->on('sub_urusan_23')
+           ->on('master_sub_urusan')
             ->onDelete('cascade');
 
             $table->foreign('id_urusan')
             ->references('id')
-            ->on('urusan_23')
+           ->on('master_urusan')
             ->onDelete('cascade');
 
             $table->foreign('id_user')

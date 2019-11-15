@@ -41,13 +41,13 @@ class FormSink3 extends Controller
 
 
     public function store($urusan,Request $request){
-
+        
     	$id=IndetifikasiKebijakanTahunan::create(
     		[
     		'id_urusan'=>$urusan,
 	    	'tahun'=>session('focus_tahun'),
-	    	'prioritas_nasional'=>$request->prioritas_nasional,
-	    	'program_prioritas'=>$request->program_prioritas,
+	    	'prioritas_nasional'=>isset($request->pn)?(($request->pn[0])):null,
+	    	'program_prioritas'=>isset($request->pp)?(($request->pp[0])):null,
 	    	'kegiatan_prioritas'=>$request->kegiatan_prioritas,
 	    	'target'=>$request->target,
 	    	'lokus'=>$request->lokus,
@@ -101,8 +101,8 @@ class FormSink3 extends Controller
     	if($data){
     		$data->update(
     			[
-		    	'prioritas_nasional'=>$request->prioritas_nasional,
-		    	'program_prioritas'=>$request->program_prioritas,
+		    	'prioritas_nasional'=>isset($request->pn)?(($request->pn[0])):null,
+                'program_prioritas'=>isset($request->pp)?(($request->pp[0])):null,
 		    	'kegiatan_prioritas'=>$request->kegiatan_prioritas,
 		    	'target'=>$request->target,
 		    	'lokus'=>$request->lokus,

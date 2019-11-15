@@ -14,11 +14,19 @@ class Tb23SubUrusan extends Migration
   public function up()
     {
         //
-        Schema::create('sub_urusan_23', function (Blueprint $table) {
+        Schema::create('master_sub_urusan', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('id_urusan')->index();
             $table->string('nama');
             $table->timestamps();
+
+            $table->unique(['id_urusan','nama']);
+            
+            
+            $table->foreign('id_urusan')
+            ->references('id')
+           ->on('master_urusan')
+            ->onDelete('cascade');
           
         });
     }
@@ -31,7 +39,7 @@ class Tb23SubUrusan extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('sub_urusan_23');
+        Schema::dropIfExists('master_sub_urusan');
 
     }
 }

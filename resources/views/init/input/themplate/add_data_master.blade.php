@@ -11,7 +11,13 @@
     <?php $value=json_decode($value,true); ?>
    @endif
     @foreach($value as $val)
+
+      @if(isset($use_id)?$use_id:false)
+
+      <option value="{{$val['id']}}" selected >{{$val[$field_db]}}</option>
+      @else
       <option value="{{$val}}" selected >{{$val}}</option>
+      @endif
     @endforeach
 
    @endisset
@@ -40,7 +46,7 @@
     $('#modal_data_button_send_{{$tb}}_{{$id_key}}').on('click',function(){
         var data=$('#modal-data-{{$tb}}-{{$id_key}}').val();
         if(data!=''){
-          CNDSSApi.post('form/add-data-master',{data:data,tb:'{{$tb}}',field:'{{$field_db}}'}).then(function(response){
+          CNDSSApi.post('form/add-data-master',{data:data,tb:'{{$tb}}',field:'{{$field_db}}',tahun:{!!isset($tahun)?$tahun:'null'!!} }).then(function(response){
             var data_return=response.data;
             if(data_return.code==200){
                 $('.modal').modal("hide");
@@ -86,7 +92,9 @@
            var queryParameters = {
              nama: params.term,
              tb:'{{$tb}}',
-             field:'{{$field_db}}'
+             field:'{{$field_db}}',
+             tahun:{!!isset($tahun)?$tahun:'null'!!},
+             use_id:{!!isset($use_id)?$use_id:'null'!!}
            }
            return queryParameters;
          },

@@ -31,7 +31,7 @@ class FormMainOne extends Model
 
     public function listUu(){
       return $this->belongsToMany(FormMainOneUU::class,FormMainOneConnectUU::class,'id_form_1','id_form_1_uu');
-    }
+    } 
     public function listSubUrusan(){
       return $this->belonsTo(FormMainOneSubUrusan::class,'k_sub_urusan');
     }

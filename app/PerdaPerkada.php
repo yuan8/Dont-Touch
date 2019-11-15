@@ -13,7 +13,7 @@ class PerdaPerkada extends Model
     //
 
     protected $table='perda_perkada';
-    protected $fillable=['tahun','id_mandat','id_urusan','perda','perkada','id_user','provinsi','kota_kabupaten','telah_dinilai','id_user_penilai','kesesuaian','keterangan'];
+    protected $fillable=['tahun','id_mandat','id_urusan','perda','perkada','id_user','provinsi','kota_kabupaten','telah_dinilai','id_user_penilai','penilaian','keterangan'];
 
     public function LinkSubUrusan(){
     	return $this->belongsTo(SubUrusan23::class,'id_sub_urusan');

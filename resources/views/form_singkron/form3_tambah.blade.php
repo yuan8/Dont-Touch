@@ -20,14 +20,12 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class=form-group>
-					<label>Prioritas Nasional</label>
-					<textarea class="form-control" required="" name="prioritas_nasional"></textarea>
+					@include('init.input.themplate.add_data_master',['field_db'=>'nama_pn','name_field'=>'pn[]','title'=>'Prioritas Nasional','tb'=>'master_prioritas_nasional','tahun'=>session('focus_tahun'),'multiple'=>false,'use_id'=>true])
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class=form-group>
-					<label>Program Prioritas</label>
-					<textarea class="form-control" required="" name="program_prioritas"></textarea>
+					@include('init.input.themplate.add_data_master',['field_db'=>'nama_pp','name_field'=>'pp[]','title'=>'Program Prioritas','tb'=>'master_program_prioritas','tahun'=>session('focus_tahun'),'multiple'=>false,'use_id'=>true])
 				</div>
 			</div>
 		</div>

@@ -7,7 +7,7 @@ use App\SubUrusan23;
 class Urusan23 extends Model
 {
     //
-     protected $table='urusan_23';
+     protected $table='master_urusan';
 
 
      public function HaveSub(){

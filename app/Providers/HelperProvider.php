@@ -28,7 +28,6 @@ class HelperProvider extends ServiceProvider
     }
 
     public static function GenerateTokenApi($user=''){
-
       if(!$user){
         $user=array(
           'email'=>date('h.u').rand(0,100).'@mail.com',
@@ -37,7 +36,9 @@ class HelperProvider extends ServiceProvider
       }else {
         $user= $user->toArray();
       }
+
       $token_id='';
+      
       do {
         $base=base64_encode(($user['email']).date('u'));
         $base2=base64_encode(($user['id']).date('u'));
@@ -49,7 +50,6 @@ class HelperProvider extends ServiceProvider
 
     public static function getIdsUrusanHandle(User $user,$id_urusan=null){
        if($user){
-
           $ids=$user->HaveUrusan->pluck('id')->toArray();
           if($id_urusan){
             if(in_array($id_urusan, $ids)){
@@ -71,21 +71,31 @@ class HelperProvider extends ServiceProvider
     public static function SpliterArray($data){
         $data_return='';
         $data=json_decode($data,true);
-        foreach($data as $d){
-          $data_return.='<p>'.$d.'</p>';
+        foreach($data as $key=> $d){
+          $data_return.='<p>'.($key+1).'. '.$d.'</p>';
         }
 
         return $data_return;
     }
 
-      public static function SpliterArrayLink($data){
+    public static function SpliterArrayLink($data){
         $data_return='';
         $data=json_decode($data,true);
-        foreach($data as $d){
+        foreach($data as $key=> $d){
           $data_return.='<a href="javascript:void(0)" onclick="SearchingSatuData(`'.$d.'`)">'.$d.'</a><br>';
         }
 
         return $data_return;
+    }
+
+
+    public static function SpliterArrayLink2($data){
+      $data_return='';
+      foreach ($data as $key => $d) {
+        $data_return.='<a href="javascript:void(0)" onclick="SearchingSatuData(`'.$d['nama'].'`)">'.$d['nama'].'</a><br>';
+      }
+
+      return $data_return;
     }
 
 }

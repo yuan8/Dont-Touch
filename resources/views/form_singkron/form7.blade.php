@@ -9,7 +9,8 @@
 		font-size: 14px;
 	}
 </style>
-
+<a href="" class="btn btn-warning">Berdasarkan Mandat / Kegiatan</a>
+<hr>
 <h5>INTEGRASI</h5>
 <hr>
 <div class="card card-border-top-warning">
@@ -31,11 +32,11 @@
 				@foreach($datas as $d)
 					<tr>						
 						<td>
-							<p>{!!nl2br($d->prioritas_nasional)!!}</p>
+							<p>{!!($d->prioritas_nasional!=null)?$d->HavePn->nama_pn:''!!}</p>
 						</td>
 						<td>
-							<p>{!!$d->program_prioritas!!}</p>
-							<span class=" badge badge-primary">{!!$d->kegiatan_prioritas!!}</span>
+							<p>{!!($d->program_prioritas!=null)?$d->HavePp->nama_pp:''!!}</p>
+							<p class="text-primary">{!!$d->kegiatan_prioritas!!}</p>
 						</td>
 						<td>
 							<p>{!!nl2br($d->indikator)!!}</p>

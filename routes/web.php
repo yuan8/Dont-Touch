@@ -80,8 +80,9 @@ Route::get('/', function () {
 // });
 
 
-
-
+Route::get('/generate-data','GenerateData@urusan_23');
+Route::get('/generate-data/program','GenerateData@sipd');
+Route::get('/generate-data/kegiatan','GenerateData@sipd_kegiatan');
 
 Route::get('/excel', 'ExcelSIPD@read');
 Route::get('/profile', 'UserController@profile')->name('profile');
@@ -94,8 +95,8 @@ Route::middleware('auth:web')->group(function(){
 
   Route::get('/home', 'HomeController@index')->name('home');
   Route::get('/test', function(){
-    // $anu=App\DBS\FormMainOne::with('listUu')->get()->toJson();
-    // return ($anu);
+    $anu=App\Mandat::get()->toJson();
+    return ($anu);
 
     dd(shell_exec('chmode -R 777 '.storage_path('')));
     // return HP::GenerateTokenApi();
@@ -240,6 +241,22 @@ Route::prefix('sinkron')->middleware('auth:web')->group(function(){
 
 
   Route::get('/bidang/{bidang_urusan_link}/f6','FormSink6@index')->name('fs.f6.index');
+  Route::get('/bidang/{bidang_urusan_link}/f6/pusat/tambah','FormSink6@pusat_create')->name('fs.f6.pusat_create');
+
+  Route::post('/bidang/{bidang_urusan_link}/f6/pusat/tambah','FormSink6@pusat_store')->name('fs.f6.pusat_store');
+
+  Route::post('/bidang/{bidang_urusan_link}/f6/pusat/tambah','FormSink6@pusat_store')->name('fs.f6.pusat_store');
+
+  Route::delete('/bidang/{bidang_urusan_link}/f6/pusat/delete/{id}','FormSink6@pusat_delete')->name('fs.f6.pusat_delete');
+
+  Route::get('/bidang/{bidang_urusan_link}/f6/pusat/update/{id}','FormSink6@pusat_show')->name('fs.f6.pusat_show');
+
+  Route::put('/bidang/{bidang_urusan_link}/f6/pusat/update/{id}','FormSink6@pusat_update')->name('fs.f6.pusat_update');
+
+
+  Route::get('/bidang/{bidang_urusan_link}/f6/daerah','FormSink6@daerah')->name('fs.f6.daerah');
+
+
 
 
 
@@ -286,6 +303,10 @@ Route::prefix('sinkron')->middleware('auth:web')->group(function(){
   Route::post('/bidang/{bidang_urusan_link}/f4/tambah','FormSink4@store')->name('fs.f4.store');
 
   Route::get('/bidang/{bidang_urusan_link}/f5','FormSink5@index')->name('fs.f5.index');
+
+  Route::post('/bidang/{bidang_urusan_link}/f5/update/{id}','FormSink5@update_jenis_kegiatan')->name('fs.f5.update_jenis_kegiatan');
+
+
   Route::get('/bidang/{bidang_urusan_link}/f6','FormSink6@index')->name('fs.f6.index');
   Route::get('/bidang/{bidang_urusan_link}/f7','FormSink7@index')->name('fs.f7.index');
 
@@ -293,13 +314,21 @@ Route::prefix('sinkron')->middleware('auth:web')->group(function(){
 
   Route::post('/bidang/{bidang_urusan_link}/f7/integrasi-provinsi/add_target_daerah/{id}','FormSink7@store_integrasi_target_provinsi')->name('fs.f7.store_integrasi_target_provinsi');
 
+  Route::post('/bidang/{bidang_urusan_link}/f7/integrasi-kota-kabupaten/add_target_daerah/{id}','FormSink7@store_integrasi_target_kota_kabupaten')->name('fs.f7.store_integrasi_target_kota_kabupaten');
+
 
  Route::post('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/provinsi','FormSink7@add_sub_urusan_provinsi')->name('fs.f7.show.identifikasi.add_sub_provinsi');
+
+Route::delete('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/provinsi','FormSink7@delete_sub_urusan_provinsi')->name('fs.f7.show.identifikasi.delete_sub_provinsi');
+
+Route::delete('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/kota_kabupaten','FormSink7@delete_sub_urusan_kotakab')->name('fs.f7.show.identifikasi.delete_sub_kotakab');
 
  Route::post('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/kota_kabupaten','FormSink7@add_sub_urusan_kotakab')->name('fs.f7.show.identifikasi.add_sub_kotakab');
 
 
  Route::get('/bidang/{bidang_urusan_link}/f7/integrasi/provinsi','FormSink7@integrasi_provinsi')->name('fs.f7.identifikasi.integrasi_provinsi');
+
+ Route::get('/bidang/{bidang_urusan_link}/f7/integrasi/kota-kabupaten','FormSink7@integrasi_kota_kabupaten')->name('fs.f7.identifikasi.integrasi_kota_kabupaten');
 
 
   Route::get('/bidang/{bidang_urusan_link}/f8','FormSink8@index')->name('fs.f8.index');

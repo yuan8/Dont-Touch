@@ -22,13 +22,13 @@ class IntegrasiKotakab extends Migration
             $table->string('kode_sub_kegiatan')->unsigned()->nullable();
             $table->bigInteger('id_user')->unsigned();
             $table->bigInteger('id_urusan')->unsigned();
-            $table->integer('tahun')->nullable();
+            $table->integer('tahun')->length(4)->nullable();
             $table->unique(['id_identifikasi_kebijakan_tahunan','kode_sub_kegiatan']);
             
             $table->timestamps();
             $table->foreign('id_urusan')
             ->references('id')
-            ->on('urusan_23')
+           ->on('master_urusan')
             ->onDelete('cascade');
 
 

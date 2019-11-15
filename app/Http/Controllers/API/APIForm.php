@@ -28,6 +28,7 @@ class APIForm extends Controller
         'tb'=>'required|string',
         'field'=>'required|string',
         'data'=>'required|unique:'.$request->tb.','.$request->field,
+        'tahun'=>'nullable|numeric'
       ]);
 
       if($validator->fails()){
@@ -37,12 +38,17 @@ class APIForm extends Controller
           'data'=>[]
         );
       }else{
+        $dt=[];
+
+        $dt[$request->field]=$request->data;
+        if(isset($request->tahun)){
+          if($request->tahun!=null){
+            $dt['tahun']=$request->tahun;
+          }
+        }
+        
         $return=DB::table($request->tb)
-        ->insert(
-          [
-            $request->field=>$request->data
-          ]
-        );
+        ->insert($dt);
 
         if($return){
           return array(
@@ -65,9 +71,16 @@ class APIForm extends Controller
 
     public function getList(Request $request){
 
-      $query=("SELECT ".$request->field." as id,".$request->field." as text FROM ".$request->tb." ".
-      "WHERE ".$request->field." ILIKE ('%".$request->nama."%') ORDER BY ".$request->field." ASC");
+      if($request->use_id){
+          $query=("SELECT id as id,".$request->field." as text FROM ".$request->tb." ".
+      "WHERE ".$request->field." ILIKE ('%".$request->nama."%') ".(isset($request->tahun)?($request->tahun!=null?('AND tahun='.$request->tahun):""):"")." ORDER BY ".$request->field." ASC");
 
+      }else{
+         $query=("SELECT ".$request->field." as id,".$request->field." as text FROM ".$request->tb." ".
+      "WHERE ".$request->field." ILIKE ('%".$request->nama."%') ".(isset($request->tahun)?($request->tahun!=null?('AND tahun='.$request->tahun):""):"")." ORDER BY ".$request->field." ASC");
+
+      }
+      
       return DB::connection('pgsql')->select($query);
     }
 

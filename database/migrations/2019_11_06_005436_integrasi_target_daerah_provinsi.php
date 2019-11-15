@@ -21,7 +21,7 @@ class IntegrasiTargetDaerahProvinsi extends Migration
             $table->string('kode_daerah',6)->unsigned();
             $table->integer('target_daerah');
             $table->bigInteger('id_urusan')->unsigned();
-            $table->integer('tahun')->nullable();
+            $table->integer('tahun')->length(4)->nullable();
             $table->bigInteger('id_user')->unsigned();
             $table->unique(['id_integrasi','kode_daerah','id_urusan','tahun']);
             $table->timestamps();
@@ -29,7 +29,7 @@ class IntegrasiTargetDaerahProvinsi extends Migration
 
             $table->foreign('id_urusan')
             ->references('id')
-            ->on('urusan_23')
+           ->on('master_urusan')
             ->onDelete('cascade');
 
             $table->foreign('id_integrasi')

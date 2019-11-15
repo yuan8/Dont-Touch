@@ -24,19 +24,29 @@ class Mandat extends Migration
             $table->mediumText('mandat')->nullable();
             $table->bigInteger('id_sub_urusan')->unsigned();
             $table->bigInteger('id_urusan')->unsigned();
-            $table->integer('tahun')->nullable();
-            
+            $table->boolean('jenis')->default(0);
+            $table->integer('tahun')->length(4)->nullable();
+
+            $table->Text('target')->nullable();
+            $table->Text('lokus')->nullable();
+            $table->Text('pelaksana')->nullable();
+            $table->Text('indikator')->nullable();
+            $table->Text('target_akumulatif')->nullable();
+            $table->string('target_akumulatif_satuan')->nullable();
+
+
 
             $table->bigInteger('id_user')->unsigned();
             $table->timestamps();
+
             $table->foreign('id_sub_urusan')
             ->references('id')
-            ->on('sub_urusan_23')
+            ->on('master_sub_urusan')
             ->onDelete('cascade');
 
             $table->foreign('id_urusan')
             ->references('id')
-            ->on('urusan_23')
+           ->on('master_urusan')
             ->onDelete('cascade');
 
             $table->foreign('id_user')
