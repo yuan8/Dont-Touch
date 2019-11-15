@@ -6,7 +6,7 @@
     <script src="{{asset('js/jq.js')}}" charset="utf-8"></script>
     <!-- <link rel="stylesheet" href="{{asset('vendor/adminlte/dist/css/AdminLTE.min.css')}}"> -->
     <!-- <script src="https://code.highcharts.com/maps/modules/data.js"></script> -->
-    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="{{asset('admin_dist/js/highmaps.js')}}"></script>
     <script src="{{asset('js/treer9.js')}}" charset="utf-8"></script>
     <!-- <script src="{{asset('js/gl.globe.js')}}" charset="utf-8"></script> -->
     <!-- <script src="{{asset('js/gl.bird.js')}}" charset="utf-8"></script> -->
