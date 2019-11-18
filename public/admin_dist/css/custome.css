@@ -131,7 +131,7 @@ body{
   border:1px solid #222!important;
   /*background-color:transparent!important;*/
   color: #222!important;
-  box-shadow: 1px 3px 2px #222;
+  /*box-shadow: 1px 3px 2px #222;*/
 }
 
 
@@ -178,4 +178,8 @@ body{
   background-color: #f6c23e;
   border-color: #f6c23e;
   color:#222;
+}
+
+.bg-w{
+  background-color: #fff!important;
 }

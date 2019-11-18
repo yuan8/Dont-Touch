@@ -70,7 +70,10 @@ class HelperProvider extends ServiceProvider
 
     public static function SpliterArray($data){
         $data_return='';
-        $data=json_decode($data,true);
+        if(!is_array($data)){
+         $data=json_decode($data,true);
+
+        }
         foreach($data as $key=> $d){
           $data_return.='<p>'.($key+1).'. '.$d.'</p>';
         }

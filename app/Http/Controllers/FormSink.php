@@ -263,15 +263,13 @@ class FormSink extends Controller
     	}
 
 
-
-      
       $mandat=isset($request->mandat)?$request->mandat:null;
       $data=[];
       $data['id_sub_urusan']=$request->sub_urusan;
       $data['id_urusan']=$urusan;
       $data['tahun']=session('focus_tahun');
       $data['id_user']=Auth::User()->id;
-
+      
       if($mandat==null){
           
         if(!isset($request->set_mandat)){
@@ -289,9 +287,9 @@ class FormSink extends Controller
           if(($d!='')AND($d!=null)){
             $data['mandat']=$d;
             $data['jenis']=0;
-
             $mandat_db=Mandat::create($data);
             $mandat_db->listUu()->sync($request->uu);
+            $mandat_db->listPp()->sync($request->pp);
             $mandat_db->listPerpres()->sync($request->perpres);
             $mandat_db->listPermen()->sync($request->permen);
           }

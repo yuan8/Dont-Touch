@@ -256,6 +256,14 @@ Route::prefix('sinkron')->middleware('auth:web')->group(function(){
 
   Route::get('/bidang/{bidang_urusan_link}/f6/daerah','FormSink6@daerah')->name('fs.f6.daerah');
 
+  Route::get('/bidang/{bidang_urusan_link}/f6/daerah/show/{id_daerah}/{id_program}','FormSink6@show_program_daerah')->name('fs.f6.show_program_daerah');
+
+
+  Route::delete('/bidang/{bidang_urusan_link}/f6/daerah/delete/{id}','FormSink6@delete_program_daerah')->name('fs.f6.delete_program_daerah');
+
+  Route::put('/bidang/{bidang_urusan_link}/f6/daerah/updae/{id}','FormSink6@update_program_daerah')->name('fs.f6.update_program_daerah');
+
+
 
 
 
