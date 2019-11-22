@@ -12,7 +12,7 @@
 </div>
 <hr>
 <div class="card  card-border-top-warning">
-	<div class="card-body">
+	<div class="card-body table-responsive">
 	<table class="table table-stripted table-bordered">
 	<thead>
 		<tr class="table-dark">
@@ -20,9 +20,8 @@
 			<th>Program Prioritas</th>
 			<th>Kegiatan Prioritas</th>
 			<th>RPO PN / Proyek K/L</th>
-			<th>Target</th>
-			<th>Lokus</th>
-			<th>Pelaksana</th>
+			<th class="text-center">TARGET NASIONAL</th>
+			
 			<th>Action</th>
 
 		</tr>
@@ -35,17 +34,41 @@
 
 				<td>{{($d->program_prioritas!=null)?$d->HavePp()->where('tahun',session('focus_tahun'))->first()->nama_pp:null}}</td>
 				<td>{!!nl2br($d->kegiatan_prioritas)!!}</td>
-				<td>
+				<td style="padding: 0px;">
+					<table class="table" style="margin-bottom: 0px;">
 					@foreach($d->HaveProPN as $propn)
-						<p>
-							{!!nl2br($propn->pro_pn)!!}
-						</p>
+						<tr >
+							<td>{!!nl2br($propn->pro_pn)!!}</td>
+						</tr>
 					@endforeach
+					</table>
 					
 				</td>
-				<td>{!!nl2br($d->target)!!}</td>
-				<td>{!!nl2br($d->lokus)!!}</td>
-				<td>{!!nl2br($d->pelaksana)!!}</td>
+				<td style="padding: 0px; min-width: 800px!important">
+					<table class="table" style="margin-bottom: 0px;">
+						<thead>
+							<tr>
+							<th style="min-width: 30%!important;">TARGET</th>
+							<th>LOKUS</th>
+							<th>PELAKSANA</th>
+
+						</tr>
+						</thead>
+					<tbody>
+						@foreach($d->HaveTarget as $target)
+						<tr>
+							<td>{!!nl2br($target->target)!!}</td>
+							<td>{!!nl2br($target->lokus)!!}</td>
+							<td>{!!nl2br($target->pelaksana)!!}</td>
+
+
+						</tr>
+					@endforeach
+					</tbody>
+					</table>
+
+				</td>
+				
 				<td>
 					<a href="{{route('fs.f3.show',['id_link'=>$id_link,'id'=>$d->id])}}" class="btn-warning btn btn-circle">
 						<i class="fa fa-edit"></i>

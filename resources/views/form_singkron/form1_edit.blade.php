@@ -91,21 +91,21 @@
 
 	function changeMandatBtn(dom){
 		var d=$(dom).prop('checked');
-		if(d){
-			if($('#container-mandat-back').html().replace(/ /g,null)!=""){
-				var vd=$('#container-mandat-back').html();
-				$('#container-mandat-front').html(vd);
-				console.log('mandat-del');
-			}else{
-				console.log('mandat-stay');
+		// if(d){
+		// 	if($('#container-mandat-back').html().replace(/ /g,null)!=""){
+		// 		var vd=$('#container-mandat-back').html();
+		// 		$('#container-mandat-front').html(vd);
+		// 		console.log('mandat-del');
+		// 	}else{
+		// 		console.log('mandat-stay');
 
-			}
-		}else{
-			var vd=$('#container-mandat-front').html();
-				$('#container-mandat-back').html(vd);
-				$('#container-mandat-front').html('');
+		// 	}
+		// }else{
+		// 	var vd=$('#container-mandat-front').html();
+		// 		$('#container-mandat-back').html(vd);
+		// 		$('#container-mandat-front').html('');
 
-		}
+		// }
 	}
 
 	$('#set_mandat').trigger('change');

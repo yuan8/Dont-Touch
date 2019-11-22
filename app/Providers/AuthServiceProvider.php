@@ -24,6 +24,31 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        
+
+
+        Gate::define('route_access', function ($user,$bidang_urusan) {
+
+                if((session('route_access')!==null)&&(session('route_access')!=[])){
+                     if(in_array($bidang_urusan,session('route_access'))){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else{
+                $data=$user->HaveUrusan->pluck('id')->toArray();
+                session(['route_access' => ($user->HaveUrusan->pluck('id')->toArray())]);
+
+                    if(in_array($bidang_urusan,$data)){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+                
+
+                
+        });
 
         //
     }

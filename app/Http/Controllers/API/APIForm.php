@@ -228,4 +228,10 @@ class APIForm extends Controller
             ")
         )->toJson();
     }
+
+
+    public function f5_update_jenis(Request $request){
+      
+
+    }
 }

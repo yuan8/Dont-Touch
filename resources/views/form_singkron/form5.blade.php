@@ -7,6 +7,32 @@
 <h5>PROGRAM KEGIATAN LINGKUP SUPD II</h5>
 <hr>
 
+<div class="form-group">
+	<form action="{{url()->current()}}" method="get">
+		<div class="row">
+		<div class="col-md-3">
+			<label>Daerah</label>
+			<input type="text" class="form-control" name="daerah" value="{{isset($_GET['daerah'])?$_GET['daerah']:''}}">
+		</div>
+		
+		<div class="col-md-4">
+			<label>Program</label>
+			<input type="text" class="form-control" name="program" value="{{isset($_GET['program'])?$_GET['program']:''}}">
+		</div>
+		<div class="col-md-3">
+			<label>Kegiatan</label>
+			<input type="text" class="form-control" name="kegiatan" value="{{isset($_GET['kegiatan'])?$_GET['kegiatan']:''}}">
+		</div>
+		<div class="col-md-2">
+			<label>Action</label>
+			<br>
+			<button type="submit" class="btn btn-warning col-md-12">
+				<i class="fa fa-search"></i>
+			</button>
+		</div>
+	</div>
+	</form>
+</div>
 
 <div class="card card-border-top-warning">
 	<div class="card-body table-responsive">

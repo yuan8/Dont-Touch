@@ -20,6 +20,17 @@ class FormSink extends Controller
     
 
     public function form1Update($urusan,$id,Request $request){
+
+
+      $validator=Validator::make($request->all(),[
+        'set_mandat'=>'nullable',
+        'mandat'=>'required|string',
+      ]);
+
+      if($validator->fails()){
+          dd($validator->errors());
+      }
+
       $mandat_db=Mandat::find($id);
       $data=[];
       if($mandat_db){
@@ -29,7 +40,7 @@ class FormSink extends Controller
             // berubah menjadi kegiatan 
             $mandat_db->HavePerdaPerkada()->delete();
             $data['jenis']=1;
-            $data['mandat']=null;
+            $data['mandat']=$request->mandat;
 
           }else{
              if(isset($request->mandat)){
@@ -50,7 +61,7 @@ class FormSink extends Controller
                 return back();
             }
           }else{
-            $data['mandat']=null;
+            $data['mandat']=$request->mandat;
           }
         }
 
@@ -87,6 +98,7 @@ class FormSink extends Controller
 
     public function form1PerdaPerkadaPerdaearahUpStore($urusan,Request $request){
         if(isset($request->perda_perkada)){
+
           $perdaperkada=PerdaPerkada::find($request->perda_perkada);
           $perda=isset($request->perda)?$request->perda:[];
           $perkada=isset($request->perkada)?$request->perkada:[];
@@ -112,7 +124,6 @@ class FormSink extends Controller
           $perkada=isset($request->perkada)?$request->perkada:[];
           $perkada=json_encode($perkada);
           $perda=json_encode($perda);
-
           $d=PerdaPerkada::create([
             'tahun'=>session('focus_tahun'),
             'perda'=>$perda,
@@ -135,12 +146,12 @@ class FormSink extends Controller
     }
 
 
-    public function form1EditMandatPerdaerah($urusan,$mandat,$provinsi=null,$kota_kabupaten,$level,Request $request){
+    public function form1EditMandatPerdaerah($urusan,$mandat,$provinsi,$kota_kabupaten,$level,Request $request){
       $data_link=Urusan23::find($urusan);
       $id_link=$urusan;
 
+
       if($level==1){
-        $level='provinsi';
         $daerah=Provinsi::where('id_provinsi',$provinsi)->first()->toArray();
         $daerah['kota_kabupaten']=0;
         $daerah['id_provinsi']=(int) $daerah['id_provinsi'];
@@ -150,21 +161,23 @@ class FormSink extends Controller
 
 
       }else{
-        $level='kota_kabupaten';
         $daerah=Kabupaten::where('id_kota',$kota_kabupaten)->first()->toArray();
         $daerah['provinsi']=substr((int)$daerah['id_kota'], 0, 2);
         
       }
 
+
+
+
+
       $mandat_db=Mandat::find($mandat);
       $perdaperkada=PerdaPerkada::where('id_mandat',$mandat)->where('id_urusan',$urusan)
-      ->where($level,$provinsi==0?$kota_kabupaten:$provinsi)
+      ->where($level==1?'provinsi':'kota_kabupaten',(string)($provinsi==0?$kota_kabupaten:$provinsi))
       ->where($level==1?'kota_kabupaten':'provinsi',0)
-
       ->where('tahun',session('focus_tahun'))
       ->first();
 
-
+    
       return view('form_singkron.form1_tambah_perda_perkada')
         ->with('id_link',$id_link)
         ->with('data_link',$data_link)
@@ -286,7 +299,11 @@ class FormSink extends Controller
       foreach ($mandat as $key => $d) {
           if(($d!='')AND($d!=null)){
             $data['mandat']=$d;
-            $data['jenis']=0;
+              if(!isset($request->set_mandat)){
+                $data['jenis']=1;
+              }else{
+                $data['jenis']=0;
+              }
             $mandat_db=Mandat::create($data);
             $mandat_db->listUu()->sync($request->uu);
             $mandat_db->listPp()->sync($request->pp);
@@ -345,7 +362,7 @@ class FormSink extends Controller
 		
  		$data_link=Urusan23::find($urusan);
     $provinsi=Provinsi::all();
-   
+    
   	
 		return view('form_singkron.form1_perdaperkada')->with('id_link',$urusan)->with('data_link',$data_link)->with('provinsis',$provinsi);
     }

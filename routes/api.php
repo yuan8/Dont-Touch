@@ -36,6 +36,9 @@ Route::prefix('form')->middleware('auth:api')->group(function(){
   Route::post('get-data-list-from-tb','API\APIForm@getList')->name('api.get.data.list.source');
   Route::post('add-data-master','API\APIForm@addDataMaster')->name('api.post.data.list.add.master');
 
+  Route::post('f5-update','API\APIForm@f5_update_jenis')->name('api.post.f5.update.jenis');
+
+
 
 });
 

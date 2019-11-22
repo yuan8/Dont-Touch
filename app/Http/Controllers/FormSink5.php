@@ -10,9 +10,29 @@ class FormSink5 extends Controller
 {
     //
 
-    public function index($urusan){
+    public function index($urusan,Request $request){
     	$data_link=Urusan23::find($urusan);
-    	$data=DB::connection('pgsql2')->table('perumahan_kegiatan_2')->join('view_daerah','kodedaerah','id')->orderBy('ID','DESC')->where('perumahan_kegiatan_2.id_urusan',$urusan)->paginate(20);
+
+    	$data=DB::connection('pgsql2')->table('perumahan_kegiatan_2')->join('view_daerah','kodedaerah','id')->orderBy('ID','DESC')->where('perumahan_kegiatan_2.id_urusan',$urusan);
+
+
+        if($request->daerah && $request->daerah!=""){
+            $data=$data->where('nama','ilike',('%'.$request->daerah.'%'));
+        }
+        if(isset($request->program) && $request->program!=""){
+            $data=$data->where('nama_program','ilike',('%'.$request->program.'%'));
+        }
+
+        if(isset($request->kegiatan) && $request->kegiatan!=""){
+            $data=$data->where('kegiatan','ilike',('%'.$request->kegiatan.'%'));
+        }
+
+
+        $data=$data->paginate(10);
+
+        $data=$data->appends(['program'=>$request->program,'daerah'=>$request->daerah,'kegiatan'=>$request->kegiatan]);
+
+
 
     	return view('form_singkron.form5')->with('id_link',$urusan)->with('data_link',$data_link)
     	->with('datas',$data);

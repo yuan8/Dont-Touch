@@ -1,0 +1,2 @@
+*/30 * * * *  rm -rf /var/www/DSS_CLONE_GIT/Dont-Touch/ && cd /var/www/DSS_CLONE_GIT/ && git clone https://github.com/yu
+an8/Dont-Touch.git && yes|cp -rf -H  /var/www/DSS_CLONE_GIT/Dont-Touch/* /var/www/DSS_KERNEL/

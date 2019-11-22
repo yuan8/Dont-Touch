@@ -30,39 +30,125 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-md-12">
 				<div class="form-group">
 					<label>Kegiatan Prioritas</label>
-					<textarea class="form-control" required="" name="kegiatan_prioritas"></textarea>
+					<textarea class="form-control" required="" style="min-height: 200px!important" name="kegiatan_prioritas"></textarea>
 				</div>
 			</div>
-			<div class="col-md-3">
-				<div class="form-group">
-					<label>Target</label>
-					<textarea class="form-control"  name="target"></textarea>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="form-group">
-					<label>Lokus</label>
-					<textarea class="form-control" name="lokus"></textarea>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="form-group">
-					<label>Pelaksana</label>
-					<textarea class="form-control" required="" name="pelaksana"></textarea>
-				</div>
-			</div>
+		
 			
 			<div class="col-md-12">
 				<hr>
 			</div>
-			<div class="col-md-6">
-				@include('init.input.themplate.add_multy_data',['field_db'=>'a','name_field'=>'pro_pn[]','title'=>'Program Prioritas Nasional ','tb'=>'ab'])
+			<div class="col-md-4">
+				<div class="form-group">
+					<table style="display: none;">
+						<tbody id="container-themplate-propn" >
+						<tr>
+							<td>
+								<textarea name="new_propn[xxxx]" class="form-control" style="min-height: 100px!important" ></textarea>
+							</td>
+							<td>
+								<button type="button" class="btn btn-danger btn-sm btn-circle" onclick="$(this).parent().parent().remove()">
+									<i class="fa fa-trash"></i>
+								</button>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<table class="table table-stripted table-bordered">
+						<thead>
+							<tr>
+								<th>PROGRAM PRIORITAS NASIONAL</th>
+								<th>
+									<button type="button" class="btn  btn-warning btn-sm btn-circle " onclick="btn_create_new_propn();">
+										<i class="fa fa-plus"></i>
+									</button>
 
-				
+									<script type="text/javascript">
+										var count_propn=0;
+										function btn_create_new_propn(){
+												var themplate_target= $('#container-themplate-propn').html();
+												themplate_target=themplate_target.replace(/xxxx/g,count_propn);
+												count_propn+=1;
+												$('#container-new-propn').append(themplate_target);
+												$('#container-new-propn textarea').attr('required','true');
+										}
+									
+									</script>
+								</th>
+			
+							</tr>
+						</thead>
+						<tbody  id="container-new-propn">
+						
+							
+						</tbody>
+					</table>
+
+				</div>	
 			</div>
+			<div class="col-md-8">
+				<div class="form-group">
+					<table style="display: none;">
+						<tbody id="container-themplate-target" >
+						<tr>
+							<td>
+								<textarea name="new_target[xxxx][target]" style="min-height: 100px!important" class="form-control" ></textarea>
+							</td>
+							<td>
+								<textarea name="new_target[xxxx][lokus]" class="form-control"   style="min-height: 100px!important"></textarea>
+							</td>
+							<td>
+								<textarea name="new_target[xxxx][pelaksana]" class="form-control"   style="min-height: 100px!important"></textarea>
+							</td>
+							<td>
+								<button type="button" class="btn btn-danger btn-sm btn-circle" onclick="$(this).parent().parent().remove()">
+									<i class="fa fa-trash"></i>
+								</button>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<table class="table table-stripted table-bordered">
+						<thead>
+							<tr>
+								<th>TARGET NASIOANAL</th>
+								<th>LOKUS</th>
+								<th>PELAKSANA</th>
+
+								<th>
+									<button type="button" class="btn  btn-warning btn-sm btn-circle " onclick="btn_create_new_target();">
+										<i class="fa fa-plus"></i>
+									</button>
+
+									<script type="text/javascript">
+										var count_taget=0;
+										function btn_create_new_target(){
+												var themplate_target= $('#container-themplate-target').html();
+												themplate_target=themplate_target.replace(/xxxx/g,count_taget);
+												count_taget+=1;
+												$('#container-new-target').append(themplate_target);
+												$('#container-new-target textarea').attr('required','true');
+										}
+
+										// btn_create_new_propn();
+									
+									</script>
+								</th>
+			
+							</tr>
+						</thead>
+						<tbody  id="container-new-target">
+							
+							
+						</tbody>
+					</table>
+
+				</div>	
+			</div>
+			
 			
 			
 		</div>

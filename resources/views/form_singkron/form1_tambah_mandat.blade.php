@@ -87,20 +87,20 @@
 <script type="text/javascript">
 
 	function changeMandatBtn(dom){
-		var d=$(dom).prop('checked');
-		if(d){
-			if($('#container-mandat-back').html()!=''){
-				var vd=$('#container-mandat-back').html();
-				$('#container-mandat-front').html(vd);
-			}else{
+		// var d=$(dom).prop('checked');
+		// if(d){
+		// 	if($('#container-mandat-back').html()!=''){
+		// 		var vd=$('#container-mandat-back').html();
+		// 		$('#container-mandat-front').html(vd);
+		// 	}else{
 
-			}
-		}else{
-			var vd=$('#container-mandat-front').html();
-				$('#container-mandat-back').html(vd);
-				$('#container-mandat-front').html('');
+		// 	}
+		// }else{
+		// 	var vd=$('#container-mandat-front').html();
+		// 		$('#container-mandat-back').html(vd);
+		// 		$('#container-mandat-front').html('');
 
-		}
+		// }
 	}
 </script>
 

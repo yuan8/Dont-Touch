@@ -7,6 +7,7 @@ use App\Urusan23;
 use App\IndetifikasiKebijakanTahunan;
 use Auth;
 use App\ProPN;
+use Validator;
 class FormSink3 extends Controller
 {
     //
@@ -49,18 +50,17 @@ class FormSink3 extends Controller
 	    	'prioritas_nasional'=>isset($request->pn)?(($request->pn[0])):null,
 	    	'program_prioritas'=>isset($request->pp)?(($request->pp[0])):null,
 	    	'kegiatan_prioritas'=>$request->kegiatan_prioritas,
-	    	'target'=>$request->target,
-	    	'lokus'=>$request->lokus,
-	    	'pelaksana'=>$request->pelaksana,
+	    	// 'target'=>$request->target,
+	    	// 'lokus'=>$request->lokus,
+	    	// 'pelaksana'=>$request->pelaksana,
 	    	'id_user'=>Auth::User()->id
 	    	]
     	);
 
     	if($id){
     		$id=$id->id;
-    		if($request->pro_pn){
-    			foreach($request->pro_pn as $pro_pn){
-
+    		if($request->new_propn){
+    			foreach($request->new_propn as $pro_pn){
 	    			if($pro_pn!=""){
 	    				ProPN::create([
 		    				'id_urusan'=>$urusan,
@@ -73,6 +73,24 @@ class FormSink3 extends Controller
     			}
 
 	    	}
+            if(isset($request->new_target)){
+                foreach($request->new_target as $target){
+
+                    if(($target['target']!="")&&($target['lokus']!="")){
+
+                        \App\KebijakanPusatTahunanTarget::create([
+                            'id_urusan'=>$urusan,
+                            'id_kebijikan_pusat_tahunan'=>$id,
+                            'tahun'=>session('focus_tahun'),
+                            'target'=> $target['target'],
+                            'lokus'=> $target['lokus'],
+                            'pelaksana'=> $target['pelaksana'],
+                            'id_user'=>Auth::User()->id
+                        ]);
+                    }
+                }
+
+            }
 
 	    	return back();
     	}
@@ -98,36 +116,137 @@ class FormSink3 extends Controller
 
     public function update($urusan,$id,Request $request){
     	$data=IndetifikasiKebijakanTahunan::find($id);
+
     	if($data){
+
     		$data->update(
     			[
 		    	'prioritas_nasional'=>isset($request->pn)?(($request->pn[0])):null,
                 'program_prioritas'=>isset($request->pp)?(($request->pp[0])):null,
 		    	'kegiatan_prioritas'=>$request->kegiatan_prioritas,
-		    	'target'=>$request->target,
-		    	'lokus'=>$request->lokus,
-		    	'pelaksana'=>$request->pelaksana,
 	    		]
     		);
+
     		$id=$data->id;
-    		$propn=ProPN::where('id_identifikasi_kebijakan_tahunan',$id)->delete();
-    		if($request->pro_pn){
-    			foreach($request->pro_pn as $pro_pn){
-	    			if($pro_pn!=""){
+
+
+    		// $propn=ProPN::where('id_identifikasi_kebijakan_tahunan',$id)->delete();
+    		if(isset($request->new_propn)){
+    			foreach($request->new_propn as $key=>$pro_pn){
+            
+                    
+
+	    			if(($pro_pn!=null )){
 	    				ProPN::create([
 		    				'id_urusan'=>$urusan,
 		    				'id_identifikasi_kebijakan_tahunan'=>$id,
 		    				'tahun'=>session('focus_tahun'),
 		    				'pro_pn'=> $pro_pn,
-		    				'id_user'=>Auth::User()->id
+		    				'id_user'=>Auth::User()->id,
 	    				]);
 	    			}
     			}
 
 	    	}
 
+            if(isset($request->new_target)){
+                foreach($request->new_target as $target){
+
+                    if(($target['target']!="")&&($target['lokus']!="")){
+
+                        \App\KebijakanPusatTahunanTarget::create([
+                            'id_urusan'=>$urusan,
+                            'id_kebijikan_pusat_tahunan'=>$id,
+                            'tahun'=>session('focus_tahun'),
+                            'target'=> $target['target'],
+                            'lokus'=> $target['lokus'],
+                            'pelaksana'=> $target['pelaksana'],
+                            'id_user'=>Auth::User()->id
+                        ]);
+                    }
+                }
+
+            }
+
 	    	return back();
 
     	}
     }
+
+
+    public function target_update($urusan,$id,Request $request){
+        if($request->target){
+            foreach($request->target as $key=>$target_r){
+                $data=$request;
+                foreach ($target_r as $keyx => $value) {
+                  
+                    $data->request->add([$keyx=>$value]);
+                }
+
+                
+                $validator= Validator::make($data->all(),[
+                        'target'=>'required|string',
+                        'lokus'=>'required|string',
+                        'pelaksana'=>'required|string',
+
+                ]);
+
+                if(!$validator->fails()){
+                    $target=\App\KebijakanPusatTahunanTarget::find($key);
+                    if($target){
+                        $target->update([
+                        'target'=> $target_r['target'],
+                        'lokus'=> $target_r['lokus'],
+                        'pelaksana'=> $target_r['pelaksana'],
+                        'id_user'=>Auth::User()->id
+                        ]);
+                    }
+                }else{
+                    dd($validator->errors());
+                }
+
+                return back();
+
+            }
+        }
+    }
+
+
+
+     public function target_delete($urusan,$id,$id_target){
+         $target=\App\KebijakanPusatTahunanTarget::where('id_urusan',$urusan)
+         ->where('id_kebijikan_pusat_tahunan',$id)
+         ->where('id',$id_target)->first();
+
+         if($target){
+            
+            $target->delete();
+            return back();
+
+         }else{
+
+
+         }
+
+        
+    }
+
+    public function propn_delete($urusan,$id,$id_target){
+         $propn=\App\ProPN::where('id_urusan',$urusan)
+         ->where('id_identifikasi_kebijakan_tahunan',$id)
+         ->where('id',$id_target)->first();
+         if($propn){
+        
+            $propn->delete();
+            return back();
+
+         }else{
+
+
+         }
+
+        
+    }
+
+     
 }

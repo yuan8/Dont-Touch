@@ -205,12 +205,15 @@ Route::prefix('admin')->middleware('auth:web')->group(function(){
 
 
 
+Route::prefix('sinkkron/initilisasi')->middleware('auth:web')->group(function(){
+  Route::get('/','FormSink@index')->name('fs.index');
 
-Route::prefix('sinkron')->middleware('auth:web')->group(function(){
+});
+
+Route::prefix('sinkron')->middleware(['auth:web','can:route_access,bidang_urusan_link'])->group(function(){
 
   Route::get('/bidang/{bidang_urusan_link}/f1/perdaerah','FormSink@Form1Perdaerah')->name('fs.f1.perdaerah');
 
-  Route::get('/','FormSink@index')->name('fs.index');
 
   Route::get('/bidang/{bidang_urusan_link}/f1','FormSink@form1')->name('fs.f1.index');
   Route::get('/bidang/{bidang_urusan_link}/f1/edit/{id}','FormSink@form1Edit')->name('fs.f1.edit');
@@ -287,6 +290,18 @@ Route::prefix('sinkron')->middleware('auth:web')->group(function(){
 
   Route::put('/bidang/{bidang_urusan_link}/f3/edit/indikator/{id}','FormSink3@update_indikator')->name('fs.f3.update_indikator');
 
+
+
+  Route::post('/bidang/{bidang_urusan_link}/f3/update/target/{id}','FormSink3@target_update')->name('fs.f3.target_update');
+
+
+  Route::delete('/bidang/{bidang_urusan_link}/f3/update/target/{id}/{id_target}','FormSink3@target_delete')->name('fs.f3.target_delete');
+
+   Route::delete('/bidang/{bidang_urusan_link}/f3/update/propn/{id}/{id_propn}','FormSink3@propn_delete')->name('fs.f3.propn_delete');
+
+
+
+
   Route::get('/bidang/{bidang_urusan_link}/f3/tambah','FormSink3@create')->name('fs.f3.tambah');
 
   Route::post('/bidang/{bidang_urusan_link}/f3/tambah','FormSink3@store')->name('fs.f3.store');
@@ -347,7 +362,7 @@ Route::delete('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/kota_ka
   Route::get('/bidang/{bidang_urusan_link}/f9','FormSink8@index')->name('fs.f9.index');
   Route::get('/bidang/{bidang_urusan_link}/f10','FormSink10@index')->name('fs.f10.index');
 
-  Route::delete('bidang/{bidang_urusan?}/f1/delete/','FormSink@form1delete')->name('fs.f1.delete');
-  Route::post('bidang/{bidang_urusan?}/f1/store','FormSink@Form1Store')->name('fs.form1.store');
+  Route::delete('bidang/{bidang_urusan_link?}/f1/delete/','FormSink@form1delete')->name('fs.f1.delete');
+  Route::post('bidang/{bidang_urusan_link?}/f1/store','FormSink@Form1Store')->name('fs.form1.store');
 
 });

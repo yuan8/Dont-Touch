@@ -9,7 +9,7 @@ use App\IntegrasiProvinsi;
 use App\IntegrasikotaKab;
 use App\MasterProgramPrioritas;
 use App\MasterPrioritasNasional;
-
+use App\KebijakanPusatTahunanTarget;
 class IndetifikasiKebijakanTahunan extends Model
 {
     //
@@ -54,6 +54,10 @@ class IndetifikasiKebijakanTahunan extends Model
 
     public function HavePp(){
         return $this->belongsTo(MasterProgramPrioritas::class,'program_prioritas');
+    }
+
+    public function HaveTarget(){
+        return $this->hasMany(KebijakanPusatTahunanTarget::class,'id_kebijikan_pusat_tahunan')->orderBy('id','desc');
     }
 
 

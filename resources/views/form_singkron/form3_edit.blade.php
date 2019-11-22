@@ -25,13 +25,13 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-md-12">
 				<div class="form-group">
 					<label>Kegiatan Prioritas</label>
-					<textarea class="form-control" required="" name="kegiatan_prioritas">{!!nl2br($data->kegiatan_prioritas)!!}</textarea>
+					<textarea class="form-control" required="" cols="3" rows="3" style="min-height: 100px!important" name="kegiatan_prioritas">{!!nl2br($data->kegiatan_prioritas)!!}</textarea>
 				</div>
 			</div>
-			<div class="col-md-3">
+			<!-- <div class="col-md-3">
 				<div class="form-group">
 					<label>Target</label>
 					<textarea class="form-control"  name="target">{!!nl2br($data->target)!!}</textarea>
@@ -48,15 +48,161 @@
 					<label>Pelaksana</label>
 					<textarea class="form-control" required="" name="pelaksana">{!!nl2br($data->pelaksana)!!}</textarea>
 				</div>
-			</div>
+			</div> -->
 			
 			<div class="col-md-12">
-				<hr>
+				<hr class="card-border-top-warning">
 			</div>
-			<div class="col-md-6">
-				@include('init.input.themplate.add_multy_data',['field_db'=>'a','name_field'=>'pro_pn[]','title'=>'Program Prioritas Nasional ','tb'=>'ab','value'=>(!empty($data->haveProPN)?$data->haveProPN->pluck('pro_pn'):[])])
+			<div class="col-md-4">
+				<div class="form-group">
+					<table style="display: none;">
+						<tbody id="container-themplate-propn" >
+						<tr>
+							<td>
+								<textarea name="new_propn[xxxx]" class="form-control" style="min-height: 100px!important" ></textarea>
+							</td>
+							<td>
+								<button type="button" class="btn btn-danger btn-sm btn-circle" onclick="$(this).parent().parent().remove()">
+									<i class="fa fa-trash"></i>
+								</button>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<table class="table table-stripted table-bordered">
+						<thead>
+							<tr>
+								<th>PROGRAM PRIORITAS NASIONAL</th>
+								<th>
+									<button type="button" class="btn  btn-warning btn-sm btn-circle " onclick="btn_create_new_propn();">
+										<i class="fa fa-plus"></i>
+									</button>
 
-				
+									<script type="text/javascript">
+										var count_propn=0;
+										function btn_create_new_propn(){
+												var themplate_target= $('#container-themplate-propn').html();
+												themplate_target=themplate_target.replace(/xxxx/g,count_propn);
+												count_propn+=1;
+												$('#container-new-propn').append(themplate_target);
+												$('#container-new-propn textarea').attr('required','true');
+										}
+									
+									</script>
+								</th>
+			
+							</tr>
+						</thead>
+						<tbody  id="container-new-propn">
+							@foreach($data->haveProPN as $key=> $propn)
+								<tr>
+									<td>{{$propn->pro_pn}}
+									</td>
+									<td>
+										<button onclick="$('#modal-delete-propn-{{$propn->id}}').appendTo('body').modal()" type="button" class="btn btn-danger btn-sm btn-circle">
+											<i class="fa fa-trash"></i>
+										</button>
+									</td>
+								</tr>
+							@endforeach
+							
+						</tbody>
+					</table>
+
+				</div>	
+			</div>
+			<div class="col-md-8">
+				<div class="form-group">
+					<table style="display: none;">
+						<tbody id="container-themplate-target" >
+						<tr>
+							<td>
+								<textarea name="new_target[xxxx][target]" style="min-height: 100px!important" class="form-control" ></textarea>
+							</td>
+							<td>
+								<textarea name="new_target[xxxx][lokus]" class="form-control"   style="min-height: 100px!important"></textarea>
+							</td>
+							<td>
+								<textarea name="new_target[xxxx][pelaksana]" class="form-control"   style="min-height: 100px!important"></textarea>
+							</td>
+							<td>
+								<button type="button" class="btn btn-danger btn-sm btn-circle" onclick="$(this).parent().parent().remove()">
+									<i class="fa fa-trash"></i>
+								</button>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<table class="table table-stripted table-bordered">
+						<thead>
+							<tr>
+								<th>TARGET NASIOANAL</th>
+								<th>LOKUS</th>
+								<th>PELAKSANA</th>
+
+								<th>
+									<button type="button" class="btn  btn-warning btn-sm btn-circle " onclick="btn_create_new_target();">
+										<i class="fa fa-plus"></i>
+									</button>
+
+									<script type="text/javascript">
+										var count_taget=0;
+										function btn_create_new_target(){
+												var themplate_target= $('#container-themplate-target').html();
+												themplate_target=themplate_target.replace(/xxxx/g,count_taget);
+												count_taget+=1;
+												$('#container-new-target').append(themplate_target);
+												$('#container-new-target textarea').attr('required','true');
+										}
+
+										// btn_create_new_propn();
+									
+									</script>
+								</th>
+			
+							</tr>
+						</thead>
+						<tbody  id="container-new-target">
+							@foreach($data->HaveTarget as $key=> $target)
+								<tr>
+									<td>
+										<p class="text">{!!nl2br($target->target)!!}</p>
+										<textarea class="form-control" style="display: none; min-height: 100px!important;" name="target[{{$target->id}}][target]">{!!($target->target)!!}</textarea>
+										
+									</td>
+									<td>
+										<p class="text">{!!nl2br($target->lokus)!!}</p>
+										<textarea class="form-control" style="display: none; min-height: 100px!important;" name="target[{{$target->id}}][lokus]">{!!($target->lokus)!!}</textarea>
+										
+									</td>
+									
+									<td>
+										<p class="text">{!!nl2br($target->pelaksana)!!}</p>
+										<textarea class="form-control" style="display: none; min-height: 100px!important;" name="target[{{$target->id}}][pelaksana]">{!!($target->pelaksana)!!}</textarea>
+									</td>
+									<td>
+										<button type="button" onclick="$(this).parent().parent().find('td p.text').css('display','none'); $(this).parent().parent().find('textarea').css('display','block');autosize($('textarea')); $(this).parent().find('.btn.btn-hidden-check').css('display','inline-flex'); $(this).remove();" class="btn btn-warning btn-sm btn-circle">
+											<i class="fa fa-edit"></i>
+										</button>
+
+										<button style="display: none" onclick="$('#form-target-update').html($(this).parent().parent().html()); $('#form-target-update').parent().submit();" type="button" class="btn btn-hidden-check btn-warning btn-sm btn-circle">
+											<i class="fa fa-check"></i>
+										</button>
+
+										<button type="button" class="btn btn-danger btn-sm btn-circle" onclick="$('#modal-delete-target-{{$target->id}}').appendTo('body').modal()">
+											<i class="fa fa-trash"></i>
+										</button>
+
+											
+													
+									</td>
+								</tr>
+							@endforeach
+							
+						</tbody>
+					</table>
+
+				</div>	
 			</div>
 			
 			
@@ -69,4 +215,80 @@
 </div>
 
 
+<div style="display:none" class=>
+	
+	<form  method="POST" action="{{route('fs.f3.target_update',['id_link'=>$id_link,'id'=>$data->id])}}">
+		@csrf
+		<div id="form-target-update">
+			
+		</div>
+		
+	</form>
+</div>
+
+
+<script type="text/javascript">
+	$('textarea').on('change',function(){
+		var val=$(this).val();
+		var val=$(this).html(val);
+
+	})
+</script>
+
+
+@foreach($data->HaveTarget as $target)
+	<div class="modal fade" id="modal-delete-target-{{$target->id}}" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Konfirmasi Penghapusan</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">×</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p>Apakah Anda Yakin Menhapus Data Ini</p>
+	      </div>
+	      <div class="modal-footer">
+	      	<form action="{{route('fs.f3.target_delete',['id_link'=>$id_link,'id'=>$data->id,'id_target'=>$target->id])}}" method="post">
+	      		@method('DELETE')
+	      		@csrf
+	        	<button type="submit" class="btn btn-danger">Delete</button>
+
+	      	</form>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+@endforeach
+
+
+
+@foreach($data->haveProPN as $propn)
+	<div class="modal fade" id="modal-delete-propn-{{$propn->id}}" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Konfirmasi Penghapusan</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">×</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p>Apakah Anda Yakin Menhapus Data Ini</p>
+	      </div>
+	      <div class="modal-footer">
+	      	<form action="{{route('fs.f3.propn_delete',['id_link'=>$id_link,'id'=>$data->id,'id_propn'=>$propn->id])}}" method="post">
+	      		@method('DELETE')
+	      		@csrf
+	        	<button type="submit" class="btn btn-danger">Delete</button>
+
+	      	</form>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+@endforeach
 @stop

@@ -4,7 +4,7 @@
 
 @stop
 @section('content')
-<a href="{{route('fs.f1.perdaerah',['id_link'=>$id_link])}}" class="btn btn-info btn-circle"> <i class="fa fa-arrow-left"></i> </a><small> Mandat Perdaerah </small>
+<a href="{{route('fs.f1.perdaerah',['id_link'=>$id_link,'q'=>$daerah['nama']])}}" class="btn btn-info btn-circle"> <i class="fa fa-arrow-left"></i> </a><small> Mandat Perdaerah </small>
 <hr>
 
 <h5>{{$daerah['nama']}}</h5>
@@ -79,13 +79,16 @@
 			  <div class="row">
 		      <div class="col-md-6">
 		        <div class="form-group">
+
+
+
 		          <label for="">{{$mandat->jenis==0?'Kesesuian NSPK dan Kebijakan Daerah':'Pelaksanaan Kegiatan'}}</label>
 		          <div class='custom-control custom-checkbox'>
-		            <input type='radio' name='kesesuaian' required value='1' class='custom-control-input' {{isset($perdaperkada->penilaian)?($perdaperkada->penilaian==1?'checked':''):''}} id='ckf1-1'>
+		            <input type='radio' name='kesesuaian' required value='1' class='custom-control-input' {{isset($perdaperkada)?($perdaperkada['penilaian']==1?'checked':''):''}} id='ckf1-1'>
 		            <label class='custom-control-label' for='ckf1-1'>{{$mandat->jenis==0?'Sesuai':'Dilaksanakan'}}</label>
 		          </div>
 		          <div class='custom-control custom-checkbox'>
-		            <input type='radio' name='kesesuaian' required value='0' class='custom-control-input' id='ckf1-2' {{isset($perdaperkada->penilaian)?($perdaperkada->penilaian==1?'':'checked'):'checked'}} >
+		            <input type='radio' name='kesesuaian' required value='0' class='custom-control-input' id='ckf1-2' {{isset($perdaperkada)?($perdaperkada['penilaian']==1?'':'checked'):'checked'}} >
 		            <label class='custom-control-label' for='ckf1-2'>{{$mandat->jenis==0?'Tidak Susuai Sesuai':'Belum Dilaksanakan'}}</label>
 		          </div>
 		        </div>
