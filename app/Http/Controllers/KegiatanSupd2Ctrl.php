@@ -16,17 +16,23 @@ class KegiatanSupd2Ctrl extends Controller
     	$urusan=isset($request->kode_urusan)?$request->kode_urusan:null;
 
     	$data_link=Urusan23::find($urusan);
+        $tahun=(session('focus_tahun')==!null)?session('focus_tahun'):2020;
 
        	$data_paginate=DB::table('program_kegiatan_lingkup_supd_2')->where(['tahun'=>session('focus_tahun')]);
 
-        $query="select s.nama as sub_urusan, ki.indikator, ki.target_awal, ki.satuan,ki.target_ahir, d.nama as daerah, a.id as id , a.anggaran, a.nspk,a.spm, a.pn, a.spm, a.sdgs , a.pelaksana as pelaksana, np.nomenklatur as program , nk.nomenklatur as kegiatan from program_kegiatan_lingkup_supd_2 as a";
+        $query="select s.nama as sub_urusan, ki.indikator, ki.target_awal, ki.satuan,ki.target_ahir, d.nama as daerah, a.id as id , a.anggaran, a.nspk,a.spm, a.pn, a.spm, a.sdgs , a.pelaksana as pelaksana,";
+        
+        // $query.="np.nomenklatur as program , nk.nomenklatur as kegiatan from program_kegiatan_lingkup_supd_2 as a";
+
+        $query.=" a.uraian_kode_program_daerah as program , a.uraian_kode_kegiatan_daerah as kegiatan from program_kegiatan_lingkup_supd_2 as a ";
+
         $query.=" left join program_kegiatan_lingkup_supd_2_indikator_provinsi as ki on ki.id_kegiatan_supd_2 = a.id";
         $query.=" left join master_nomenklatur_provinsi as np on a.kode_program = np.kode";
         $query.=" left join master_nomenklatur_provinsi as nk on a.kode_kegiatan = nk.kode";
         $query.=" left join provinsi as d on a.kode_daerah = d.id_provinsi";
         $query.=" left join master_sub_urusan as s on s.id = a.id_sub_urusan";
 
-        $query.=" where a.tahun = ".session('focus_tahun');
+        $query.=" where a.tahun = ".$tahun;
 
         $data_paginate_appends=[];
         if(isset($request->daerah)){
@@ -124,7 +130,7 @@ class KegiatanSupd2Ctrl extends Controller
                   if(isset($value['indikator'])){
                      $data_return[$value['id']]['indikator'][]=array(
                         'target_ahir'=>$value['target_ahir'],
-                        'target_awal'=>$value['target_awal'],
+                        // 'target_awal'=>$value['target_awal'],
                         'indikator'=>$value['indikator'],
                         'satuan'=>$value['satuan'],
                     );

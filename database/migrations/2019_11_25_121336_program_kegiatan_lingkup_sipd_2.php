@@ -25,6 +25,13 @@ class ProgramKegiatanLingkupSipd2 extends Migration
             $table->string('kode_daerah')->nullable();
             $table->string('kode_program')->nullable();
             $table->string('kode_kegiatan')->nullable();
+
+            $table->string('kode_program_daerah')->nullable();
+            $table->string('kode_kegiatan_daerah')->nullable();
+            $table->text('uraian_kode_program_daerah')->nullable();
+            $table->text('uraian_kode_kegiatan_daerah')->nullable();
+
+            
             $table->bigInteger('anggaran')->nullable();
             $table->integer('tahun')->length(4)->nullable();
             $table->integer('tahun_ahir')->length(4)->nullable();
