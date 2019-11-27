@@ -11,7 +11,7 @@
         <span>
            From 1
           <br>
-          IDENTIFIKASI KEBIJAKAN (K/L)
+          <i>IDENTIFIKASI KEBIJAKAN (K/L)</i>
           
         </span>
       </div>
@@ -32,7 +32,7 @@
         <span>
            From 2
           <br>
-          IDENTIFIKASI KEBIJAKAN PUSAT 5 TAHUNAN
+          <i>IDENTIFIKASI KEBIJAKAN PUSAT 5 TAHUNAN</i>
           
         </span>
       </div>
@@ -54,7 +54,7 @@
         <span>
            From 3
           <br>
-            IDENTIFIKASI KEBIJAKAN PUSAT TAHUNAN
+            <i>IDENTIFIKASI KEBIJAKAN PUSAT TAHUNAN</i>
           
         </span>
       </div>
@@ -74,7 +74,7 @@
         <span>
            From 4
           <br>
-          DATA PERMASALAHAN URUSAN
+          <i>DATA PERMASALAHAN URUSAN</i>
           
         </span>
       </div>
@@ -93,7 +93,7 @@
         <span>
            From 5
           <br>
-          PROGRAM KEGIATAN DAERAH LINGKUP SUPD II
+          <i>PROGRAM KEGIATAN DAERAH LINGKUP SUPD II</i>
           
         </span>
       </div>
@@ -113,7 +113,7 @@
         <span>
            From 6
           <br>
-          DATA PELAKSANAAN URUSAN LINGKUP SUPD II
+          <i>DATA PELAKSANAAN URUSAN LINGKUP SUPD II</i>
           
         </span>
       </div>
@@ -126,12 +126,25 @@
             <i class="fas fa-fw fa-file"></i>
            <span>
                From 7
+               <br>
+        <div class="row">
+          <div class="col-md-1">
+          </div>
+          <div class="col-md-10">
+             
+              <span>
+                <i>INTEGRASI</i>
+                
+              </span>
+            </div>
+          </div>
+                     
               
               
             </span>
           </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-          <div class="bg-white py-2 collapse-inner rounded">
+          <div class="bg-white py-2 collapse-inner ">
             <h6 class="collapse-header">Manu Integrasi:</h6>
             <a class="collapse-item" href="{{route('fs.f7.index',['id_link'=>$id_link])}}">INTEGRASI</a>
             <a class="collapse-item" href="{{route('fs.f7.identifikasi.integrasi_provinsi',['id_link'=>$id_link])}}">INTEGRASI PROVINSI</a>
@@ -153,7 +166,7 @@
         <span>
            From 8
           <br>
-          MONITORING DAN EVALUASI PELAKSANAAN RENCANA PEMBANGUNAN DAERAH LINGKUP SUPD 2
+          <i>MONITORING DAN EVALUASI PELAKSANAAN RENCANA PEMBANGUNAN DAERAH LINGKUP SUPD 2</i>
           
         </span>
       </div>
@@ -174,7 +187,7 @@
         <span>
            From 9
           <br>
-          EVALUASI CAPAIAN PELAKSANAAN URUSAN PEMERINTAHAN DI INTERNAL DAERAH
+          <i>EVALUASI CAPAIAN PELAKSANAAN URUSAN PEMERINTAHAN DI INTERNAL DAERAH</i>
           
         </span>
       </div>
@@ -195,7 +208,7 @@
         <span>
            From 10
           <br>
-          EVALUASI CAPAIAN PELAKSANAAN URUSAN PEMERINTAHAN
+          <i>EVALUASI CAPAIAN PELAKSANAAN URUSAN PEMERINTAHAN</i>
           
         </span>
       </div>

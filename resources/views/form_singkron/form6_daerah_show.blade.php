@@ -7,7 +7,7 @@
 
 <h5>Data Pelaksanaan Urusan Lingkup SUPD 2</h5>
 <hr>
-<a href="{{route('fs.f6.daerah',['id_link'=>$id_link])}}" class="btn btn-info btn-circle"> <i class="fa fa-arrow-left"></i> </a>
+<a href="{{route('fs.f6.daerah',['id_link'=>$id_link])}}" class="btn btn-info btn-sm"> <i class="fa fa-arrow-left"></i> </a>
 
 <small> Data Pelaksanaan Urusan Lingkup SUPD 2 Daerah | {{$program->nama}}</small>
 <hr>

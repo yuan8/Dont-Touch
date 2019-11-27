@@ -335,25 +335,28 @@ Route::prefix('sinkron')->middleware(['auth:web','can:route_access,bidang_urusan
 
 
   Route::get('/bidang/{bidang_urusan_link}/f6','FormSink6@index')->name('fs.f6.index');
-  Route::get('/bidang/{bidang_urusan_link}/f7','FormSink7@index')->name('fs.f7.index');
 
+  Route::get('/bidang/{bidang_urusan_link}/f7','FormSink7@index')->name('fs.f7.index');
   Route::get('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}','FormSink7@showIndetifikasiTahunan')->name('fs.f7.show.identifikasi.tahunan');
 
-  Route::post('/bidang/{bidang_urusan_link}/f7/integrasi-provinsi/add_target_daerah/{id}','FormSink7@store_integrasi_target_provinsi')->name('fs.f7.store_integrasi_target_provinsi');
+  // Route::post('/bidang/{bidang_urusan_link}/f7/integrasi-provinsi/add_target_daerah/{id}','FormSink7@store_integrasi_target_provinsi')->name('fs.f7.store_integrasi_target_provinsi');
 
-  Route::post('/bidang/{bidang_urusan_link}/f7/integrasi-kota-kabupaten/add_target_daerah/{id}','FormSink7@store_integrasi_target_kota_kabupaten')->name('fs.f7.store_integrasi_target_kota_kabupaten');
+  // Route::post('/bidang/{bidang_urusan_link}/f7/integrasi-kota-kabupaten/add_target_daerah/{id}','FormSink7@store_integrasi_target_kota_kabupaten')->name('fs.f7.store_integrasi_target_kota_kabupaten');
 
 
- Route::post('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/provinsi','FormSink7@add_sub_urusan_provinsi')->name('fs.f7.show.identifikasi.add_sub_provinsi');
+//  Route::post('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/provinsi','FormSink7@add_sub_urusan_provinsi')->name('fs.f7.show.identifikasi.add_sub_provinsi');
 
-Route::delete('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/provinsi','FormSink7@delete_sub_urusan_provinsi')->name('fs.f7.show.identifikasi.delete_sub_provinsi');
+// Route::delete('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/provinsi','FormSink7@delete_sub_urusan_provinsi')->name('fs.f7.show.identifikasi.delete_sub_provinsi');
 
-Route::delete('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/kota_kabupaten','FormSink7@delete_sub_urusan_kotakab')->name('fs.f7.show.identifikasi.delete_sub_kotakab');
+// Route::delete('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/kota_kabupaten','FormSink7@delete_sub_urusan_kotakab')->name('fs.f7.show.identifikasi.delete_sub_kotakab');
 
- Route::post('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/kota_kabupaten','FormSink7@add_sub_urusan_kotakab')->name('fs.f7.show.identifikasi.add_sub_kotakab');
+//  Route::post('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/kota_kabupaten','FormSink7@add_sub_urusan_kotakab')->name('fs.f7.show.identifikasi.add_sub_kotakab');
 
 
  Route::get('/bidang/{bidang_urusan_link}/f7/integrasi/provinsi','FormSink7@integrasi_provinsi')->name('fs.f7.identifikasi.integrasi_provinsi');
+
+
+ Route::get('/bidang/{bidang_urusan_link}/f7/integrasi/provinsi/{kode_daerah}/tambah/target/{id_target_pusat}','FormSink7@integrasi_provinsi_tambah')->name('fs.f7.identifikasi.integrasi_provinsi_tambah');
 
  Route::get('/bidang/{bidang_urusan_link}/f7/integrasi/kota-kabupaten','FormSink7@integrasi_kota_kabupaten')->name('fs.f7.identifikasi.integrasi_kota_kabupaten');
 

@@ -4,7 +4,7 @@
 
 @stop
 @section('content')
-<a href="{{route('fs.f6.index',['id_link'=>$id_link])}}" class="btn btn-info btn-circle"> <i class="fa fa-arrow-left"></i> </a>
+<a href="{{route('fs.f6.index',['id_link'=>$id_link])}}" class="btn btn-info btn-sm"> <i class="fa fa-arrow-left"></i> </a>
 
 <small> Data Pelaksanaan Urusan Lingkup SUPD 2 </small>
 <hr>

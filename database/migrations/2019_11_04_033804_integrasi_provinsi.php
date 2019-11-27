@@ -18,14 +18,15 @@ class IntegrasiProvinsi extends Migration
          Schema::create('integrasi_provinsi', function (Blueprint $table) {
 
             $table->bigIncrements('id');
-            $table->bigInteger('id_identifikasi_kebijakan_tahunan')->unsigned()->nullable();
+            $table->bigInteger('id_identifikasi_kebijakan_tahunan_target')->unsigned()->nullable();
             $table->string('kode_sub_kegiatan')->unsigned()->nullable();
             $table->bigInteger('id_user')->unsigned();
             $table->bigInteger('id_urusan')->unsigned();
             $table->integer('tahun')->length(4)->nullable();
-            $table->unique(['id_identifikasi_kebijakan_tahunan','kode_sub_kegiatan']);
+            $table->unique(['id_identifikasi_kebijakan_tahunan_target','kode_sub_kegiatan']);
             
             $table->timestamps();
+
             $table->foreign('id_urusan')
             ->references('id')
            ->on('master_urusan')

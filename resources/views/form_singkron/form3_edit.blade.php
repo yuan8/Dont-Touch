@@ -4,7 +4,7 @@
 
 @stop
 @section('content')
-<a href="{{route('fs.f3.index',['id_link'=>$id_link])}}" class="btn btn-info btn-circle"> <i class="fa fa-arrow-left"></i> </a><small> IDENTIFIKASI KEBIJAKAN PUSAT TAHUNAN </small>
+<a href="{{route('fs.f3.index',['id_link'=>$id_link])}}" class="btn btn-info btn-sm"> <i class="fa fa-arrow-left"></i> </a><small> IDENTIFIKASI KEBIJAKAN PUSAT TAHUNAN </small>
 <hr>
 
 <div class="card card-border-top-warning">
@@ -117,7 +117,12 @@
 						<tbody id="container-themplate-target" >
 						<tr>
 							<td>
-								<textarea name="new_target[xxxx][target]" style="min-height: 100px!important" class="form-control" ></textarea>
+								<input type="number" min="1" name="new_target[xxxx][target]"  class="form-control" ></input>
+								<select class="form-control" name="new_target[xxxx][satuan_target]">
+									@foreach(\DB::table('master_satuan')->get() as $satuan)
+										<option value="{{$satuan->label}}">{{$satuan->label}}</option>
+									@endforeach
+								</select>
 							</td>
 							<td>
 								<textarea name="new_target[xxxx][lokus]" class="form-control"   style="min-height: 100px!important"></textarea>
@@ -153,6 +158,8 @@
 												count_taget+=1;
 												$('#container-new-target').append(themplate_target);
 												$('#container-new-target textarea').attr('required','true');
+												$('#container-new-target textarea,#container-new-target input,#container-new-target select').attr('required','true');
+
 										}
 
 										// btn_create_new_propn();
@@ -167,7 +174,14 @@
 								<tr>
 									<td>
 										<p class="text">{!!nl2br($target->target)!!}</p>
-										<textarea class="form-control" style="display: none; min-height: 100px!important;" name="target[{{$target->id}}][target]">{!!($target->target)!!}</textarea>
+										<div class="input-group">
+											<input  type="number" class="form-control" style="display: none;;" name="target[{{$target->id}}][target]" value="{{$target->target}}"></input>
+										<select  style="display: none;" class="form-control" name="target[{{$target->id}}][satuan_target]">
+											@foreach(\DB::table('master_satuan')->get() as $satuan)
+												<option value="{{$satuan->label}}" {{$satuan->label==$target->satuan_label?"selected":''}}>{{$satuan->label}}</option>
+											@endforeach
+										</select>
+										</div>
 										
 									</td>
 									<td>
@@ -181,7 +195,7 @@
 										<textarea class="form-control" style="display: none; min-height: 100px!important;" name="target[{{$target->id}}][pelaksana]">{!!($target->pelaksana)!!}</textarea>
 									</td>
 									<td>
-										<button type="button" onclick="$(this).parent().parent().find('td p.text').css('display','none'); $(this).parent().parent().find('textarea').css('display','block');autosize($('textarea')); $(this).parent().find('.btn.btn-hidden-check').css('display','inline-flex'); $(this).remove();" class="btn btn-warning btn-sm btn-circle">
+										<button type="button" onclick="$(this).parent().parent().find('td p.text').css('display','none'); $(this).parent().parent().find('textarea,input,select').css('display','block');autosize($('textarea')); $(this).parent().find('.btn.btn-hidden-check').css('display','inline-flex'); $(this).remove();" class="btn btn-warning btn-sm btn-circle">
 											<i class="fa fa-edit"></i>
 										</button>
 
@@ -231,8 +245,7 @@
 	$('textarea').on('change',function(){
 		var val=$(this).val();
 		var val=$(this).html(val);
-
-	})
+	});
 </script>
 
 

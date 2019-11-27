@@ -31,6 +31,10 @@ Route::prefix('form')->middleware('auth:api')->group(function(){
   Route::post('form-input-mandat','API\APIForm@formMandat');
 
 
+  Route::post('f5/pkl-sipd-2/provinsi/update/{id}','FormSink5@update_pkl_supd_2');
+
+
+
   Route::post('get-data-form1','API\APIForm@getForm1')->name('api.get.data.form1');
   Route::post('get-data-form2','API\APIForm@getForm2')->name('api.get.data.form2');
   Route::post('get-data-list-from-tb','API\APIForm@getList')->name('api.get.data.list.source');

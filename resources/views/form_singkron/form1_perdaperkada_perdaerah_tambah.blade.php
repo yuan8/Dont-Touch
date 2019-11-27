@@ -5,7 +5,7 @@
 @stop
 @section('content')
 
-<a href="{{route('fs.f1.perda.perkada.perdaerah',['id_link'=>$id_link,'provinsi'=>$data_daerah['provinsi'],'kotakab'=>$data_daerah['kotakab']]) }}" class="btn btn-info btn-circle"> <i class="fa fa-arrow-left"></i> </a><small> Perda Perkada | {{$daerah['nama']}} </small>
+<a href="{{route('fs.f1.perda.perkada.perdaerah',['id_link'=>$id_link,'provinsi'=>$data_daerah['provinsi'],'kotakab'=>$data_daerah['kotakab']]) }}" class="btn btn-info btn-sm"> <i class="fa fa-arrow-left"></i> </a><small> Perda Perkada | {{$daerah['nama']}} </small>
 <hr>
 <div class="d-sm-flex align-items-center justify-content-between mb-1">        
   <h5 class="mb-0 ">Tambah Perda Perkada | <small style="color:#36b9cc">{{$daerah['nama']}}</small></h5>

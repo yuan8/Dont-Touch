@@ -83,6 +83,7 @@ class FormSink3 extends Controller
                             'id_kebijikan_pusat_tahunan'=>$id,
                             'tahun'=>session('focus_tahun'),
                             'target'=> $target['target'],
+                            'satuan_target'=> $target['satuan_target'],
                             'lokus'=> $target['lokus'],
                             'pelaksana'=> $target['pelaksana'],
                             'id_user'=>Auth::User()->id
@@ -161,6 +162,7 @@ class FormSink3 extends Controller
                             'target'=> $target['target'],
                             'lokus'=> $target['lokus'],
                             'pelaksana'=> $target['pelaksana'],
+                            'satuan_target'=> $target['satuan_target'],
                             'id_user'=>Auth::User()->id
                         ]);
                     }
@@ -198,6 +200,7 @@ class FormSink3 extends Controller
                         'target'=> $target_r['target'],
                         'lokus'=> $target_r['lokus'],
                         'pelaksana'=> $target_r['pelaksana'],
+                        'satuan_target'=> $target['satuan_target'],
                         'id_user'=>Auth::User()->id
                         ]);
                     }

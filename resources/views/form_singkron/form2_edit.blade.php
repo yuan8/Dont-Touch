@@ -4,7 +4,7 @@
 
 @stop
 @section('content')
-<a href="{{route('fs.f2.index',['id_link'=>$id_link])}}" class="btn btn-info btn-circle"> <i class="fa fa-arrow-left"></i> </a><small> Indetifikasi Kebijakan Pusat 5 tahunan </small>
+<a href="{{route('fs.f2.index',['id_link'=>$id_link])}}" class="btn btn-info btn-sm"> <i class="fa fa-arrow-left"></i> </a><small> Indetifikasi Kebijakan Pusat 5 tahunan </small>
 <hr>
 
 <h5>TAMBAH INDENTIFIKASI KEBIJAKAN PUSAT 5 TAHUNAN</h5>

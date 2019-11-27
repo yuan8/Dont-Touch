@@ -33,6 +33,50 @@ class GenerateData extends Controller
         DB::connection('pgsql2')->table('master_sub_urusan')->insert($datas);
         DB::table('master_sub_urusan')->insert($datas);
 
+        $satuan=DB::table('master_satuan')->truncate();
+        $satuan=[
+            [ 'label'=>'%','kode'=>'01'],
+            [ 'label'=>'Dokumen','kode'=>'03'],
+            [ 'label'=>'Laporan','kode'=>'03'],
+            [ 'label'=>'SR','kode'=>'03'],
+            [ 'label'=>'Paket','kode'=>'11'],
+            [ 'label'=>'Unit','kode'=>'05'],
+
+            [ 'label'=>'M','kode'=>'02'],
+            [ 'label'=>'Mil','kode'=>'09'],
+            [ 'label'=>'KM','kode'=>'10'],
+            [ 'label'=>'M3','kode'=>'06'],
+            [ 'label'=>'M2','kode'=>'07'],
+            [ 'label'=>'Ha','kode'=>'04'],
+
+
+            [ 'label'=>'Rumah','kode'=>'05'],
+            [ 'label'=>'Perserta','kode'=>'08'],
+            [ 'label'=>'Orang','kode'=>'08'],
+            [ 'label'=>'Kelompok','kode'=>'08'],
+
+            [ 'label'=>'KK','kode'=>'08'],
+            [ 'label'=>'Desa','kode'=>'08'],
+            [ 'label'=>'Kelurahan','kode'=>'08'],
+            [ 'label'=>'Kecamatan','kode'=>'08'],
+            [ 'label'=>'Kabupaten','kode'=>'08'],
+            [ 'label'=>'Kota','kode'=>'08'],
+            [ 'label'=>'Provinsi','kode'=>'12'],
+
+            [ 'label'=>'Lokasi','kode'=>'12'],
+
+        ];
+
+        foreach ($satuan as $key => $d) {
+            $satuan[$key]['kode']=str_replace(' ','_',strtolower($d['label']));
+            $satuan[$key]['kode']=$key;
+
+        }
+
+        $satuan=DB::table('master_satuan')->insert($satuan);
+
+
+
         $r=[];
         $r['urusan_sub_urusan']='success';
         $r['sipd']=static::sipd();
@@ -144,40 +188,40 @@ class GenerateData extends Controller
 
     public static function lokasi(){
          $provinsi=[
-            ['11','ACEH','SUMATERA','ACEH'],
-            ['12','SUMATERA UTARA','SUMATERA','SUMUT'],
-            ['13','SUMATERA BARAT','SUMATERA','SUMBAR'],
-            ['14','RIAU','SUMATERA','RIAU'],
-            ['15','JAMBI','SUMATERA','JAMBI'],
-            ['16','SUMATERA SELATAN','SUMATERA','SUMSEL'],
-            ['17','BENGKULU','SUMATERA','BENGKULU'],
-            ['18','LAMPUNG','SUMATERA','LAMPUNG'],
-            ['19','KEPULAUAN BANGKA BELITUNG','SUMATERA','BABEL'],
-            ['21','KEPULAUAN RIAU','SUMATERA','KEPRI'],
-            ['31','DKI JAKARTA','JAWA-BALI','JAKARTA'],
-            ['32','JAWA BARAT','JAWA-BALI','JABAR'],
-            ['33','JAWA TENGAH','JAWA-BALI','JATENG'],
-            ['34','DI YOGYAKARTA','JAWA-BALI','YOGYA'],
-            ['35','JAWA TIMUR','JAWA-BALI','JATIM'],
-            ['36','BANTEN','JAWA-BALI','BANTEN'],
-            ['51','BALI','JAWA-BALI','BALI'],
-            ['52','NUSA TENGGARA BARAT','NUSA TENGGARA','N T B'],
-            ['53','NUSA TENGGARA TIMUR','NUSA TENGGARA','N T T'],
-            ['61','KALIMANTAN BARAT','KALIMANTAN','KALBAR'],
-            ['62','KALIMANTAN TENGAH','KALIMANTAN','KALTENG'],
-            ['63','KALIMANTAN SELATAN','KALIMANTAN','KALSEL'],
-            ['64','KALIMANTAN TIMUR','KALIMANTAN','KALTIM'],
-            ['65','KALIMANTAN UTARA','KALIMANTAN','KALTARA'],
-            ['71','SULAWESI UTARA','SULAWESI','SULUT'],
-            ['72','SULAWESI TENGAH','SULAWESI','SULTENG'],
-            ['73','SULAWESI SELATAN','SULAWESI','SULSEL'],
-            ['74','SULAWESI TENGGARA','SULAWESI','SULTRA'],
-            ['75','GORONTALO','SULAWESI','GORONTALO'],
-            ['76','SULAWESI BARAT','SULAWESI','SULBAR'],
-            ['81','MALUKU','MALUKU','MALUKU'],
-            ['82','MALUKU UTARA','MALUKU','MALUT'],
-            ['91','PAPUA','PAPUA','PAPUA'],
-            ['92','PAPUA BARAT','PAPUA','PAPBAR']
+            ['11','PROVINSI ACEH','SUMATERA','ACEH'],
+            ['12','PROVINSI SUMATERA UTARA','SUMATERA','SUMUT'],
+            ['13','PROVINSI SUMATERA BARAT','SUMATERA','SUMBAR'],
+            ['14','PROVINSI RIAU','SUMATERA','RIAU'],
+            ['15','PROVINSI JAMBI','SUMATERA','JAMBI'],
+            ['16','PROVINSI SUMATERA SELATAN','SUMATERA','SUMSEL'],
+            ['17','PROVINSI BENGKULU','SUMATERA','BENGKULU'],
+            ['18','PROVINSI LAMPUNG','SUMATERA','LAMPUNG'],
+            ['19','PROVINSI KEPULAUAN BANGKA BELITUNG','SUMATERA','BABEL'],
+            ['21','PROVINSI KEPULAUAN RIAU','SUMATERA','KEPRI'],
+            ['31','PROVINSI DKI JAKARTA','JAWA-BALI','JAKARTA'],
+            ['32','PROVINSI JAWA BARAT','JAWA-BALI','JABAR'],
+            ['33','PROVINSI JAWA TENGAH','JAWA-BALI','JATENG'],
+            ['34','PROVINSI DI YOGYAKARTA','JAWA-BALI','YOGYA'],
+            ['35','PROVINSI JAWA TIMUR','JAWA-BALI','JATIM'],
+            ['36','PROVINSI BANTEN','JAWA-BALI','BANTEN'],
+            ['51','PROVINSI BALI','JAWA-BALI','BALI'],
+            ['52','PROVINSI NUSA TENGGARA BARAT','NUSA TENGGARA','N T B'],
+            ['53','PROVINSI NUSA TENGGARA TIMUR','NUSA TENGGARA','N T T'],
+            ['61','PROVINSI KALIMANTAN BARAT','KALIMANTAN','KALBAR'],
+            ['62','PROVINSI KALIMANTAN TENGAH','KALIMANTAN','KALTENG'],
+            ['63','PROVINSI KALIMANTAN SELATAN','KALIMANTAN','KALSEL'],
+            ['64','PROVINSI KALIMANTAN TIMUR','KALIMANTAN','KALTIM'],
+            ['65','PROVINSI KALIMANTAN UTARA','KALIMANTAN','KALTARA'],
+            ['71','PROVINSI SULAWESI UTARA','SULAWESI','SULUT'],
+            ['72','PROVINSI SULAWESI TENGAH','SULAWESI','SULTENG'],
+            ['73','PROVINSI SULAWESI SELATAN','SULAWESI','SULSEL'],
+            ['74','PROVINSI SULAWESI TENGGARA','SULAWESI','SULTRA'],
+            ['75','PROVINSI GORONTALO','SULAWESI','GORONTALO'],
+            ['76','PROVINSI SULAWESI BARAT','SULAWESI','SULBAR'],
+            ['81','PROVINSI MALUKU','MALUKU','MALUKU'],
+            ['82','PROVINSI MALUKU UTARA','MALUKU','MALUT'],
+            ['91','PROVINSI PAPUA','PAPUA','PAPUA'],
+            ['92','PROVINSI PAPUA BARAT','PAPUA','PAPBAR']
 
         ];
 

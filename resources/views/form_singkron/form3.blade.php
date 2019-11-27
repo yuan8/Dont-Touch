@@ -57,7 +57,7 @@
 					<tbody>
 						@foreach($d->HaveTarget as $target)
 						<tr>
-							<td>{!!nl2br($target->target)!!}</td>
+							<td>{!!nl2br($target->target)!!} {!!nl2br($target->satuan_target)!!}</td>
 							<td>{!!nl2br($target->lokus)!!}</td>
 							<td>{!!nl2br($target->pelaksana)!!}</td>
 

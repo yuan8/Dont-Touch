@@ -5,7 +5,7 @@
 @stop
 @section('content')
 
-<a href="{{route('fs.f7.index',['id_link'=>$id_link])}}" class="btn btn-info btn-circle"> <i class="fa fa-arrow-left"></i> </a>
+<a href="{{route('fs.f7.index',['id_link'=>$id_link])}}" class="btn btn-info btn-sm"> <i class="fa fa-arrow-left"></i> </a>
 <small>INDENTIFIKASI KEBIJAKAN PUSAT TAHUNAN</small>
 <hr>
 <h5>IDENTIFIKASI KEBIJAKAN PUSAT TAHUNAN | <small>{{$data->kegiatan_prioritas}}</small></h5> 

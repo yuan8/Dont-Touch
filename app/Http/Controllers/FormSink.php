@@ -21,18 +21,20 @@ class FormSink extends Controller
 
     public function form1Update($urusan,$id,Request $request){
 
-
       $validator=Validator::make($request->all(),[
         'set_mandat'=>'nullable',
         'mandat'=>'required|string',
       ]);
+
 
       if($validator->fails()){
           dd($validator->errors());
       }
 
       $mandat_db=Mandat::find($id);
+
       $data=[];
+
       if($mandat_db){
         if($mandat_db->jenis==0){
           // jenis mandat 
@@ -73,27 +75,36 @@ class FormSink extends Controller
         $mandat_db->listPermen()->sync($request->permen);
 
         return back();
+     
       }
 
     }
 
     public function form1Edit($urusan,$id,Request $request){
+     
       $data_link=Urusan23::find($urusan);
+     
       $id_link=$urusan;
+     
       $sub_urusans=SubUrusan23::where('id_urusan',$urusan)->get();
 
       $mandat=Mandat::find($id);
 
       return view('form_singkron.form1_edit')->with('id_link',$id_link)->with('data_link',$data_link)->with('mandat',$mandat)->with('sub_urusans',$sub_urusans);
-
     }
 
+
     public function form1PerdaPerkadaPerdaearahDelete($urusan,Request $request){
+    
       $perda_perkada=PerdaPerkada::find($request->perda_perkada);
+    
       if($perda_perkada){
+    
         $perda_perkada->delete();
+    
         return back();
       }
+    
     }
 
     public function form1PerdaPerkadaPerdaearahUpStore($urusan,Request $request){
@@ -158,17 +169,11 @@ class FormSink extends Controller
         $daerah['provinsi']=(int) $daerah['id_provinsi'];
         $daerah['id_kota']=0;
         $daerah['nama']='PROVINSI '.$daerah['nama'];
-
-
       }else{
         $daerah=Kabupaten::where('id_kota',$kota_kabupaten)->first()->toArray();
         $daerah['provinsi']=substr((int)$daerah['id_kota'], 0, 2);
         
       }
-
-
-
-
 
       $mandat_db=Mandat::find($mandat);
       $perdaperkada=PerdaPerkada::where('id_mandat',$mandat)->where('id_urusan',$urusan)

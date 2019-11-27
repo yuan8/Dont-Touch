@@ -4,7 +4,7 @@
 
 @stop
 @section('content')
-<a href="{{route('fs.f1.perdaerah',['id_link'=>$id_link,'q'=>$daerah['nama']])}}" class="btn btn-info btn-circle"> <i class="fa fa-arrow-left"></i> </a><small> Mandat Perdaerah </small>
+<a href="{{route('fs.f1.perdaerah',['id_link'=>$id_link,'q'=>$daerah['nama']])}}" class="btn btn-info btn-sm"> <i class="fa fa-arrow-left"></i> </a><small> Mandat Perdaerah </small>
 <hr>
 
 <h5>{{$daerah['nama']}}</h5>

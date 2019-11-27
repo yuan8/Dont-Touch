@@ -4,7 +4,7 @@
 
 @stop
 @section('content')
-<a href="{{route('fs.f1.index',['id_link'=>$id_link])}}" class="btn btn-info btn-circle"> <i class="fa fa-arrow-left"></i> </a><small> Mandat </small>
+<a href="{{route('fs.f1.index',['id_link'=>$id_link])}}" class="btn btn-info btn-sm"> <i class="fa fa-arrow-left"></i> </a><small> Mandat </small>
 <hr>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-1">        

@@ -4,7 +4,7 @@
 
 @stop
 @section('content')
-<a href="{{route('fs.f3.index',['id_link'=>$id_link])}}" class="btn btn-info btn-circle"> <i class="fa fa-arrow-left"></i> </a><small> IDENTIFIKASI KEBIJAKAN PUSAT TAHUNA </small>
+<a href="{{route('fs.f3.index',['id_link'=>$id_link])}}" class="btn btn-info btn-sm"> <i class="fa fa-arrow-left"></i> </a><small> IDENTIFIKASI KEBIJAKAN PUSAT TAHUNA </small>
 <hr>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-1">        
@@ -94,8 +94,13 @@
 					<table style="display: none;">
 						<tbody id="container-themplate-target" >
 						<tr>
-							<td>
-								<textarea name="new_target[xxxx][target]" style="min-height: 100px!important" class="form-control" ></textarea>
+							<td class="input-group">
+								<input type="number" min="1" name="new_target[xxxx][target]"  class="form-control" ></input>
+								<select class="form-control" name="new_target[xxxx][satuan_target]">
+									@foreach(\DB::table('master_satuan')->get() as $satuan)
+										<option value="{{$satuan->label}}">{{$satuan->label}}</option>
+									@endforeach
+								</select>
 							</td>
 							<td>
 								<textarea name="new_target[xxxx][lokus]" class="form-control"   style="min-height: 100px!important"></textarea>
@@ -131,6 +136,8 @@
 												count_taget+=1;
 												$('#container-new-target').append(themplate_target);
 												$('#container-new-target textarea').attr('required','true');
+												$('#container-new-target input,#container-new-target select').attr('required','true');
+
 										}
 
 										// btn_create_new_propn();

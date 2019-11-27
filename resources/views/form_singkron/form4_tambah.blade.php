@@ -4,7 +4,7 @@
 
 @stop
 @section('content')
-<a href="{{route('fs.f4.index',['id_link'=>$id_link,'q'=>$daerah->nama])}}" class="btn btn-info btn-circle"> <i class="fa fa-arrow-left"></i> </a>
+<a href="{{route('fs.f4.index',['id_link'=>$id_link,'q'=>$daerah->nama])}}" class="btn btn-info btn-sm"> <i class="fa fa-arrow-left"></i> </a>
 <small>DATA PERMASALAHAN</small>
 <hr>
 <h5>TAMBAH DATA PERMASALAHAN</h5>

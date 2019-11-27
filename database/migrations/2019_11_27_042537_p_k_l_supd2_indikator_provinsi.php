@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class KebijakanPusatTahunanTarget extends Migration
+class PKLSupd2IndikatorProvinsi extends Migration
 {
     /**
      * Run the migrations.
@@ -14,29 +14,29 @@ class KebijakanPusatTahunanTarget extends Migration
     public function up()
     {
         //
-         Schema::create('kebijakan_pusat_tahunan_target', function(Blueprint $table) {
 
-            $table->bigIncrements('id');    
-            $table->bigInteger('id_urusan')->unsigned();
-            $table->bigInteger('id_kebijikan_pusat_tahunan')->unsigned();
+         Schema::create('program_kegiatan_lingkup_supd_2_indikator_provinsi', function(Blueprint $table) {
+
+            $table->bigIncrements('id'); 
+            $table->bigInteger('id_kegiatan_supd_2')->unsigned();
+            $table->text('indikator')->nullable();
+            $table->bigInteger('target_awal')->nullable();
+            $table->bigInteger('target_ahir')->nullable();
+            $table->string('satuan')->nullable();
             $table->integer('tahun')->length(4)->nullable();
-            $table->text('target');
-            $table->string('satuan_target')->nullable();
-
-            $table->text('lokus');
-            $table->text('pelaksana');
+            $table->bigInteger('id_urusan')->unsigned();           
             $table->bigInteger('id_user')->unsigned();
-
             $table->timestamps();
+
 
             $table->foreign('id_urusan')
             ->references('id')
             ->on('master_urusan')
             ->onDelete('cascade');
 
-            $table->foreign('id_kebijikan_pusat_tahunan')
+            $table->foreign('id_kegiatan_supd_2')
             ->references('id')
-            ->on('identifikasi_kebijakan_tahunan')
+            ->on('program_kegiatan_lingkup_supd_2')
             ->onDelete('cascade');
 
             $table->foreign('id_user')
@@ -54,8 +54,7 @@ class KebijakanPusatTahunanTarget extends Migration
     public function down()
     {
         //
-
-        Schema::dropIfExists('kebijakan_pusat_tahunan_target');
-
+        Schema::dropIfExists('program_kegiatan_lingkup_supd_2_indikator_provinsi');
+        
     }
 }

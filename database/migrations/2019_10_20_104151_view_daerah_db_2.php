@@ -15,7 +15,7 @@ class ViewDaerahDb2 extends Migration
     {
         DB::connection('pgsql2')->statement("
             CREATE VIEW view_daerah AS
-            SELECT CONCAT(provinsi.id_provinsi,'00')  as id , CONCAT('PROVINSI ',provinsi.nama ) as nama, 1 AS pro  FROM provinsi
+            SELECT CONCAT(provinsi.id_provinsi,'00')  as id , provinsi.nama as nama, 1 AS pro  FROM provinsi
             UNION ALL
             SELECT kabupaten.id_kota  as id, CONCAT(kabupaten.nama ) as nama, 0 AS pro  FROM kabupaten
         ");
