@@ -90,6 +90,10 @@ Route::get('/profile', 'UserController@profile')->name('profile');
 
 Route::get('/excel-download', 'ExcelSIPD@getExcel');
 
+
+Route::get('/kegiatan-supd2', 'KegiatanSupd2Ctrl@index');
+
+
 Auth::routes();
 Route::middleware('auth:web')->group(function(){
 
@@ -173,9 +177,6 @@ Route::middleware('auth:web')->group(function(){
 
 
   });
-
-
-
 });
 
 
@@ -209,6 +210,7 @@ Route::prefix('sinkkron/initilisasi')->middleware('auth:web')->group(function(){
   Route::get('/','FormSink@index')->name('fs.index');
 
 });
+
 
 Route::prefix('sinkron')->middleware(['auth:web','can:route_access,bidang_urusan_link'])->group(function(){
 
