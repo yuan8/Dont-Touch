@@ -173,7 +173,7 @@
 				</tr>
 				@foreach($d['indikator'] as $i)
 					<tr>
-						<td colspan="8"></td>
+						<td colspan="9"></td>
 						<td>{{$i['indikator']}}</td>
 						<td>{{$i['target_awal']}} {{$i['satuan']}}</td>
 						<td>{{$i['target_ahir']}} {{$i['satuan']}}</td>
