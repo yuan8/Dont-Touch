@@ -10,7 +10,7 @@
 <div class="form-group">
 	<form action="{{url()->current()}}" method="get">
 		<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-3">
 			<label>Daerah</label>
 			<select type="text" class="form-control" name="daerah" value="{{isset($_GET['daerah'])?$_GET['daerah']:''}}">
 				<option value="">-Pilih Daerah -</option>
@@ -20,8 +20,22 @@
 				@endforeach
 			</select>
 		</div>
+		<div class="col-md-3">
+			<label>Sub Urusan</label>
+			<select class="form-control" name="sub_urusan" id="sub_urusan">
+					<option value="">- Pilih Sub Urusan -</option>
+				<?php foreach ($sub_urusans as $key => $value): ?>
+					<option value="{{$value->id}}" {{isset($_GET['sub_urusan'])?($_GET['sub_urusan']==$value->id?'selected':''):''}}>{{$value->nama}}</option>
+				<?php endforeach ?>
+
+			</select>
+
+			<script type="text/javascript">
+				$('[name=program]').select2();
+			</script>
+		</div>
 		
-		<div class="col-md-4">
+		<div class="col-md-3">
 			<label>Program</label>
 			<select class="form-control" name="kode_program" id="program_pro">
 					<option value="">- Pilih Program -</option>
@@ -36,7 +50,7 @@
 				$('[name=program]').select2();
 			</script>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-3">
 			<label>Kegiatan</label>
 			<select type="text" class="form-control" name="kode_kegiatan" id="kegiatan_pro" value="{{isset($_GET['kegiatan'])?$_GET['kegiatan']:''}}">
 
@@ -92,6 +106,8 @@
 						Jenis
 					</th>
 					<th rowspan="3">Daerah</th>
+					<th rowspan="3">Sub Urusan</th>
+
 					<th rowspan="3">Program</th>
 					<th rowspan="3">Kegiatan</th>
 					<th rowspan="3">Angaran</th>
@@ -145,12 +161,13 @@
 						</div>
 					</td>
 					<td>{{$d['daerah']}}</td>
+					<td>{{$d['sub_urusan']}}</td>
 					<td>{{$d['program']}}</td>
 					<td>{{$d['kegiatan']}}</td>
 					<td>Rp. {{number_format($d['anggaran'],2,',','.')}}</td>
 					<td colspan="3"></td>
 
-					
+	
 					<td>{!!nl2br($d['pelaksana'])!!}</td>
 
 				</tr>

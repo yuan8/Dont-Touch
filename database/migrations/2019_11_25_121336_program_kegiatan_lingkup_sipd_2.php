@@ -21,6 +21,7 @@ class ProgramKegiatanLingkupSipd2 extends Migration
             $table->boolean('spm')->default(0);
             $table->boolean('pn')->default(0);
             $table->boolean('sdgs')->default(0);
+            $table->bigInteger('id_sub_urusan')->unsigned();
             $table->string('kode_daerah')->nullable();
             $table->string('kode_program')->nullable();
             $table->string('kode_kegiatan')->nullable();
@@ -30,13 +31,16 @@ class ProgramKegiatanLingkupSipd2 extends Migration
             $table->text('pelaksana')->nullable();
             $table->bigInteger('id_urusan')->unsigned();           
             $table->bigInteger('id_user')->unsigned();
-            $table->unique(['id_urusan','kode_daerah','kode_program','kode_kegiatan','tahun']);
+            $table->unique(['id_urusan','id_sub_urusan','kode_daerah','kode_program','kode_kegiatan','tahun']);
 
 
 
             $table->timestamps();
 
-         
+            $table->foreign('id_sub_urusan')
+            ->references('id')
+           ->on('master_sub_urusan')
+            ->onDelete('cascade');
 
             $table->foreign('id_urusan')
             ->references('id')

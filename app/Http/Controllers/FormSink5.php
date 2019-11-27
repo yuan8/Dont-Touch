@@ -31,11 +31,13 @@ class FormSink5 extends Controller
 
 
 
-        $query="select ki.indikator, ki.target_awal, ki.satuan,ki.target_ahir, d.nama as daerah, a.id as id , a.anggaran, a.nspk,a.spm, a.pn, a.spm, a.sdgs , a.pelaksana as pelaksana, np.nomenklatur as program , nk.nomenklatur as kegiatan from program_kegiatan_lingkup_supd_2 as a";
+        $query="select s.nama as sub_urusan, ki.indikator, ki.target_awal, ki.satuan,ki.target_ahir, d.nama as daerah, a.id as id , a.anggaran, a.nspk,a.spm, a.pn, a.spm, a.sdgs , a.pelaksana as pelaksana, np.nomenklatur as program , nk.nomenklatur as kegiatan from program_kegiatan_lingkup_supd_2 as a";
         $query.=" left join program_kegiatan_lingkup_supd_2_indikator_provinsi as ki on ki.id_kegiatan_supd_2 = a.id";
         $query.=" left join master_nomenklatur_provinsi as np on a.kode_program = np.kode";
         $query.=" left join master_nomenklatur_provinsi as nk on a.kode_kegiatan = nk.kode";
         $query.=" left join provinsi as d on a.kode_daerah = d.id_provinsi";
+        $query.=" left join master_sub_urusan as s on s.id = a.id_sub_urusan";
+
 
 
         $query.=" where a.tahun = ".session('focus_tahun');
@@ -65,6 +67,14 @@ class FormSink5 extends Controller
 
             $data_paginate->appends([
                 'pn'=>$request->pn
+            ]);
+        }
+
+         if(isset($request->sub_urusan)){
+            $query.=" and a.id_sub_urusan =".$request->sub_urusan;
+
+            $data_paginate->appends([
+                'sub_urusan'=>$request->sub_urusan
             ]);
         }
 
@@ -124,6 +134,8 @@ class FormSink5 extends Controller
                     'nspk'=>$value['nspk'],
                     'sdgs'=>$value['sdgs'],
                     'daerah'=>$value['daerah'],
+                    'sub_urusan'=>$value['sub_urusan'],
+
                     'program'=>$value['program'],
                     'kegiatan'=>$value['kegiatan'],
                     'anggaran'=>$value['anggaran'],
@@ -149,6 +161,9 @@ class FormSink5 extends Controller
         $program_provinsi=\App\NomenKlaturProvinsi::where('kode','ilike',$data_link->nomenklatur_provinsi.'%')->where('jenis','program')->get();
 
         $daerahs=\App\Provinsi::all();
+
+        $sub_urusans=DB::table('master_sub_urusan')->where('id_urusan',$urusan)->get();
+
 
 
 
@@ -179,7 +194,7 @@ class FormSink5 extends Controller
 
 
     	return view('form_singkron.form5')->with('id_link',$urusan)->with('data_link',$data_link)
-    	->with('datas',$data_return)->with('data_paginate',$data_paginate)->with('program_provinsi',$program_provinsi)->with('daerah',$daerahs);
+    	->with('datas',$data_return)->with('data_paginate',$data_paginate)->with('program_provinsi',$program_provinsi)->with('daerah',$daerahs)->with('sub_urusans',$sub_urusans);
     }
 
     public function update_jenis_kegiatan($urusan,$id,Request $request){
