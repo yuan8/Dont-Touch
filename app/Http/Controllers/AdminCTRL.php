@@ -39,4 +39,17 @@ class AdminCtrl extends Controller
     	return view('admin.form.mandat')->with('bidangs',$bidangs);
     }
 
+    public function rubah_tahun(Request $request){
+
+      if(isset($request->tahun)){
+         session(['focus_tahun' => $request->tahun]);
+      }
+
+      return back();
+    }
+
+    public function ts(){
+      return view('test');
+    }
+
 }

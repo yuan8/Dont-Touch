@@ -41,6 +41,7 @@ class KegiatanSupd2Ctrl extends Controller
             $data_paginate_appends['kode_daerah']=$request->daerah;
            
         }
+        
         if(isset($request->npsk)){
             $query.=" and a.nspk = true";
             $data_paginate=$data_paginate->where('nspk',true);

@@ -184,6 +184,10 @@ Route::middleware('auth:web')->group(function(){
 
 Route::prefix('admin')->middleware('auth:web')->group(function(){
   Route::get('/', 'AdminCTRL@index')->name('admin.index');
+  Route::post('/rubah-tahun', 'AdminCTRL@rubah_tahun')->name('rubah_tahun');
+  Route::get('/ts', 'AdminCTRL@ts')->name('ts');
+
+
 
   Route::prefix('form')->group(function(){
     Route::get('/mandat', 'AdminCTRL@madat')->name('admin.form.mandat');

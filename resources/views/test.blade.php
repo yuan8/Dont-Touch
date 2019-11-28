@@ -1,13 +1,8 @@
-<form method="post" action="{{url('vertion')}}">
-@csrf
-<textarea name="nama[]">
-	
-</textarea>
+@extends('layouts.no-auth')
 
-<textarea name="nama[]">
-	
-</textarea>
+@section('head_asset')
 
+@stop
+@section('content')
 
-<button type="submit"> hhh</button>
-</form>
+@stop

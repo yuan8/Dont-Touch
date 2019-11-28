@@ -28,6 +28,8 @@ class FormSink5 extends Controller
         $query.=" left join master_sub_urusan as s on s.id = a.id_sub_urusan";
 
         $query.=" where a.tahun = ".session('focus_tahun');
+        $data_paginate=$data_paginate->where('id_urusan',$urusan);
+
 
 
 
