@@ -90,9 +90,12 @@ Route::get('/profile', 'UserController@profile')->name('profile');
 
 Route::get('/excel-download', 'ExcelSIPD@getExcel');
 
+Route::prefix('data')->group(function(){
+  Route::get('/kegiatan-supd2', 'KegiatanSupd2Ctrl@index')->name('data.kegiatan_spud2_provinsi_table');
+  Route::get('/kegiatan-supd2-chart', 'KegiatanSupd2Ctrl@chart')->name('data.kegiatan_spud2_provinsi_chart');
 
-Route::get('/kegiatan-supd2', 'KegiatanSupd2Ctrl@index');
 
+});
 
 Auth::routes();
 Route::middleware('auth:web')->group(function(){

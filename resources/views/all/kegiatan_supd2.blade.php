@@ -1,16 +1,24 @@
-@extends('layouts.layout-app')
+@extends('layouts.no-auth')
 
 @section('head_asset')
 
 @stop
 @section('content')
-<h5>PROGRAM KEGIATAN LINGKUP SUPD II</h5>
+<div class="container-fluid" style="padding-top: 30px;">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+	<h1 class="h3 mb-0 text-gray-800">PROGRAM KEGIATAN LINGKUP SUPD II</h1>
+	<a href="{{route('data.kegiatan_spud2_provinsi_chart')}}" class="d-none d-sm-inline-block btn btn-lg btn-warning shadow-sm">
+		<i class="fa fa-bar-chart fa-sm "></i> Chart</a>
+</div>
 <hr>
 
 <div class="form-group">
 	<form action="{{url()->current()}}" method="get">
 		<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-3">
 			<label>Urusan</label>
 			<select class="form-control" id="kode_urusan" name="kode_urusan">
 				<option value="">- PIlih Urusan -</option>
@@ -25,7 +33,6 @@
 			<label>Daerah</label>
 			<select type="text" class="form-control" name="daerah" id="kode_daerah" value="{{isset($_GET['daerah'])?$_GET['daerah']:''}}">
 				<option value="">-Pilih Daerah -</option>
-
 				@foreach($daerah as $d)
 					<option value="{{$d->id_provinsi}}" {{isset($_GET['daerah'])?($_GET['daerah']==$d->id_provinsi?'selected':''):''}} >{{$d->nama}}</option>
 				@endforeach
@@ -45,7 +52,7 @@
 			</script>
 		</div>
 		
-		<div class="col-md-3">
+		<!-- <div class="col-md-3">
 			<label>Program</label>
 			<select class="form-control" name="kode_program" id="program_pro">
 					<option value="">- Pilih Program -</option>
@@ -68,36 +75,34 @@
 			<select type="text" class="form-control" name="kode_kegiatan" id="kegiatan_pro" value="{{isset($_GET['kegiatan'])?$_GET['kegiatan']:''}}">
 
 			</select>
-		</div>
+		</div> -->
 		<div class="col-md-1">
 			<label></label>
 			<div class="custom-control custom-switch">
 			  <input {{isset($_GET["nspk"])?"checked":""}} type="checkbox" class="custom-control-input"  id="switch1"  name="nspk">
 			  <label class="custom-control-label" for="switch1">NSPK</label>
 			</div>
-		</div>
-		<div class="col-md-1">
 			<label></label>
 			<div class="custom-control custom-switch">
 			  <input {{isset($_GET["spm"])?"checked":""}} type="checkbox" class="custom-control-input" id="switch2"  name="spm">
 			  <label class="custom-control-label" for="switch2">SPM</label>
 			</div>
 		</div>
+	
 		<div class="col-md-1">
 			<label></label>
 			<div class="custom-control custom-switch">
 			  <input {{isset($_GET["pn"])?"checked":""}} type="checkbox" class="custom-control-input" id="switch3"  name="pn">
 			  <label class="custom-control-label" for="switch3">PN</label>
 			</div>
-		</div>
-		<div class="col-md-1">
 			<label></label>
 			<div class="custom-control custom-switch">
 			  <input {{isset($_GET["sdgs"])?"checked":""}} type="checkbox" class="custom-control-input" id="switch4"  name="sdgs">
 			  <label class="custom-control-label" for="switch4">SDGS</label>
 			</div>
 		</div>
-		<div class="col-md-2">
+		
+		<div class="col-md-1">
 			<label></label>
 			<button type="submit" class="btn btn-warning  btn-sm col-md-12">
 				<i class="fa fa-search"></i>
@@ -304,4 +309,5 @@
 	}
 </script>
 
+</div>
 @stop

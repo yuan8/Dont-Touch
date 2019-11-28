@@ -17,8 +17,27 @@ class KegiatanSupd2Ctrl extends Controller
 
     	$data_link=Urusan23::find($urusan);
         $tahun=(session('focus_tahun')==!null)?session('focus_tahun'):2020;
+        $query2_group_by="";
+        $filter=array(
+            'daerah'=>false,
+            'urusan'=>false,
+            'sub_urusan'=>false,
+        );
 
-       	$data_paginate=DB::table('program_kegiatan_lingkup_supd_2')->where(['tahun'=>session('focus_tahun')]);
+       	$data_paginate=DB::table('program_kegiatan_lingkup_supd_2')->where(['tahun'=>$tahun]);
+
+        $query2="select count(CASE WHEN (ki.indikator != null) THEN 1  END) as jml_indikator, sum(a.anggaran) as jml_anggaran,count(a.id) as jml_kegiatan, count(CASE WHEN a.nspk THEN 1 END) as jml_nspk,count(CASE WHEN a.spm THEN 1 END) as jml_spm,count(CASE WHEN a.pn THEN 1 END) as jml_pn, count(CASE WHEN a.sdgs THEN 1 END) as jml_sdgs,d.nama as label ";
+
+        $query2.=" from program_kegiatan_lingkup_supd_2 as a ";
+
+
+        $query2.=" left join program_kegiatan_lingkup_supd_2_indikator_provinsi as ki on ki.id_kegiatan_supd_2 = a.id";
+        $query2.=" left join master_nomenklatur_provinsi as np on a.kode_program = np.kode";
+        $query2.=" left join master_nomenklatur_provinsi as nk on a.kode_kegiatan = nk.kode";
+        $query2.=" left join provinsi as d on a.kode_daerah = d.id_provinsi";
+        $query2.=" left join master_sub_urusan as s on s.id = a.id_sub_urusan";
+        $query2.=" where a.tahun = ".$tahun;
+
 
         $query="select s.nama as sub_urusan, ki.indikator, ki.target_awal, ki.satuan,ki.target_ahir, d.nama as daerah, a.id as id , a.anggaran, a.nspk,a.spm, a.pn, a.spm, a.sdgs , a.pelaksana as pelaksana,";
         
@@ -35,48 +54,96 @@ class KegiatanSupd2Ctrl extends Controller
         $query.=" where a.tahun = ".$tahun;
 
         $data_paginate_appends=[];
+
         if(isset($request->daerah)){
             $query.=" and a.kode_daerah = '".($request->daerah)."'";
+            $query2.=" and a.kode_daerah = '".($request->daerah)."'";
+
             $data_paginate=$data_paginate->where('kode_daerah',$request->daerah);
             $data_paginate_appends['kode_daerah']=$request->daerah;
+
+            if($query2_group_by==""){
+                $query2_group_by.=" group by a.kode_daerah,d.nama";
+
+            }else{
+                $query2_group_by.=",a.kode_daerah";
+            }
+
+            $filter['daerah']=true;
            
+        }else{
+            if($query2_group_by==""){
+                $query2_group_by.=" group by a.kode_daerah,d.nama";
+
+            }else{
+                $query2_group_by.=",a.kode_daerah";
+            }
+
         }
         
-        if(isset($request->npsk)){
-            $query.=" and a.nspk = true";
+        if(isset($request->nspk)){
+            $query.=" and a.nspk = true ";
+            $query2.=" and a.nspk = true ";
+
             $data_paginate=$data_paginate->where('nspk',true);
             $data_paginate_appends['nspk']=$request->nspk;
             
         }
-       
+
         if(isset($request->spm)){
             $query.=" and a.spm = true";
+            $query2.=" and a.spm = true";
+
          	$data_paginate=$data_paginate->where('spm',true);
             $data_paginate_appends['spm']=$request->spm;
         }
         
         if(isset($request->pn)){
             $query.=" and a.pn = true";
+            $query2.=" and a.pn = true";
+
 
             $data_paginate=$data_paginate->where('pn',true);
             $data_paginate_appends['pn']=$request->pn;
         }
 
+        if($urusan!=null){
+             $query.=" and a.id_urusan =".$urusan;
+             $query2.=" and a.id_urusan =".$urusan;
+            $filter['urusan']=true;
+
+             $data_paginate=$data_paginate->where('id_urusan',$urusan);
+             $data_paginate_appends['kode_urusan']=$request->kode_urusan;
+        }else{
+
+        }
+
          if(isset($request->sub_urusan)){
             $query.=" and a.id_sub_urusan =".$request->sub_urusan;
 
-           $data_paginate=$data_paginate->where('id_sub_urusan',$request->sub_urusan);
+            $query2.=" and a.id_sub_urusan =".$request->sub_urusan;
+
+            $filter['sub_urusan']=true;
+
+            $data_paginate=$data_paginate->where('id_sub_urusan',$request->sub_urusan);
             $data_paginate_appends['sub_urusan']=$request->sub_urusan;
+        }else{
+
+
         }
 
         if(isset($request->sdgs)){
             $query.=" and a.sdgs = true";
+            $query2.=" and a.sdgs = true";
+
             $data_paginate=$data_paginate->where('sdgs',true);
             $data_paginate_appends['sdgs']=$request->sdgs;
         }
 
         if(isset($request->kode_program)){
             $query.=" and a.kode_program = '".$request->kode_program."'";
+            $query2.=" and a.kode_program = '".$request->kode_program."'";
+
            $data_paginate=$data_paginate->where('kode_program',$request->kode_program);
             $data_paginate_appends['kode_program']=$request->kode_program;
         }
@@ -84,17 +151,16 @@ class KegiatanSupd2Ctrl extends Controller
         if(isset($request->kode_kegiatan)){
            if(isset($request->kode_kegiatan)){
             $query.=" and a.kode_kegiatan = '".$request->kode_kegiatan."'";
+
+            $query2.=" and a.kode_kegiatan = '".$request->kode_kegiatan."'";
+
            	$data_paginate=$data_paginate->where('kode_kegiatan',$request->kode_kegiatan);
             $data_paginate_appends['kode_kegiatan']=$request->kode_kegiatan;
            }
         }
 
 
-        if($urusan!=null){
-       	 $query.=" and a.id_urusan =".$urusan;
-       	 $data_paginate=$data_paginate->where('id_urusan',$urusan);
-         $data_paginate_appends['kode_urusan']=$request->kode_urusan;
-        }
+       
 
 
         $data_paginate=$data_paginate->paginate(5);
@@ -122,6 +188,10 @@ class KegiatanSupd2Ctrl extends Controller
 
         // return $query;
         $data=DB::select($query);
+        $data_chart=DB::select($query2." ".$query2_group_by);
+
+        // dd($data_chart);
+
         $data=json_encode($data);
         $data=json_decode($data,true);
         $data_return=[];
@@ -223,6 +293,148 @@ class KegiatanSupd2Ctrl extends Controller
         $d=DB::table('program_kegiatan_lingkup_supd_2')->where('id',$id)->update($request->data);
 
         return $d;
+    }
+
+
+    public function chart(Request $request){
+
+        $tahun=(session('focus_tahun')!=null)?session('focus_tahun'):2020;
+        $urusan=null;
+        $query2="";
+        $query="";
+
+        $query2_group_by="";
+
+        $query2_select="select count(CASE WHEN (ki.indikator != null) THEN 1  END) as jml_indikator, sum(a.anggaran) as jml_anggaran,count(a.id) as jml_kegiatan, count(CASE WHEN a.nspk THEN 1 END) as jml_nspk,count(CASE WHEN a.spm THEN 1 END) as jml_spm,count(CASE WHEN a.pn THEN 1 END) as jml_pn, count(CASE WHEN a.sdgs THEN 1 END) as jml_sdgs,d.nama as label ";
+
+        $query2.=" from program_kegiatan_lingkup_supd_2 as a ";
+
+
+        $query2.=" left join program_kegiatan_lingkup_supd_2_indikator_provinsi as ki on ki.id_kegiatan_supd_2 = a.id";
+        $query2.=" left join master_nomenklatur_provinsi as np on a.kode_program = np.kode";
+        $query2.=" left join master_nomenklatur_provinsi as nk on a.kode_kegiatan = nk.kode";
+        $query2.=" left join provinsi as d on a.kode_daerah = d.id_provinsi";
+        $query2.=" left join master_sub_urusan as s on s.id = a.id_sub_urusan";
+        $query2.=" where a.tahun = ".$tahun;
+
+        if(isset($request->daerah)){
+            $query.=" and a.kode_daerah = '".($request->daerah)."'";
+            $query2.=" and a.kode_daerah = '".($request->daerah)."'";
+
+            $data_paginate_appends['kode_daerah']=$request->daerah;
+
+            if($query2_group_by==""){
+                $query2_group_by.=" group by a.kode_daerah,d.nama";
+
+            }else{
+                $query2_group_by.=",a.kode_daerah";
+            }
+
+            $filter['daerah']=true;
+           
+        }else{
+            if($query2_group_by==""){
+                $query2_group_by.=" group by a.kode_daerah,d.nama";
+
+            }else{
+                $query2_group_by.=",a.kode_daerah";
+            }
+
+        }
+        
+        if(isset($request->nspk)){
+            $query.=" and a.nspk = true ";
+            $query2.=" and a.nspk = true ";
+
+            $data_paginate_appends['nspk']=$request->nspk;
+            
+        }
+
+        if(isset($request->spm)){
+            $query.=" and a.spm = true";
+            $query2.=" and a.spm = true";
+
+            $data_paginate_appends['spm']=$request->spm;
+        }
+        
+        if(isset($request->pn)){
+            $query.=" and a.pn = true";
+            $query2.=" and a.pn = true";
+
+
+            $data_paginate_appends['pn']=$request->pn;
+        }
+
+        if(isset($request->kode_urusan)){
+            $urusan=($request->kode_urusan);
+             $query.=" and a.id_urusan =".$urusan;
+             $query2.=" and a.id_urusan =".$urusan;
+             $filter['urusan']=true;
+
+             $data_paginate_appends['kode_urusan']=$request->kode_urusan;
+        }else{
+
+        }
+
+         if(isset($request->sub_urusan)){
+            $query.=" and a.id_sub_urusan =".$request->sub_urusan;
+
+            $query2.=" and a.id_sub_urusan =".$request->sub_urusan;
+
+            $filter['sub_urusan']=true;
+
+            $data_paginate_appends['sub_urusan']=$request->sub_urusan;
+        }else{
+
+
+        }
+
+        if(isset($request->sdgs)){
+            $query.=" and a.sdgs = true";
+            $query2.=" and a.sdgs = true";
+
+            $data_paginate_appends['sdgs']=$request->sdgs;
+        }
+
+        if(isset($request->kode_program)){
+            $query.=" and a.kode_program = '".$request->kode_program."'";
+            $query2.=" and a.kode_program = '".$request->kode_program."'";
+
+            $data_paginate_appends['kode_program']=$request->kode_program;
+        }
+
+        if(isset($request->kode_kegiatan)){
+           if(isset($request->kode_kegiatan)){
+            $query.=" and a.kode_kegiatan = '".$request->kode_kegiatan."'";
+
+            $query2.=" and a.kode_kegiatan = '".$request->kode_kegiatan."'";
+
+            $data_paginate_appends['kode_kegiatan']=$request->kode_kegiatan;
+           }
+        }
+        $sub_urusans=[];
+
+
+        if($urusan){
+            
+             $sub_urusans=DB::table('master_sub_urusan')->where('id_urusan',$urusan)->get();
+
+        }else{
+            $program_provinsi=[];
+            $sub_urusans=[];
+
+        }
+
+        $urusan=DB::table('master_urusan')->get();
+
+        $daerahs=\App\Provinsi::all();
+
+        $query2=$query2_select.$query2.$query2_group_by;
+        $data=DB::select($query2);
+        $data=json_encode($data);
+        $data=json_decode($data,true);
+
+        return view('all.kegiatan_supd2_chart')->with('datas',$data)->with('daerah',$daerahs)->with('sub_urusans',$sub_urusans)->with('urusans',$urusan);
     }
 
 
