@@ -5,7 +5,7 @@
 @stop
 @section('content')
 
-<div class="container-fluid" style="padding-top: 30px;">
+<div class="container-fluid" style="padding-top: 30px; padding-bottom: 30px;">
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -17,7 +17,9 @@
 	</div>
 	<hr>
 
-	<div class="form-group">
+	<div class="card">
+		<div class="card-body">
+			<div class="form-group">
 		<form action="{{url()->current()}}" method="get">
 			<div class="row">
 			<div class="col-md-3">
@@ -89,6 +91,8 @@
 			</div>
 			</div>
 		</form>
+	</div>
+		</div>
 	</div>
 	<hr>
 
