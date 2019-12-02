@@ -13,6 +13,12 @@
             <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
         </a>
         <ul>
+            <li class="{{$menu_id=='1.0'?'mm-active':''}}">
+                <a href="{{route('home')}}" >
+                    <i class="metismenu-icon">
+                    </i>Home
+                </a>
+            </li>
             <li class="{{$menu_id=='1.1'?'mm-active':''}}">
                 <a href="{{route('data.kegiatan_spud2_provinsi_table')}}" >
                     <i class="metismenu-icon">

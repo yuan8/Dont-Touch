@@ -8,6 +8,23 @@ class DahboardController extends Controller
 {
     //
 
+    public function landing(){
+        $tahun=2020;
+        $data=DB::select('select count(*) as jml_data from program_kegiatan_lingkup_supd_2 where tahun ='.$tahun);
+        $data_pie=json_encode($data);
+        $data=json_decode($data_pie,true);
+
+        if(count($data)>0){
+            $data=$data[0];
+            $data=$data['jml_data'];
+        }else{  
+            $data=0;
+        }
+
+
+        return view('all.landing')->with('data',$data)->with('menu_id','1.0');
+    }
+
     public function index(){
     	$data=static::query();
 

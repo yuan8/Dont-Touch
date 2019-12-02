@@ -182,9 +182,7 @@
                                 </div>
                             </div>
                             <div class="app-footer-right">
-                                <ul class="header-megamenu nav">
-                                   
-                                </ul>
+                              SUPD2 &copy; 2021
                             </div>
                         </div>
                     </div>

@@ -11,11 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-
-      return redirect('home');
-
-});
+Route::get('/', 'DahboardController@landing')->name('home');
 
  Route::get('/vertion', function(Illuminate\Http\Request $request){
     $datas=DB::table('master_nomenklatur_kabkota')->get();
@@ -103,7 +99,7 @@ Route::prefix('data')->group(function(){
 Auth::routes();
 Route::middleware('auth:web')->group(function(){
 
-  Route::get('/home', 'HomeController@index')->name('home');
+  Route::get('/home', 'HomeController@index')->name('maps');
   Route::get('/test', function(){
     $anu=App\Mandat::get()->toJson();
     return ($anu);
