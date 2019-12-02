@@ -40,7 +40,7 @@
                   </div>
                 </div>
                 <div class="col-auto">
-                  <i class="fas fa-chart fa-2x text-gray-300"></i>
+                  <i class="pe-7s-medal fa-2x text-primary"></i>
                 </div>
               </div>
             </div>
@@ -60,7 +60,8 @@
                   </div>
                 </div>
                 <div class="col-auto">
-                  <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                  <i class="pe-7s-medal fa-2x text-success"></i>
+
                 </div>
               </div>
             </div>
@@ -79,7 +80,8 @@
                   </div>
                 </div>
                 <div class="col-auto">
-                  <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                  <i class="pe-7s-medal fa-2x text-warning"></i>
+                 
                 </div>
               </div>
             </div>
@@ -98,7 +100,8 @@
                   </div>
                 </div>
                 <div class="col-auto">
-                  <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                  <i class="pe-7s-medal fa-2x text-info"></i>
+                  
                 </div>
               </div>
             </div>
