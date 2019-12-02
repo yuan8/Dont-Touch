@@ -4,16 +4,33 @@
 
 @stop
 @section('content')
+
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="fa fa-table icon-gradient bg-mean-fruit">
+                </i>
+            </div>
+            <div>PROGRAM KEGIATAN LINGKUP SUPD II
+                <div class="page-title-subheading">
+                	<!-- This is an example dashboard created using build-in elements and components. -->
+                </div>
+            </div>
+        </div>
+        <div class="page-title-actions">
+            <a href="{{route('data.kegiatan_spud2_provinsi_chart')}}" class="btn-shadow mr-3 btn btn-info" >
+                <span><i class="fa fa-bar-chart fa-sm "></i></span> Chart
+            </a>
+           
+        </div>    
+    </div>
+</div>
 <div class="container-fluid" style="padding-top: 30px;">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-	<h1 class="h3 mb-0 text-gray-800">PROGRAM KEGIATAN LINGKUP SUPD II</h1>
-	<a href="{{route('data.kegiatan_spud2_provinsi_chart')}}" class="d-none d-sm-inline-block btn btn-lg btn-warning shadow-sm">
-		<i class="fa fa-bar-chart fa-sm "></i> Chart</a>
-</div>
-<hr>
+
 
 <div class="form-group">
 	<form action="{{url()->current()}}" method="get">
@@ -112,7 +129,7 @@
 	</form>
 </div>
 
-<div class="card card-border-top-warning">
+<div class="card border-btm-card card-warning">
 	<div class="card-header">
 		<p>{{$data_paginate->total()}} Data</p>
 	</div>

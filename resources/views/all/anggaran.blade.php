@@ -4,20 +4,42 @@
 
 @stop
 @section('content')
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-ticket icon-gradient bg-mean-fruit">
+                </i>
+            </div>
+            <div>ANGGARAN
+                <div class="page-title-subheading">
+                  <!-- This is an example dashboard created using build-in elements and components. -->
+                </div>
+            </div>
+        </div>
+        <!-- <div class="page-title-actions">
+            <a href="{{route('data.kegiatan_spud2_provinsi_chart')}}" class="btn-shadow mr-3 btn btn-info" >
+                <span><i class="fa fa-bar-chart fa-sm "></i></span> Chart
+            </a>
+           
+        </div> -->    
+    </div>
+</div>
 <div class="container-fluid" style="padding-top: 10px; padding-bottom: 10px;">
 	<div class="row">
 		<div class="col-xl-3 col-md-6 mb-4">
-          <div class="card border-left-warning shadow h-100 py-2">
+          <div class="card  card-shadow-warning border-warning card-btm-border shadow  py-2">
             <div class="card-body">
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold  text-uppercase mb-1">Jumlah Provinsi</div>
-                  <div class="h5 mb-0 font-weight-bold text-gray-800">
+                  <div class="h5 mb-0  text-gray-800">
                     {{number_format($data_head['count']['daerah'],0,',','.')}}
                   </div>
                 </div>
                 <div class="col-auto">
-                  <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                  <i class="pe-7s-medal fa-2x text-primary"></i>
+                  
                 </div>
               </div>
             </div>
@@ -25,19 +47,19 @@
         </div>
 
         <div class="col-xl-3 col-md-6 mb-4">
-          <div class="card border-left-warning shadow h-100 py-2">
+          <div class="card  card-shadow-warning border-warning card-btm-border shadow  py-2">
             <div class="card-body">
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold  text-uppercase mb-1">Jumlah Bidang Urusan</div>
-                  <div class="h5 mb-0 font-weight-bold text-gray-800">
+                  <div class="h5 mb-0  text-gray-800">
                     {{number_format($data_head['count']['urusan'],0,',','.')}}
 
                     
                   </div>
                 </div>
                 <div class="col-auto">
-                  <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                  <i class="pe-7s-medal fa-2x text-warning"></i>
                 </div>
               </div>
             </div>
@@ -45,18 +67,19 @@
         </div>
 
         <div class="col-xl-3 col-md-6 mb-4">
-          <div class="card border-left-warning shadow h-100 py-2">
+          <div class="card  card-shadow-warning border-warning card-btm-border shadow  py-2">
             <div class="card-body">
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold  text-uppercase mb-1">Jumlah Anggaran</div>
-                  <div class="h5 mb-0 font-weight-bold text-gray-800">
+                  <div class="h5 mb-0  text-gray-800">
                     Rp. {{number_format($data_head['count']['anggaran'],0,',','.')}}
                     
                   </div>
                 </div>
                 <div class="col-auto">
-                  <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                  <i class="pe-7s-medal fa-2x text-success"></i>
+                  
                 </div>
               </div>
             </div>
@@ -64,18 +87,18 @@
         </div>
 
         <div class="col-xl-3 col-md-6 mb-4">
-          <div class="card border-left-warning shadow h-100 py-2">
+          <div class="card  card-shadow-warning border-warning card-btm-border shadow  py-2">
             <div class="card-body">
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold  text-uppercase mb-1">Jumlah Kegiatan</div>
-                  <div class="h5 mb-0 font-weight-bold text-gray-800">
+                  <div class="h5 mb-0  text-gray-800">
                     {{number_format($data_head['count']['kegiatan'],0,',','.')}}
                     
                   </div>
                 </div>
                 <div class="col-auto">
-                  <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                  <i class="pe-7s-medal fa-2x text-info"></i>
                 </div>
               </div>
             </div>
@@ -85,8 +108,8 @@
 	</div>
 
 	<div class="row">
-		<div class="col-xl-6 col-md-6 mb-4">
-          <div class="card card-border-top-warning shadow h-100 py-2">
+		<div class="col-xl-12 col-md-6 mb-4">
+          <div class="card card-border-top-warning shadow  py-2">
           	<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-black-400"> </h6>
                   <div class=" no-arrow">
@@ -98,14 +121,14 @@
                 </div>
             <div class="card-body">
               <div class="row no-gutters align-items-center">
-                <div id="chart"></div>
+                <div id="chart" class="chart-cn"></div>
               </div>
             </div>
           </div>
     </div>
 
-    <div class="col-xl-6 col-md-6 mb-4">
-          <div class="card card-border-top-warning shadow h-100 py-2">
+    <div class="col-xl-12 col-md-12 mb-4">
+          <div class="card card-border-top-warning shadow  py-2">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-black-400"> </h6>
                   <div class=" no-arrow">
@@ -117,7 +140,7 @@
                 </div>
             <div class="card-body">
               <div class="row no-gutters align-items-center">
-                <div id="chart-2"></div>
+                <div id="chart-2" class="chart-cn"></div>
               </div>
             </div>
           </div>
@@ -128,7 +151,7 @@
   <div class="row">
     
     <div class="col-xl-12 col-md-12 mb-4">
-      <div class="card card-border-top-warning shadow h-100 py-2">
+      <div class="card card-border-top-warning shadow  py-2">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-black-400"> </h6>
                   <div class=" no-arrow">
