@@ -44,6 +44,9 @@
         .h8{
             font-size: 12px;
         }
+        .app-main__inner{
+          padding-bottom: 10px!important;
+        }
         
     </style>
 
