@@ -268,7 +268,8 @@ class KegiatanSupd2Ctrl extends Controller
 
 
     	return view('all.kegiatan_supd2')->with('id_link',$urusan)->with('data_link',$data_link)
-    	->with('datas',$data_return)->with('data_paginate',$data_paginate)->with('program_provinsi',$program_provinsi)->with('daerah',$daerahs)->with('sub_urusans',$sub_urusans)->with('urusans',$urusan);
+    	->with('datas',$data_return)->with('data_paginate',$data_paginate)->with('program_provinsi',$program_provinsi)->with('daerah',$daerahs)->with('sub_urusans',$sub_urusans)->with('urusans',$urusan)
+        ->with('menu_id','1.1');
     }
 
     public function update_jenis_kegiatan($urusan,$id,Request $request){
@@ -434,7 +435,9 @@ class KegiatanSupd2Ctrl extends Controller
         $data=json_encode($data);
         $data=json_decode($data,true);
 
-        return view('all.kegiatan_supd2_chart')->with('datas',$data)->with('daerah',$daerahs)->with('sub_urusans',$sub_urusans)->with('urusans',$urusan);
+        return view('all.kegiatan_supd2_chart')->with('datas',$data)->with('daerah',$daerahs)->with('sub_urusans',$sub_urusans)->with('urusans',$urusan)
+            ->with('menu_id','1.1');
+
     }
 
 

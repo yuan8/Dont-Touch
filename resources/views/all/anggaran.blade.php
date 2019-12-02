@@ -4,7 +4,7 @@
 
 @stop
 @section('content')
-<div class="app-page-title">
+<div class="app-page-title d-none d-xs-block">
     <div class="page-title-wrapper">
         <div class="page-title-heading">
             <div class="page-title-icon">

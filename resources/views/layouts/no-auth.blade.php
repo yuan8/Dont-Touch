@@ -36,7 +36,8 @@
         }
 
         .app-theme-white.app-container{
-            background-color:#bd9010ba;
+            /*background-color:#bd9010ba;*/
+            background-color: #c2c8cc;
         }
         body{
             background-image: url('{{asset('ass_img/bg.jpg')}}')!important;
@@ -46,6 +47,18 @@
         }
         .app-main__inner{
           padding-bottom: 10px!important;
+        }
+        .app-page-title{
+            padding-top:10px;
+            padding-bottom: 10px;
+        }
+        .app-page-title .page-title-icon{
+            width:40px;
+            height: 40px;
+            padding: 3px;
+        }
+        .app-page-title {
+            margin-bottom: 10px;
         }
         
     </style>
@@ -96,7 +109,8 @@
                     <!-- <ul class="header-megamenu nav">
                        
                     </ul> -->
-                    <H5><b>SUPD2</b></H5>
+                    <H5><b>SUPD2</b>   </H5>
+                    <small> {!!isset($title)?'&nbsp;&nbsp; '.$title:''!!}</small>
                 </div>
                 <div class="app-header-right">
                     

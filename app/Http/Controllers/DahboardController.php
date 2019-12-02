@@ -9,21 +9,7 @@ class DahboardController extends Controller
     //
 
     public function index(){
-    	$query="
-    		select kode_daerah,d.nama as nama_daerah,id_urusan,u.nama as nama_urusan,id_sub_urusan,kode_program,uraian_kode_program_daerah, count(distinct(kode_program)) as jml_program,count(kode_kegiatan) as jml_kegiatan from 
-			program_kegiatan_lingkup_supd_2 as a
-			left join view_daerah as d on d.id= a.kode_daerah
-			left join master_urusan as u on u.id= a.id_urusan
-
-			group by kode_daerah,id_urusan,id_sub_urusan,uraian_kode_program_daerah,d.nama,u.nama,kode_program
-
-
-			";
-
-
-    	$data=DB::select($query);
-    	$data=json_encode($data);
-    	$data=json_decode($data,true);
+    	$data=static::query();
 
     	$data_return=array(
     		'data'=>[],
@@ -201,26 +187,11 @@ class DahboardController extends Controller
 
     	return view('all.dashboard')
     	->with('data_head',$data_return)
-    	->with('data_pie',$data_pie[0]);
+    	->with('data_pie',$data_pie[0])
+        ->with('menu_id','2.2');
+
 
     }
-
-    public static function pc_permute($items, $perms = array( )) {
-    	$var_return=[];
-
-	    if (empty($items)) { 
-	        print join(' ', $perms) . "\n";
-	    }  else {
-	        for ($i = count($items) - 1; $i >= 0; --$i) {
-	             $newitems = $items;
-	             $newperms = $perms;
-	             list($foo) = array_splice($newitems, $i, 1);
-	             array_unshift($newperms, $foo);
-	             static::pc_permute($newitems, $newperms);
-	         }
-	    }
-	}
-
 
 	public static function query(){
 		$query="
@@ -240,17 +211,7 @@ class DahboardController extends Controller
 	}
 
 	public function anggaran(){
-    	$query="
-    		select count(case when sdgs then 1 end ) as jml_sdgs,count(case when pn then 1 end ) as jml_pn,count(case when spm then 1 end ) as jml_spm,count(case when nspk then 1 end ) as jml_nspk,sum(anggaran) as jml_anggaran,kode_daerah,d.nama as nama_daerah,id_urusan,u.nama as nama_urusan,id_sub_urusan,kode_program,uraian_kode_program_daerah, count(distinct(kode_program)) as jml_program,count(kode_kegiatan) as jml_kegiatan from 
-			program_kegiatan_lingkup_supd_2 as a
-			left join view_daerah as d on d.id= a.kode_daerah
-			left join master_urusan as u on u.id= a.id_urusan
-			group by kode_daerah,id_urusan,id_sub_urusan,uraian_kode_program_daerah,d.nama,u.nama,kode_program,anggaran 
-			";
-
-    	$data=DB::select($query);
-    	$data=json_encode($data);
-    	$data=json_decode($data,true);
+    	$data=static::query();
 
     	$data_return=array(
     		'data'=>[],
@@ -443,7 +404,10 @@ class DahboardController extends Controller
 
     	return view('all.anggaran')
     	->with('data_head',$data_return)
-    	->with('data_pie',$data_pie[0]);
+    	->with('data_pie',$data_pie[0])
+        ->with('title','ANGGARAN')
+        ->with('menu_id','2.1');
+
 
     
 	}
@@ -584,6 +548,8 @@ class DahboardController extends Controller
     	$data_return['count']['urusan']=count($data_return['count']['urusan']);
 
     	return view('all.tagging')
-    	->with('data_head',$data_return);
+    	->with('data_head',$data_return)
+        ->with('menu_id','2.3');
+
 	}
 }

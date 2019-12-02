@@ -34,9 +34,8 @@
 
 	
 
-	<div class="card widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-warning border-warning card">
-		<div class="card-body ">
-			<div class="form-group">
+	
+	<div class="form-group">
 		<form action="{{url()->current()}}" method="get">
 			<div class="row">
 			<div class="col-md-3">
@@ -73,7 +72,7 @@
 				</script>
 			</div>
 			
-			
+		
 			<div class="col-md-1">
 				<label></label>
 				<div class="custom-control custom-switch">
@@ -106,11 +105,10 @@
 					<i class="fa fa-search"></i>
 				</button>
 			</div>
-			</div>
+		</div>
 		</form>
 	</div>
-		</div>
-	</div>
+
 
 	
 	<div class="row">
