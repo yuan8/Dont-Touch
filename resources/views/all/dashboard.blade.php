@@ -35,7 +35,7 @@
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold  text-uppercase mb-1">Jumlah Provinsi</div>
-                  <div class="h6 mb-0 text-gray-800">
+                  <div class="h8 mb-0text-gray-800">
                     {{number_format($data_head['count']['daerah'],0,',','.')}}
                   </div>
                 </div>
@@ -53,7 +53,7 @@
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold  text-uppercase mb-1">Jumlah Bidang Urusan</div>
-                  <div class="h6 mb-0 text-gray-800">
+                  <div class="h8 mb-0text-gray-800">
                     {{number_format($data_head['count']['urusan'],0,',','.')}}
 
                     
@@ -74,7 +74,7 @@
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold  text-uppercase mb-1">Jumlah Program</div>
-                  <div class="h6 mb-0 text-gray-800">
+                  <div class="h8 mb-0text-gray-800">
                     {{number_format($data_head['count']['program'],0,',','.')}}
                     
                   </div>
@@ -94,7 +94,7 @@
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold  text-uppercase mb-1">Jumlah Kegiatan</div>
-                  <div class="h6 mb-0 text-gray-800">
+                  <div class="h8 mb-0text-gray-800">
                     {{number_format($data_head['count']['kegiatan'],0,',','.')}}
                     
                   </div>

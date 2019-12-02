@@ -108,7 +108,7 @@
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold  text-uppercase mb-1">Jumlah NSPK</div>
-                  <div class="h6 mb-0 text-gray-800">
+                  <div class="h8 mb-0text-gray-800">
                     {{number_format($nspk_glob,0,',','.')}}
                   </div>
                 </div>
@@ -126,7 +126,7 @@
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold  text-uppercase mb-1">Jumlah SPM</div>
-                  <div class="h6 mb-0 text-gray-800">
+                  <div class="h8 mb-0text-gray-800">
                      {{number_format($spm_glob,0,',','.')}}
 
                     
@@ -146,7 +146,7 @@
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold  text-uppercase mb-1">Jumlah PN</div>
-                  <div class="h6 mb-0 text-gray-800">
+                  <div class="h8 mb-0text-gray-800">
                     {{number_format($pn_glob,0,',','.')}}
                     
                   </div>
@@ -165,7 +165,7 @@
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold  text-uppercase mb-1">Jumlah SDGS</div>
-                  <div class="h6 mb-0 text-gray-800">
+                  <div class="h8 mb-0text-gray-800">
                     {{number_format($sdgs_glob,0,',','.')}}
                     
                   </div>
