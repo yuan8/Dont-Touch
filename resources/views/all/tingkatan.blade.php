@@ -24,7 +24,11 @@
 		margin-top: 3px;
 	}
 </style>
-
+<div class="row">
+	<div class="col-md-12 mb-4">
+		<div id="chart" class="chart-cn"></div>
+	</div>
+</div>
 <div class="row">
 	<div class="col-md-3">
 		<div class="card mb-4">
@@ -85,11 +89,7 @@
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-md-12">
-		<div id="chart" class="chart-cn"></div>
-	</div>
-</div>
+
 
 <script type="text/javascript">
 
@@ -118,7 +118,7 @@
 			d=data[key[0]][key[1]][key[2]][key[3]][key[4]][key[5]][key[6]];
 		}
 
-		
+
 		var dm_card='';
 		var d_category=[];
 		var d_data=[];
@@ -232,7 +232,7 @@
 		    series:data_chart
 		});
 
-		if(tag=='p'){
+		if((tag=='p')||(tag=='sb')){
 			$('#chart').html('');
 		}
 				

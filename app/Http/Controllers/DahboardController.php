@@ -26,7 +26,27 @@ class DahboardController extends Controller
     }
 
     public function index(){
-    	$data=static::query();
+    	$tahun=(session('focus_tahun')!=null)?session('focus_tahun'):2020;
+        $urusan=null;
+        $query2="";
+        $query="";
+
+        $query2_group_by="";
+
+        $query2_select="select count(CASE WHEN (ki.indikator != null) THEN 1  END) as jml_indikator, sum(a.anggaran) as jml_anggaran,count(a.id) as jml_kegiatan, count(CASE WHEN a.nspk THEN 1 END) as jml_nspk,count(CASE WHEN a.spm THEN 1 END) as jml_spm,count(CASE WHEN a.pn THEN 1 END) as jml_pn, count(CASE WHEN a.sdgs THEN 1 END) as jml_sdgs,d.nama as label ";
+
+        
+        $query2.=" from program_kegiatan_lingkup_supd_2 as a ";
+        $query2.=" left join program_kegiatan_lingkup_supd_2_indikator_provinsi as ki on ki.id_kegiatan_supd_2 = a.id";
+        $query2.=" left join master_nomenklatur_provinsi as np on a.kode_program = np.kode";
+        $query2.=" left join master_nomenklatur_provinsi as nk on a.kode_kegiatan = nk.kode";
+        $query2.=" left join provinsi as d on a.kode_daerah = d.id_provinsi";
+        $query2.=" left join master_sub_urusan as s on s.id = a.id_sub_urusan";
+        $query2.=" where a.tahun = ".$tahun;
+        $data=DB::select($query2);
+        $data_pie=json_encode($data);
+        $data=json_decode($data_pie,true);
+
 
     	$data_return=array(
     		'data'=>[],
@@ -514,12 +534,17 @@ class DahboardController extends Controller
             $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['jumlah_kegiatan']=+$value['jml_kegiatan'];
 
             $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['jumlah_program']+=$value['jml_program'];
+
             $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['jumlah_anggaran']+=$value['jml_anggaran'];
+
             $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['jumlah_kegiatan']+=$value['jml_kegiatan'];
 
             $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['jumlah_nspk']+=$value['jml_nspk'];
+            
             $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['jumlah_spm']+=$value['jml_spm'];
+            
             $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['jumlah_pn']+=$value['jml_pn'];
+            
             $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['jumlah_sdgs']+=$value['jml_sdgs'];
 
            
@@ -542,8 +567,6 @@ class DahboardController extends Controller
             $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['nama']=$value['uraian_kode_program_daerah'];
 
             $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['jumlah_kegiatan']+=$value['jml_kegiatan'];
-
-
 
 
             array_push($data_return['count']['daerah'],$value['kode_daerah']);
