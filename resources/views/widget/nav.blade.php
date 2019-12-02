@@ -59,7 +59,13 @@
                     </i>NSPK,SPM,PN,SDGS
                 </a>
             </li>
-           
+
+            <li class="{{$menu_id=='2.4'?'mm-active':''}}">
+                <a href="{{route('data.tingkatan')}}">
+                    <i class="metismenu-icon">
+                    </i>View Data Tingkatan
+                </a>
+            </li>           
         </ul>
     </li>
     

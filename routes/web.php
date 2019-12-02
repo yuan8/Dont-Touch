@@ -93,6 +93,8 @@ Route::prefix('data')->group(function(){
   Route::get('/', 'DahboardController@index')->name('data.index');
   Route::get('/anggaran', 'DahboardController@anggaran')->name('data.anggaran');
   Route::get('/tagging', 'DahboardController@tagging')->name('data.tagging');
+  Route::get('/tingkatan', 'DahboardController@tingkatan')->name('data.tingkatan');
+
 
 });
 
