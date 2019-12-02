@@ -32,7 +32,7 @@
 <body>
     <style type="text/css">
         .chart-cn{
-            min-width: 100%;
+            width: calc(100% - 0px);
         }
 
         .app-theme-white.app-container{

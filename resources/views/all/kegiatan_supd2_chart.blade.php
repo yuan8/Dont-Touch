@@ -112,9 +112,16 @@
 		</div>
 	</div>
 
+	
 	<div class="row">
 		<div class="col-md-12">
-			<div id="chart-1"></div>
+			<div class="card">
+				<div class="card-body">
+					<div id="chart-1" class="chart-cn"></div>
+
+				</div>
+
+			</div>
 		</div>
 	</div>
 
