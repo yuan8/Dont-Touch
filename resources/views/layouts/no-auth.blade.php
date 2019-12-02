@@ -41,6 +41,7 @@
         body{
             background-image: url('{{asset('ass_img/bg.jpg')}}')!important;
         }
+        
     </style>
 
     <div id="side-bar" class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar closed-sidebar">
@@ -183,7 +184,10 @@
     $(function(){
         setTimeout(function(){
             $('#side-bar').addClass('closed-sidebar');
+            $('.app-main__inner').css('max-width',$('.app-main').width() - 80);
         },10);
+
+
     });
 </script>
 
