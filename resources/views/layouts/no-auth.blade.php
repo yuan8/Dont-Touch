@@ -184,7 +184,9 @@
     $(function(){
         setTimeout(function(){
             $('#side-bar').addClass('closed-sidebar');
-            $('.app-main__inner').css('max-width',$('.app-main').width() - 80);
+            if($(body).width()>=989){
+                $('.app-main__inner').css('max-width',$('.app-main').width() - 80);
+            }
         },10);
 
 
