@@ -50,7 +50,7 @@
                                         <button  onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();" class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">
                                             <i class="pe-7s-close-circle icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>
-                                            Lock Out
+                                            Log Out
                                         </button>
                                        
 

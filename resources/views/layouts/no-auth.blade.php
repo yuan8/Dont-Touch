@@ -41,7 +41,9 @@
         }
         body{
             background-image: url('{{asset('ass_img/bg.jpg')}}')!important;
+             background-size: 100% auto;
         }
+
         .h8{
             font-size: 12px;
         }
