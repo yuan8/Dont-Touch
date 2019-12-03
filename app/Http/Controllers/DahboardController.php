@@ -220,7 +220,7 @@ class DahboardController extends Controller
 	public static function query($tahun=2020){
 
 		$query="
-    		select s.nama as nama_sub_urusan,count(case when sdgs then 1 end ) as jml_sdgs,count(case when pn then 1 end ) as jml_pn,count(case when spm then 1 end ) as jml_spm,count(case when nspk then 1 end ) as jml_nspk,sum(anggaran) as jml_anggaran,kode_daerah,d.nama as nama_daerah,a.id_urusan,u.nama as nama_urusan,id_sub_urusan,kode_program,uraian_kode_program_daerah, count(DISTINCT(kode_program)) as jml_program,count(kode_kegiatan) as jml_kegiatan from 
+    		select s.nama as nama_sub_urusan,count(case when sdgs then 1 end ) as jml_sdgs,count(case when pn then 1 end ) as jml_pn,count(case when spm then 1 end ) as jml_spm,count(case when nspk then 1 end ) as jml_nspk,sum(anggaran) as jml_anggaran,kode_daerah,d.nama as nama_daerah,a.id_urusan,u.nama as nama_urusan,id_sub_urusan,kode_program,uraian_kode_program_daerah, count(DISTINCT(kode_program)) as jml_program,count(*) as jml_kegiatan from 
 			program_kegiatan_lingkup_supd_2 as a
 			left join view_daerah as d on d.id= a.kode_daerah
 			left join master_urusan as u on u.id= a.id_urusan
@@ -487,6 +487,10 @@ class DahboardController extends Controller
 
                 $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['jumlah_program']=0;
                 $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['jumlah_kegiatan']=0;
+                $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['jumlah_nspk']=0;
+                $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['jumlah_spm']=0;
+                $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['jumlah_pn']=0;
+                $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['jumlah_sdgs']=0;
             }
 
             if(!isset($data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']])){
@@ -495,12 +499,21 @@ class DahboardController extends Controller
 
                 $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['jumlah_kegiatan']=0;
 
+                 $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['jumlah_nspk']=0;
+            
+                $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['jumlah_spm']=0;
+                
+                $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['jumlah_pn']=0;
+                
+                $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['jumlah_sdgs']=0;
+
             }
 
-            if(!isset($data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['kegiatan'])){
+            // if(!isset($data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['jumlah_kegiatan'])){
                 
-                $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['jumlah_kegiatan']=0;
-            }
+            //     $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['jumlah_kegiatan']=0;
+            
+            // }
 
 
 
@@ -511,19 +524,19 @@ class DahboardController extends Controller
             $data_return['data'][$value['kode_daerah']]['jumlah_spm']+=$value['jml_spm'];
             $data_return['data'][$value['kode_daerah']]['jumlah_pn']+=$value['jml_pn'];
             $data_return['data'][$value['kode_daerah']]['jumlah_sdgs']+=$value['jml_sdgs'];
+            $data_return['data'][$value['kode_daerah']]['jumlah_program']+=$value['jml_program'];
+            $data_return['data'][$value['kode_daerah']]['jumlah_anggaran']+=$value['jml_anggaran'];
+            $data_return['data'][$value['kode_daerah']]['jumlah_kegiatan']+=$value['jml_kegiatan'];
 
+
+             $data_return['data'][$value['kode_daerah']]['jumlah_sub_urusan']=count($data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan']);
 
             // urusan
 
-            
-            $data_return['data'][$value['kode_daerah']]['jumlah_sub_urusan']=count($data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan']);
 
             $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['jumlah_sub_urusan']=count($data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan']);
 
-            $data_return['data'][$value['kode_daerah']]['jumlah_program']+=$value['jml_program'];
-            $data_return['data'][$value['kode_daerah']]['jumlah_anggaran']+=$value['jml_anggaran'];
-
-            $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['jumlah_kegiatan']=+$value['jml_kegiatan'];
+            
 
             $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['jumlah_program']+=$value['jml_program'];
 
@@ -547,11 +560,14 @@ class DahboardController extends Controller
             $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['jumlah_kegiatan']+=$value['jml_kegiatan'];
 
 
-            $data_return['data'][$value['kode_daerah']]['jumlah_kegiatan']+=$value['jml_kegiatan'];
 
             $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['nama']=$value['nama_urusan'];
-            $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['nama']=$value['nama_urusan'];
             $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['nama']=$value['nama_sub_urusan'];
+
+            $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['jumlah_nspk']+=$value['jml_nspk'];
+            $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['jumlah_spm']+=$value['jml_spm'];
+            $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['jumlah_pn']+=$value['jml_pn'];;
+            $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['jumlah_sdgs']+=$value['jml_sdgs'];;
 
 
             // program
@@ -559,6 +575,15 @@ class DahboardController extends Controller
             $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['nama']=$value['uraian_kode_program_daerah'];
 
             $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['jumlah_kegiatan']+=$value['jml_kegiatan'];
+
+            $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['jumlah_nspk']+=$value['jml_nspk'];
+            
+            $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['jumlah_spm']+=$value['jml_spm'];
+            
+            $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['jumlah_pn']+=$value['jml_pn'];
+            
+            $data_return['data'][$value['kode_daerah']]['urusan'][$value['id_urusan']]['sub_urusan'][$value['id_sub_urusan']]['program'][$value['kode_program']]['jumlah_sdgs']+=$value['jml_sdgs'];
+
 
 
             array_push($data_return['count']['daerah'],$value['kode_daerah']);

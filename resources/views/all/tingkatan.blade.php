@@ -232,7 +232,7 @@
 		    series:data_chart
 		});
 
-		if((tag=='p')||(tag=='sb')){
+		if((tag=='p')){
 			$('#chart').html('');
 		}
 				
