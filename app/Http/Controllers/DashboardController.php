@@ -9,7 +9,21 @@ class DashboardController extends Controller
 {
     //
 
+
+    public static function tahun($tahun){
+        if((int) $tahun){
+            
+        }else{
+            if(gettype($tahun)=='string'){
+                $tahun=2020;
+            }
+        }
+
+        return (int) $tahun;
+
+    }
     public function landing($tahun=2020){
+        $tahun=static::tahun($tahun);
 
         $data=DB::select('select count(*) as jml_data from program_kegiatan_lingkup_supd_2 where tahun ='.$tahun);
 
@@ -29,6 +43,8 @@ class DashboardController extends Controller
     }
 
     public function index($tahun=2020){
+            $tahun=static::tahun($tahun);
+
     	   $query="
             select kode_daerah,d.nama as nama_daerah,id_urusan,u.nama as nama_urusan,id_sub_urusan,kode_program,uraian_kode_program_daerah, count(distinct(kode_program)) as jml_program,count(kode_kegiatan) as jml_kegiatan from 
             program_kegiatan_lingkup_supd_2 as a
@@ -244,6 +260,8 @@ class DashboardController extends Controller
 	}
 
 	public function anggaran($tahun=2020){
+        $tahun=static::tahun($tahun);
+
     	$data=static::query($tahun);
 
 
@@ -609,6 +627,8 @@ class DashboardController extends Controller
     }
 
 	public function tagging($tahun=2020){
+        $tahun=static::tahun($tahun);
+
 		$data=static::query($tahun);
 
 	 	 $data_return=static::generate_json($data);
@@ -622,7 +642,9 @@ class DashboardController extends Controller
 
 
     public function tingkatan($tahun=2020){
-        $data=static::query();
+        $tahun=static::tahun($tahun);
+
+        $data=static::query($tahun);
         $data_return=static::generate_json($data);
 
         return view('all.tingkatan')
@@ -633,7 +655,8 @@ class DashboardController extends Controller
     }
 
 
-    public function get_kegitaan($tahun=2020,Request $request){
+    public function get_kegiatan($tahun=2020,Request $request){
+        $tahun=static::tahun($tahun);
         $request->request->add(['tahun'=>$tahun]);
         $validator=Validator::make($request->all(),[
             'tahun'=>'required|numeric',
@@ -642,9 +665,11 @@ class DashboardController extends Controller
             'kode_daerah'=>'required|string',
             'kode_program'=>'required|string',
         ]);
-        
+
         if($validator->fails()){
+
             return array('code'=>500,'data'=>[],'message'=>$validator->errors());
+
         }else{
 
         }
