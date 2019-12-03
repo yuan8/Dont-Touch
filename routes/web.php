@@ -11,69 +11,10 @@
 |
 */
 
-Route::get('/', 'DahboardController@landing')->name('home');
-
- Route::get('/vertion', function(Illuminate\Http\Request $request){
-    $datas=DB::table('master_nomenklatur_kabkota')->get();
-    foreach($datas as $d){
-      $susun='';
-      $jenis=null;
-
-      if($d->urusan){
-        $susun.=$d->urusan;
-        if($d->bidang_urusan){
-          $susun.='.'.$d->bidang_urusan;
-          if($d->program){
-            $susun.='.'.$d->program;
-             if($d->kegiatan){
-                $susun.='.'.$d->kegiatan;
-                if($d->sub_kegiatan){
-                    $susun.='.'.$d->kegiatan;
-                    $susun.='.'.$d->sub_kegiatan;
-
-                    $jenis='sub_kegiatan';
-                    
-                 }else{
-                    $jenis='kegiatan';
-                  }
-
-              }else{
-                $jenis='program';
-              }
-          }else{
-          $jenis='bidang_urusan';
-        }
-
-        }else{
-          $jenis='urusan';
-        }
-
-      }
-
-      $aaaah=[
-        'kode'=>$susun,
-        'jenis'=>$jenis,
-
-      ];
-      if($jenis=='program'){
-        $aaaah['nomenklatur']=ucwords(strtolower($d->nomenklatur));
-      }
-
-      DB::table('master_nomenklatur_kabkota')->where('id',$d->id)->update($aaaah);
-
-      
-
-
-    }
-
-
-});
-
-
-//   Route::get('/vertion', function(){
-//     return view('test');
-
-// });
+Route::get('init/{tahun?}', 'DashboardController@landing')->name('home');
+Route::get('/', function(){
+  return redirect()->route('home',['tahun'=>2020]);
+})->name('index');
 
 
 Route::get('/generate-data','GenerateData@urusan_23');
@@ -86,101 +27,34 @@ Route::get('/profile', 'UserController@profile')->name('profile');
 
 Route::get('/excel-download', 'ExcelSIPD@getExcel');
 
-Route::prefix('data')->group(function(){
+Route::prefix('/data/{tahun?}')->group(function(){
   Route::get('/kegiatan-supd2', 'KegiatanSupd2Ctrl@index')->name('data.kegiatan_spud2_provinsi_table');
   Route::get('/kegiatan-supd2-chart', 'KegiatanSupd2Ctrl@chart')->name('data.kegiatan_spud2_provinsi_chart');
 
-  Route::get('/', 'DahboardController@index')->name('data.index');
-  Route::get('/anggaran', 'DahboardController@anggaran')->name('data.anggaran');
-  Route::get('/tagging', 'DahboardController@tagging')->name('data.tagging');
-  Route::get('/tingkatan', 'DahboardController@tingkatan')->name('data.tingkatan');
+  Route::get('/', 'DashboardController@index')->name('data.index');
+  Route::get('/anggaran', 'DashboardController@anggaran')->name('data.anggaran');
+  Route::get('/tagging', 'DashboardController@tagging')->name('data.tagging');
+  Route::get('/tingkatan', 'DashboardController@tingkatan')->name('data.tingkatan');
+
+ 
+
+
+
 
 
 });
 
-Auth::routes();
+
+Route::prefix('auth')->group(function(){
+  Auth::routes();
+});
+
+
+
 Route::middleware('auth:web')->group(function(){
 
   Route::get('/home', 'HomeController@index')->name('maps');
-  Route::get('/test', function(){
-    $anu=App\Mandat::get()->toJson();
-    return ($anu);
-
-    dd(shell_exec('chmode -R 777 '.storage_path('')));
-    // return HP::GenerateTokenApi();
-
-  });
-
-
-
-
-  Route::get('/generate', function(){
-      $prefix_dir=public_path('geojson/');
-      $dirr= scandir(public_path('geojson/'));
-      foreach ($dirr as $key_file => $valdirr) {
-          if($key_file>1){
-            $data=file_get_contents($prefix_dir.$valdirr);
-            $name_file=explode("_",$valdirr)[1];
-            $name_file=explode(".geojson",$name_file)[0];
-
-            $file_mp=DB::table('provinsi')->where('nama_singkat','ILIKE','%'.$name_file.'%')->first();
-            if($file_mp){
-              $id_file='mp.id'.$file_mp->id_provinsi.'.js';
-            }else{
-
-              dd('G_cocok '. $name_file);
-            }
-
-
-            // $data=str_replace('Highcharts.maps["idn"] =','',$data);
-            $data=json_decode($data,true);
-            $data2=$data['features'];
-            foreach ($data2 as $key => $value) {
-                  // $name=$data2[$key]['properties']['name'];
-
-                  $name=$data2[$key]['properties']['WAP'];
-                  $data2[$key]['properties']=[];
-                  $data2[$key]['properties']['type']='map-kota-kab';
-                  $data2[$key]['properties']['lat']='';
-                  $data2[$key]['properties']['lng']='';
-                  $data2[$key]['properties']['file']='#ffddcc';
-                  $data2[$key]['properties']['file-opacity']=0.5;
-
-                  if($name=='Kota Sawahlunto'){
-                    $name='kota Sawah Lunto';
-                  }
-
-
-                 $db=DB::table('kabupaten')->where('nama','ILIKE','%'.$name.'%')->first();
-                 if($db){
-                   $data2[$key]['properties']['id_daerah']=$db->id_kabupaten;
-                   $data2[$key]['properties']['name']=$name;
-
-                 }else{
-                   $name=str_replace('-',' ',$name);
-                   $name=str_replace('Raya','',$name);
-                   $name=str_replace('Jakarta ','Jakarta',$name);
-
-                   $db=DB::table('kabupaten')->where('nama','like','%'.$name.'%')->first();
-                   if($db){
-                     $data2[$key]['properties']['id_daerah']=$db->id_kabupaten;
-                   }else{
-                     dd($name);
-                   }
-
-
-                 }
-            }
-
-            $data['features']=$data2;
-            $newJsonString = json_encode($data, JSON_PRETTY_PRINT);
-            Storage::put('public/file-json-daerah/mp/mp.id0kk.js',stripslashes($newJsonString));
-
-          }
-      }
-
-
-  });
+ 
 });
 
 
@@ -349,18 +223,6 @@ Route::prefix('sinkron')->middleware(['auth:web','can:route_access,bidang_urusan
   Route::get('/bidang/{bidang_urusan_link}/f7','FormSink7@index')->name('fs.f7.index');
   Route::get('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}','FormSink7@showIndetifikasiTahunan')->name('fs.f7.show.identifikasi.tahunan');
 
-  // Route::post('/bidang/{bidang_urusan_link}/f7/integrasi-provinsi/add_target_daerah/{id}','FormSink7@store_integrasi_target_provinsi')->name('fs.f7.store_integrasi_target_provinsi');
-
-  // Route::post('/bidang/{bidang_urusan_link}/f7/integrasi-kota-kabupaten/add_target_daerah/{id}','FormSink7@store_integrasi_target_kota_kabupaten')->name('fs.f7.store_integrasi_target_kota_kabupaten');
-
-
-//  Route::post('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/provinsi','FormSink7@add_sub_urusan_provinsi')->name('fs.f7.show.identifikasi.add_sub_provinsi');
-
-// Route::delete('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/provinsi','FormSink7@delete_sub_urusan_provinsi')->name('fs.f7.show.identifikasi.delete_sub_provinsi');
-
-// Route::delete('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/kota_kabupaten','FormSink7@delete_sub_urusan_kotakab')->name('fs.f7.show.identifikasi.delete_sub_kotakab');
-
-//  Route::post('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}/kota_kabupaten','FormSink7@add_sub_urusan_kotakab')->name('fs.f7.show.identifikasi.add_sub_kotakab');
 
 
  Route::get('/bidang/{bidang_urusan_link}/f7/integrasi/provinsi','FormSink7@integrasi_provinsi')->name('fs.f7.identifikasi.integrasi_provinsi');

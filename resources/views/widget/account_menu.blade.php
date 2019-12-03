@@ -117,7 +117,7 @@
                     <ul class="nav flex-column">
                        
                         <li class="nav-item">
-                            <a href="{{url('login')}}" class="nav-link">Login
+                            <a href="{{route('login')}}" class="nav-link">Login
                         </a>
                         </li>
                       

@@ -165,7 +165,6 @@
 		
 
 		}
-		$('#container-builder').html(dm_card);
 
 
 
@@ -232,8 +231,30 @@
 		    series:data_chart
 		});
 
+			$('#container-builder').html(dm_card);
+
 		if((tag=='p')){
 			$('#chart').html('');
+			var data_send={
+			"id_urusan":(key[2]),
+			"id_sub_urusan":(key[4]),
+			"kode_daerah":(""+key[0]),
+			"kode_program":""+(key[6])
+			}
+
+
+			$.post('{{route("api.all.get_kegiatan",['tahun'=>$tahun])}}',data_send,function(res){
+				var dm='<div class="col-md-12"><div class="card mb-4"><div class="card-body"><h6><b><span class="badge badge-pill badge-warning">K</span> Detail Kegiatan</b></h6></div></div></div>';
+				for(i in res){
+					dm+='<div class="col-md-4"><div class="card mb-4"><div class="card-body"><p>'+res[i].nama+'</p></div></div></div>';
+				}
+
+				$('#container-builder').append(dm);
+
+			});
+
+
+
 		}
 				
 

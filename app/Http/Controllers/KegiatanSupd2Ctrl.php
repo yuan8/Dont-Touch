@@ -11,11 +11,10 @@ use DB;
 class KegiatanSupd2Ctrl extends Controller
 {
     //
-    public function index(Request $request){
+    public function index(Request $request,$tahun=2020){
     	$urusan=isset($request->kode_urusan)?$request->kode_urusan:null;
 
     	$data_link=Urusan23::find($urusan);
-        $tahun=(session('focus_tahun')==!null)?session('focus_tahun'):2020;
         $query2_group_by="";
         $filter=array(
             'daerah'=>false,
@@ -297,9 +296,8 @@ class KegiatanSupd2Ctrl extends Controller
     }
 
 
-    public function chart(Request $request){
+    public function chart(Request $request,$tahun=2020){
 
-        $tahun=(session('focus_tahun')!=null)?session('focus_tahun'):2020;
         $urusan=null;
         $query2="";
         $query="";
@@ -436,7 +434,9 @@ class KegiatanSupd2Ctrl extends Controller
         $data=json_decode($data,true);
 
         return view('all.kegiatan_supd2_chart')->with('datas',$data)->with('daerah',$daerahs)->with('sub_urusans',$sub_urusans)->with('urusans',$urusan)
-            ->with('menu_id','1.1');
+            ->with('menu_id','1.1')
+            ->with('tahun',$tahun);
+
 
     }
 

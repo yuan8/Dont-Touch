@@ -23,6 +23,13 @@ Route::prefix('daerah')->group(function(){
     Route::post('kabupaten-from-provinsi-id','API\APIDaerahCTRL@kabupatenFromProvinsiId')->name('api.daerah.kab.id_pro');
 
 });
+
+Route::prefix('all/{tuhun?}')->group(function(){
+
+   Route::post('get-kegitaan','DashboardController@get_kegitaan')->name('api.all.get_kegiatan');
+
+});
+
 Route::prefix('form')->middleware('auth:api')->group(function(){
 	
   Route::post('get-list-mandat','API\APIForm@getListMandat');

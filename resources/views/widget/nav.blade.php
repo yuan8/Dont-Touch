@@ -3,6 +3,10 @@
         $menu_id=0;
     }
 
+    if(!isset($tahun)){
+        $tahun=2020;
+    }
+
 ?>
 
 <ul class="vertical-nav-menu">
@@ -14,13 +18,13 @@
         </a>
         <ul>
             <li class="{{$menu_id=='1.0'?'mm-active':''}}">
-                <a href="{{route('home')}}" >
+                <a href="{{route('home',['tahun'=>$tahun])}}" >
                     <i class="metismenu-icon">
                     </i>Home
                 </a>
             </li>
             <li class="{{$menu_id=='1.1'?'mm-active':''}}">
-                <a href="{{route('data.kegiatan_spud2_provinsi_table')}}" >
+                <a href="{{route('data.kegiatan_spud2_provinsi_table',['tahun'=>$tahun])}}" >
                     <i class="metismenu-icon">
                     </i>Data Kegiatan SUPD2
                 </a>
@@ -42,26 +46,26 @@
         </a>
         <ul>
              <li class="{{$menu_id=='2.1'?'mm-active':''}}">
-                <a href="{{route('data.anggaran')}}">
+                <a href="{{route('data.anggaran',['tahun'=>$tahun])}}">
                     <i class="metismenu-icon">
                     </i>Anggaran
                 </a>
             </li>
             <li class="{{$menu_id=='2.2'?'mm-active':''}}">
-                <a href="{{route('data.index')}}" >
+                <a href="{{route('data.index',['tahun'=>$tahun])}}" >
                     <i class="metismenu-icon">
                     </i> Program Kegiatan
                 </a>
             </li>
             <li class="{{$menu_id=='2.3'?'mm-active':''}}">
-                <a href="{{route('data.tagging')}}">
+                <a href="{{route('data.tagging',['tahun'=>$tahun])}}">
                     <i class="metismenu-icon">
                     </i>NSPK,SPM,PN,SDGS
                 </a>
             </li>
 
             <li class="{{$menu_id=='2.4'?'mm-active':''}}">
-                <a href="{{route('data.tingkatan')}}">
+                <a href="{{route('data.tingkatan',['tahun'=>$tahun])}}">
                     <i class="metismenu-icon">
                     </i>View Data Tingkatan
                 </a>

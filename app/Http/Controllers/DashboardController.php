@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-class DahboardController extends Controller
+use Validator;
+class DashboardController extends Controller
 {
     //
 
-    public function landing(){
-        $tahun=2020;
+    public function landing($tahun=2020){
+
         $data=DB::select('select count(*) as jml_data from program_kegiatan_lingkup_supd_2 where tahun ='.$tahun);
+
         $data_pie=json_encode($data);
         $data=json_decode($data_pie,true);
 
@@ -22,10 +24,11 @@ class DahboardController extends Controller
         }
 
 
-        return view('all.landing')->with('data',$data)->with('menu_id','1.0');
+
+        return view('all.landing')->with('data',$data)->with('menu_id','1.0')->with('tahun',$tahun);
     }
 
-    public function index(){
+    public function index($tahun=2020){
     	   $query="
             select kode_daerah,d.nama as nama_daerah,id_urusan,u.nama as nama_urusan,id_sub_urusan,kode_program,uraian_kode_program_daerah, count(distinct(kode_program)) as jml_program,count(kode_kegiatan) as jml_kegiatan from 
             program_kegiatan_lingkup_supd_2 as a
@@ -212,6 +215,8 @@ class DahboardController extends Controller
     	return view('all.dashboard')
     	->with('data_head',$data_return)
     	->with('data_pie',$data_pie[0])
+        ->with('tahun',$tahun)
+
         ->with('menu_id','2.2');
 
 
@@ -238,8 +243,9 @@ class DahboardController extends Controller
 
 	}
 
-	public function anggaran(){
-    	$data=static::query();
+	public function anggaran($tahun=2020){
+    	$data=static::query($tahun);
+
 
     	$data_return=array(
     		'data'=>[],
@@ -434,10 +440,8 @@ class DahboardController extends Controller
     	->with('data_head',$data_return)
     	->with('data_pie',$data_pie[0])
         ->with('title','ANGGARAN')
-        ->with('menu_id','2.1');
-
-
-    
+        ->with('tahun',$tahun)
+        ->with('menu_id','2.1');    
 	}
 
 
@@ -604,26 +608,60 @@ class DahboardController extends Controller
         return $data_return;
     }
 
-	public function tagging(){
-		$data=static::query();
+	public function tagging($tahun=2020){
+		$data=static::query($tahun);
 
 	 	 $data_return=static::generate_json($data);
 
     	return view('all.tagging')
     	->with('data_head',$data_return)
+        ->with('tahun',$tahun)
         ->with('menu_id','2.3');
 
 	}
 
 
-    public function tingkatan(){
+    public function tingkatan($tahun=2020){
         $data=static::query();
-
         $data_return=static::generate_json($data);
 
         return view('all.tingkatan')
         ->with('data_head',$data_return)
+        ->with('tahun',$tahun)
         ->with('menu_id','2.4');
+
+    }
+
+
+    public function get_kegitaan($tahun=2020,Request $request){
+        $request->request->add(['tahun'=>$tahun]);
+        $validator=Validator::make($request->all(),[
+            'tahun'=>'required|numeric',
+            'id_urusan'=>'required|numeric',
+            'id_sub_urusan'=>'required|numeric',
+            'kode_daerah'=>'required|string',
+            'kode_program'=>'required|string'
+        ]);
+        if($validator->fails()){
+            return array('code'=>500,'data'=>[]);
+        }else{
+
+        }
+
+
+        $query='select uraian_kode_kegiatan_daerah as nama, count(DISTINCT(kode_kegiatan)) as jml_kegiatan  from program_kegiatan_lingkup_supd_2 where tahun ='.
+        $request->tahun." and id_urusan = ".
+
+        $request->id_urusan." and kode_daerah = '".$request->kode_daerah."' and kode_program = '".
+        $request->kode_program."' and id_sub_urusan = ".$request->id_sub_urusan."
+            GROUP BY kode_kegiatan,id_urusan,kode_daerah,id_sub_urusan,kode_program,kode_kegiatan,uraian_kode_kegiatan_daerah
+        ";
+
+    
+        $data=DB::select($query);
+
+        return ($data);
+
 
     }
 }
