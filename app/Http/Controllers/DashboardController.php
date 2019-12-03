@@ -675,18 +675,42 @@ class DashboardController extends Controller
         }
 
 
-        $query='select uraian_kode_kegiatan_daerah as nama, count(DISTINCT(kode_kegiatan)) as jml_kegiatan  from program_kegiatan_lingkup_supd_2 where tahun ='.
-        $request->tahun." and id_urusan = ".
+             
+        $query='select a.kode_kegiatan,b.indikator,(case when b.target_awal = null then 0 end) as target_awal,b.target_ahir,b.satuan, a.uraian_kode_kegiatan_daerah as nama, count(DISTINCT(a.kode_kegiatan)) as jml_kegiatan  from program_kegiatan_lingkup_supd_2 as a left join program_kegiatan_lingkup_supd_2_indikator_provinsi as b on  b.id_kegiatan_supd_2 = a.id  where a.tahun ='.
+        $request->tahun." and a.id_urusan = ".
 
-        $request->id_urusan." and kode_daerah = '".$request->kode_daerah."' and kode_program = '".
-        $request->kode_program."' and id_sub_urusan = ".$request->id_sub_urusan."
-            GROUP BY kode_kegiatan,id_urusan,kode_daerah,id_sub_urusan,kode_program,kode_kegiatan,uraian_kode_kegiatan_daerah
+        $request->id_urusan." and a.kode_daerah = '".$request->kode_daerah."' and a.kode_program = '".
+        $request->kode_program."' and a.id_sub_urusan = ".$request->id_sub_urusan."
+            GROUP BY a.kode_kegiatan,a.id_urusan,a.kode_daerah,a.id_sub_urusan,a.kode_program,a.kode_kegiatan,a.uraian_kode_kegiatan_daerah,b.indikator,b.target_awal,b.target_ahir,b.satuan
         ";
 
-    
         $data=DB::select($query);
+        $data=json_encode($data);
+        $data=json_decode($data,true);
 
-        return ($data);
+        $data_return=[];
+        foreach($data as $d)
+        {
+            if(!isset($data_return[('k'.$d['kode_kegiatan'])])){
+
+                $data_return[('k'.$d['kode_kegiatan'])]['nama']=$d['nama'];
+                $data_return[('k'.$d['kode_kegiatan'])]['indikator']=[];
+            }
+
+            if(($d['indikator']!='')and($d['indikator']!=null)){
+                $data_return[('k'.$d['kode_kegiatan'])]['indikator'][]=array(
+                    'indikator'=>$d['indikator'],
+                    'target_awal'=>$d['target_awal']." ".$d['satuan'],
+                    'target_ahir'=>$d['target_ahir']." ".$d['satuan'],
+                );
+            }
+
+
+        }
+
+
+
+        return ($data_return);
 
 
     }

@@ -255,7 +255,21 @@
 			$.post('{{route("api.all.get_kegiatan",['tahun'=>$tahun])}}',data_send,function(res){
 				var dm='<div class="col-md-12"><div class="card mb-4"><div class="card-body"><h6><b><span class="badge badge-pill badge-warning">K</span> Detail Kegiatan</b></h6></div></div></div>';
 				for(i in res){
-					dm+='<div class="col-md-4"><div class="card mb-4"><div class="card-body"><p>'+res[i].nama+'</p></div></div></div>';
+					dm+='<div class="col-md-4"><div class="card mb-4"><div class="card-body"><p>'+res[i].nama+'</p>';
+
+					if(res[i]['indikator'].length > 0){
+
+						dm+='<ul class="list-group">';
+						for(p in res[i]['indikator'] ){
+							 dm+='<li class="list-group-item">'+res[i]['indikator'][p]['indikator']+'</li>';
+						}
+						dm+='</ul>';
+
+
+					}
+  
+
+					dm+='</div></div></div>';
 				}
 
 				$('#container-builder').append(dm);
