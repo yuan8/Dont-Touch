@@ -85,7 +85,16 @@
 		</div>
 	</div>
 	<div class="col-md-9" id="d">
-		<div class="row" id="container-builder"></div>
+		<div class="row" id="container-builder">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-body text-center " style="min-height: 80vh; padding-top: 20vh;">
+						<i class="align-middle  pe-7s-graph1 text-warning" style="font-size: 200px"></i>
+						<h5><b>Chart</b></h5>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 
