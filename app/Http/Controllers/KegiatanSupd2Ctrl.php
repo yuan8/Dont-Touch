@@ -12,7 +12,6 @@ class KegiatanSupd2Ctrl extends Controller
 {
     //
     public function index(Request $request){
-
     	$urusan=isset($request->kode_urusan)?$request->kode_urusan:null;
 
     	$data_link=Urusan23::find($urusan);
@@ -201,7 +200,7 @@ class KegiatanSupd2Ctrl extends Controller
                   if(isset($value['indikator'])){
                      $data_return[$value['id']]['indikator'][]=array(
                         'target_ahir'=>$value['target_ahir'],
-                        // 'target_awal'=>$value['target_awal'],
+                        'target_awal'=>$value['target_awal'],
                         'indikator'=>$value['indikator'],
                         'satuan'=>$value['satuan'],
                     );
