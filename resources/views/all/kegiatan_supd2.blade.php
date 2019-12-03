@@ -140,8 +140,8 @@
 						<th>PN</th>
 						<th>SDGS</th>
 						
-						<th>Tahun {{session('focus_tahun')}}</th>
-						<th>Tahun {{session('focus_tahun')+1}}</th>
+						<th>Tahun {{$tahun}}</th>
+						<th>Tahun {{$tahun+1}}</th>
 					</tr>
 				</thead>
 				<tbody>

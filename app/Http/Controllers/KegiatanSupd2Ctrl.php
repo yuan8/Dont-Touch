@@ -268,6 +268,7 @@ class KegiatanSupd2Ctrl extends Controller
 
     	return view('all.kegiatan_supd2')->with('id_link',$urusan)->with('data_link',$data_link)
     	->with('datas',$data_return)->with('data_paginate',$data_paginate)->with('program_provinsi',$program_provinsi)->with('daerah',$daerahs)->with('sub_urusans',$sub_urusans)->with('urusans',$urusan)
+        ->with('tahun',$tahun)
         ->with('menu_id','1.1');
     }
 
