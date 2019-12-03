@@ -236,10 +236,10 @@
 		if((tag=='p')){
 			$('#chart').html('');
 			var data_send={
-			"id_urusan":(key[2]),
-			"id_sub_urusan":(key[4]),
-			"kode_daerah":(""+key[0]),
-			"kode_program":""+(key[6])
+			"id_urusan":parseInt(key[2]),
+			"id_sub_urusan":parseInt(key[4]),
+			"kode_daerah":(""+key[0]).toString(),
+			"kode_program":""+(key[6]).toString()
 			}
 
 

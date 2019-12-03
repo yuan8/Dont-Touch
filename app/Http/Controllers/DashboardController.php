@@ -640,10 +640,11 @@ class DashboardController extends Controller
             'id_urusan'=>'required|numeric',
             'id_sub_urusan'=>'required|numeric',
             'kode_daerah'=>'required|string',
-            'kode_program'=>'required|string'
+            'kode_program'=>'required|string',
         ]);
+        
         if($validator->fails()){
-            return array('code'=>500,'data'=>[]);
+            return array('code'=>500,'data'=>[],'message'=>$validator->errors());
         }else{
 
         }
