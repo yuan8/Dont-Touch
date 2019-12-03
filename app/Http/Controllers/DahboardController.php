@@ -26,27 +26,16 @@ class DahboardController extends Controller
     }
 
     public function index(){
-    	$tahun=(session('focus_tahun')!=null)?session('focus_tahun'):2020;
-        $urusan=null;
-        $query2="";
-        $query="";
-
-        $query2_group_by="";
-
-        $query2_select="select count(CASE WHEN (ki.indikator != null) THEN 1  END) as jml_indikator, sum(a.anggaran) as jml_anggaran,count(a.id) as jml_kegiatan, count(CASE WHEN a.nspk THEN 1 END) as jml_nspk,count(CASE WHEN a.spm THEN 1 END) as jml_spm,count(CASE WHEN a.pn THEN 1 END) as jml_pn, count(CASE WHEN a.sdgs THEN 1 END) as jml_sdgs,d.nama as label ";
-
-        
-        $query2.=" from program_kegiatan_lingkup_supd_2 as a ";
-        $query2.=" left join program_kegiatan_lingkup_supd_2_indikator_provinsi as ki on ki.id_kegiatan_supd_2 = a.id";
-        $query2.=" left join master_nomenklatur_provinsi as np on a.kode_program = np.kode";
-        $query2.=" left join master_nomenklatur_provinsi as nk on a.kode_kegiatan = nk.kode";
-        $query2.=" left join provinsi as d on a.kode_daerah = d.id_provinsi";
-        $query2.=" left join master_sub_urusan as s on s.id = a.id_sub_urusan";
-        $query2.=" where a.tahun = ".$tahun;
-        $data=DB::select($query2);
-        $data_pie=json_encode($data);
-        $data=json_decode($data_pie,true);
-
+    	   $query="
+            select kode_daerah,d.nama as nama_daerah,id_urusan,u.nama as nama_urusan,id_sub_urusan,kode_program,uraian_kode_program_daerah, count(distinct(kode_program)) as jml_program,count(kode_kegiatan) as jml_kegiatan from 
+            program_kegiatan_lingkup_supd_2 as a
+            left join view_daerah as d on d.id= a.kode_daerah
+            left join master_urusan as u on u.id= a.id_urusan
+            group by kode_daerah,id_urusan,id_sub_urusan,uraian_kode_program_daerah,d.nama,u.nama,kode_program
+            ";
+        $data=DB::select($query);
+        $data=json_encode($data);
+        $data=json_decode($data,true);
 
     	$data_return=array(
     		'data'=>[],
@@ -228,15 +217,17 @@ class DahboardController extends Controller
 
     }
 
-	public static function query(){
+	public static function query($tahun=2020){
+
 		$query="
     		select s.nama as nama_sub_urusan,count(case when sdgs then 1 end ) as jml_sdgs,count(case when pn then 1 end ) as jml_pn,count(case when spm then 1 end ) as jml_spm,count(case when nspk then 1 end ) as jml_nspk,sum(anggaran) as jml_anggaran,kode_daerah,d.nama as nama_daerah,a.id_urusan,u.nama as nama_urusan,id_sub_urusan,kode_program,uraian_kode_program_daerah, count(distinct(kode_program)) as jml_program,count(kode_kegiatan) as jml_kegiatan from 
 			program_kegiatan_lingkup_supd_2 as a
 			left join view_daerah as d on d.id= a.kode_daerah
 			left join master_urusan as u on u.id= a.id_urusan
             left join master_sub_urusan as s on s.id=a.id_sub_urusan
-			group by kode_daerah,a.id_urusan,id_sub_urusan,uraian_kode_program_daerah,d.nama,u.nama,kode_program,anggaran,s.nama 
-			";
+            where a.tahun =
+            ".$tahun."
+			group by kode_daerah,a.id_urusan,id_sub_urusan,uraian_kode_program_daerah,d.nama,u.nama,kode_program,anggaran,s.nama ";
 
 		$data=DB::select($query);
     	$data=json_encode($data);
