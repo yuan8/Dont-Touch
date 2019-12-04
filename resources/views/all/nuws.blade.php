@@ -24,6 +24,16 @@
 		margin-top: 3px;
 	}
 </style>
+<style type="text/css">
+	 .app-theme-white.app-container{
+            background-color:#bd9010ba;
+            /*background-color: #c2c8cc;*/
+        }
+	   body{
+            background-image: url('{{asset('ass_img/giphy.gif')}}')!important;
+             background-size: 100% auto;
+        }
+</style>
 <div class="row">
 	<div class="col-md-12 mb-4">
 		<div id="chart" class="chart-cn"></div>
