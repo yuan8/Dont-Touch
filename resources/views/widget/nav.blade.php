@@ -67,9 +67,15 @@
             <li class="{{$menu_id=='2.4'?'mm-active':''}}">
                 <a href="{{route('data.tingkatan',['tahun'=>$tahun])}}">
                     <i class="metismenu-icon">
-                    </i>View Data Tingkatan
+                    </i>Profile Daerah
                 </a>
-            </li>           
+            </li>
+             <li class="{{$menu_id=='2.5'?'mm-active':''}}">
+                <a href="{{route('data.tingkatan_urusan',['tahun'=>$tahun])}}">
+                    <i class="metismenu-icon">
+                    </i>Profile Urusan
+                </a>
+            </li>             
         </ul>
     </li>
     

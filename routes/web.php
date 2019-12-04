@@ -34,7 +34,11 @@ Route::prefix('/data/{tahun?}')->group(function(){
   Route::get('/', 'DashboardController@index')->name('data.index');
   Route::get('/anggaran', 'DashboardController@anggaran')->name('data.anggaran');
   Route::get('/tagging', 'DashboardController@tagging')->name('data.tagging');
-  Route::get('/tingkatan', 'DashboardController@tingkatan')->name('data.tingkatan');
+  Route::get('/profile-daerah', 'DashboardController@tingkatan')->name('data.tingkatan');
+  Route::get('/profile-urusan', 'DashboardController@tingkatan_urusan')->name('data.tingkatan_urusan');
+  Route::get('/nuwas', 'DashboardController@nuws')->name('data.nuwas');
+
+
 
  
 
