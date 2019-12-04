@@ -37,7 +37,7 @@ class FormSink5 extends Controller
         if(isset($request->daerah)){
             $query.=" and a.kode_daerah = '".($request->daerah)."'";
             $data_paginate=$data_paginate->where('kode_daerah',$request->daerah);
-            $data_paginate_appends['kode_daerah']=$request->daerah;
+            $data_paginate_appends['daerah']=$request->daerah;
            
         }
         if(isset($request->npsk)){
