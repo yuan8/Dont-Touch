@@ -93,6 +93,8 @@ class FormSink5 extends Controller
         
 
         $data_paginate=$data_paginate->paginate(5);
+        $data_paginate->appends($data_paginate_appends);
+
 
         $data=$data_paginate->pluck('id');
         $ids="(0)";
