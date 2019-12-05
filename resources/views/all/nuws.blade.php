@@ -100,7 +100,7 @@
 				<div class="card">
 					<div class="card-body text-center " style="min-height: 80vh; padding-top: 20vh;">
 						<i class="align-middle  pe-7s-graph1 text-warning" style="font-size: 200px"></i>
-						<h5><b>Chart</b></h5>
+						<h5><b>NUWAS Chart</b></h5>
 					</div>
 				</div>
 			</div>
