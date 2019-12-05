@@ -31,7 +31,7 @@
         }
 	   body{
             background-image: url('{{asset('ass_img/giphy.gif')}}')!important;
-             background-size: 100% auto;
+             /*background-size: auto auto;*/
         }
 </style>
 <div class="row">
@@ -99,7 +99,7 @@
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-body text-center " style="min-height: 80vh; padding-top: 20vh;">
-						<i class="align-middle  pe-7s-graph1 text-warning" style="font-size: 200px"></i>
+						<i class="align-middle fa-chart-area fas text-info" style="font-size: 200px"></i>
 						<h5><b>NUWAS Chart</b></h5>
 					</div>
 				</div>
