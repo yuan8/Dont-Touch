@@ -105,7 +105,6 @@ class FormSink5 extends Controller
 
             $data_where_paginate_1=$data_where_paginate;
             $data_where_paginate_2=$data_where_paginate;
-
             $data_where_paginate_1[]=['uraian_kode_program_daerah','ilike',('%'.$request->q.'%')];
             $data_where_paginate_2[]=['uraian_kode_kegiatan_daerah','ilike',('%'.$request->q.'%')];
             
@@ -115,10 +114,11 @@ class FormSink5 extends Controller
 
 
         if($tek){
-        $data_paginate=$data_paginate->where($data_where_paginate_1)->orWhere($data_where_paginate_2)->paginate(5);
+
+           $data_paginate=$data_paginate->where($data_where_paginate_1)->orWhere($data_where_paginate_2)->paginate(5);
 
         }else{
-         $data_paginate=$data_paginate->paginate(5);
+         $data_paginate=$data_paginate->where($data_where_paginate)->paginate(5);
 
         }
        
