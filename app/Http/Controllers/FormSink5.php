@@ -28,7 +28,7 @@ class FormSink5 extends Controller
         $query.=" left join master_sub_urusan as s on s.id = a.id_sub_urusan";
 
         $query.=" where a.tahun = ".session('focus_tahun');
-        $data_paginate=$data_paginate->where('id_urusan',$urusan);
+       $data_where_paginate[]=['id_urusan','=',$urusan];
 
 
         $data_paginate_appends=[];
@@ -51,7 +51,7 @@ class FormSink5 extends Controller
         if(isset($request->spm)){
             $query.=" and a.spm = true";
             // $data_paginate=$data_paginate->where('spm',true);
-            $data_where_paginate[]=['spm'=>true];
+            $data_where_paginate[]=['spm','=','true'];
 
             $data_paginate_appends['spm']=$request->spm;
         }
@@ -60,7 +60,7 @@ class FormSink5 extends Controller
             $query.=" and a.pn = true";
 
             // $data_paginate=$data_paginate->where('pn',true);
-            $data_where_paginate[]=['pn'=>true];
+            $data_where_paginate[]=['pn','=','true'];
 
             $data_paginate_appends['pn']=$request->pn;
         }
@@ -69,7 +69,7 @@ class FormSink5 extends Controller
             $query.=" and a.id_sub_urusan =".$request->sub_urusan;
 
            // $data_paginate=$data_paginate->where('id_sub_urusan',$request->sub_urusan);
-            $data_where_paginate[]=['id_sub_urusan'=>$request->sub_urusan];
+            $data_where_paginate[]=['id_sub_urusan','=',$request->sub_urusan];
 
             $data_paginate_appends['sub_urusan']=$request->sub_urusan;
         }
@@ -77,7 +77,7 @@ class FormSink5 extends Controller
         if(isset($request->sdgs)){
             $query.=" and a.sdgs = true";
             // $data_paginate=$data_paginate->where('sdgs',true);
-            $data_where_paginate[]=['sdgs'=>true];
+            $data_where_paginate[]=['sdgs','=','true'];
 
             $data_paginate_appends['sdgs']=$request->sdgs;
         }
