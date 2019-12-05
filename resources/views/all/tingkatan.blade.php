@@ -259,7 +259,8 @@
 
 					if(res[i]['indikator'].length > 0){
 
-						dm+='<ul class="list-group">';
+						dm+='<ul class="list-group"><li class="list-group-item active">Indikator</li>';
+						
 						for(p in res[i]['indikator'] ){
 							 dm+='<li class="list-group-item">'+res[i]['indikator'][p]['indikator']+'</li>';
 						}
