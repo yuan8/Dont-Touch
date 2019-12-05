@@ -10,6 +10,10 @@
 <div class="form-group">
 	<form action="{{url()->current()}}" method="get">
 		<div class="row">
+		<div class="col-md-12">
+			<label>Search</label>
+			<input type="text" value="{{(isset($_GET['q'])?$_GET['q']:'')}}" name="q" class="form-control">
+		</div>
 		<div class="col-md-3">
 			<label>Daerah</label>
 			<select type="text" class="form-control" name="daerah" value="{{isset($_GET['daerah'])?$_GET['daerah']:''}}">
@@ -35,7 +39,7 @@
 			</script>
 		</div>
 		
-		<div class="col-md-3">
+		<!-- <div class="col-md-3">
 			<label>Program</label>
 			<select class="form-control" name="kode_program" id="program_pro">
 					<option value="">- Pilih Program -</option>
@@ -55,7 +59,7 @@
 			<select type="text" class="form-control" name="kode_kegiatan" id="kegiatan_pro" value="{{isset($_GET['kegiatan'])?$_GET['kegiatan']:''}}">
 
 			</select>
-		</div>
+		</div> -->
 		<div class="col-md-1">
 			<label></label>
 			<div class="custom-control custom-switch">
