@@ -268,7 +268,7 @@ class DashboardController extends Controller
             left join master_urusan as u on u.id= a.id_urusan
             left join master_sub_urusan as s on s.id=a.id_sub_urusan
             where a.tahun =
-            ".$tahun." and a.id_urusan = 3 and a.id_sub_urusan = 12
+            ".$tahun." and a.id_urusan = ".(3)." and a.id_sub_urusan = 12
             group by kode_daerah,a.id_urusan,id_sub_urusan,a.kode_program,uraian_kode_program_daerah,d.nama,u.nama,s.nama ";
 
         $data=DB::select($query);
@@ -279,6 +279,8 @@ class DashboardController extends Controller
         return $data;
 
     }
+
+
 
     public static function query_urusan($tahun=2020){
 
@@ -890,6 +892,194 @@ class DashboardController extends Controller
         ->with('tahun',$tahun)
         ->with('title','NUWAS')
         ->with('menu_id','2.4');
+
+
+    }
+
+
+
+    public function pendukung($tahun=2020){
+
+        $tahun=static::tahun($tahun);
+
+        $query="
+            select s.nama as nama_sub_urusan,count(case when sdgs then 1 end ) as jml_sdgs,count(case when pn then 1 end ) as jml_pn,count(case when spm then 1 end ) as jml_spm,count(case when nspk then 1 end ) as jml_nspk,sum(anggaran) as jml_anggaran,kode_daerah,d.nama as nama_daerah,a.id_urusan,u.nama as nama_urusan,id_sub_urusan,kode_program,uraian_kode_program_daerah, count(DISTINCT(kode_program)) as jml_program,count(*) as jml_kegiatan from 
+            program_kegiatan_lingkup_supd_2 as a
+            left join view_daerah as d on d.id= a.kode_daerah
+            left join master_urusan as u on u.id= a.id_urusan
+            left join master_sub_urusan as s on s.id=a.id_sub_urusan
+            where (a.tahun =".$tahun." and a.nspk =true) or (a.tahun =".$tahun." and a.spm =true) and (a.tahun =".$tahun." and a.pn =true) and (a.tahun =".$tahun." and a.sdgs =true)
+            group by kode_daerah,a.id_urusan,id_sub_urusan,a.kode_program,uraian_kode_program_daerah,d.nama,u.nama,s.nama";
+
+        $data=DB::select($query);
+        $data=json_encode($data);
+        $data=json_decode($data,true);
+
+        $data_return=[];
+
+        foreach ($data as $key => $d) {
+            
+            $var_loop=['nspk','spm','pn','sdgs'];
+
+            foreach ($var_loop as  $f) {
+                if($d['jml_'.$f]>0){
+                    if(!isset($data_return['data'][$f])){
+                        $data_return['data'][$f]['nama']=strtoupper($f);
+                        $data_return['data'][$f]['jumlah_'.$f]=0;
+                        $data_return['data'][$f]['jumlah_program']=0;
+                        $data_return['data'][$f]['jumlah_kegiatan']=0;
+                        $data_return['data'][$f]['jumlah_anggaran']=0;
+
+                    }
+
+                    if(!isset($data_return['data'][$f]['urusan'][$d['id_urusan']])){
+                           $data_return['data'][$f]['urusan'][$d['id_urusan']]['nama']=$d['nama_urusan'];
+                           $data_return['data'][$f]['urusan'][$d['id_urusan']]['jumlah_'.$f]=0;
+                           $data_return['data'][$f]['urusan'][$d['id_urusan']]['jumlah_program']=0;
+                           $data_return['data'][$f]['urusan'][$d['id_urusan']]['jumlah_kegiatan']=0;
+                           $data_return['data'][$f]['urusan'][$d['id_urusan']]['jumlah_anggaran']=0;
+
+                    }
+
+                    if(!isset($data_return['data'][$f]['urusan'][$d['id_urusan']]['daerah'][$d['kode_daerah']])){
+                        $data_return['data'][$f]['urusan'][$d['id_urusan']]['daerah'][$d['kode_daerah']]['nama']=$d['nama_daerah'];
+                        $data_return['data'][$f]['urusan'][$d['id_urusan']]['daerah'][$d['kode_daerah']]['jumlah_'.$f]=0;
+                        $data_return['data'][$f]['urusan'][$d['id_urusan']]['daerah'][$d['kode_daerah']]['jumlah_program']=0;
+                        $data_return['data'][$f]['urusan'][$d['id_urusan']]['daerah'][$d['kode_daerah']]['jumlah_kegiatan']=0;
+                        $data_return['data'][$f]['urusan'][$d['id_urusan']]['daerah'][$d['kode_daerah']]['jumlah_anggaran']=0;
+
+                    }
+
+                    if(!isset($data_return['data'][$f]['urusan'][$d['id_urusan']]['daerah'][$d['kode_daerah']]['program'][$d['kode_program']])){
+                        $data_return['data'][$f]['urusan'][$d['id_urusan']]['daerah'][$d['kode_daerah']]['program'][$d['kode_program']]['nama']=$d['uraian_kode_program_daerah'];
+                        $data_return['data'][$f]['urusan'][$d['id_urusan']]['daerah'][$d['kode_daerah']]['program'][$d['kode_program']]['jumlah_'.$f]=0;
+                        
+                        $data_return['data'][$f]['urusan'][$d['id_urusan']]['daerah'][$d['kode_daerah']]['program'][$d['kode_program']]['jumlah_kegiatan']=0;
+
+                        $data_return['data'][$f]['urusan'][$d['id_urusan']]['daerah'][$d['kode_daerah']]['program'][$d['kode_program']]['jumlah_anggaran']=0;
+                    }
+
+
+
+                    $data_return['data'][$f]['jumlah_'.$f]+=$d['jml_'.$f];
+                    $data_return['data'][$f]['jumlah_program']+=$d['jml_program'];
+                    $data_return['data'][$f]['jumlah_kegiatan']+=$d['jml_kegiatan'];
+                    $data_return['data'][$f]['jumlah_anggaran']+=$d['jml_anggaran'];
+
+
+                    $data_return['data'][$f]['urusan'][$d['id_urusan']]['jumlah_'.$f]+=$d['jml_'.$f];
+                    $data_return['data'][$f]['urusan'][$d['id_urusan']]['jumlah_program']+=$d['jml_program'];
+                    $data_return['data'][$f]['urusan'][$d['id_urusan']]['jumlah_kegiatan']+=$d['jml_kegiatan'];
+                    $data_return['data'][$f]['urusan'][$d['id_urusan']]['jumlah_anggaran']+=$d['jml_anggaran'];
+
+
+                    $data_return['data'][$f]['urusan'][$d['id_urusan']]['daerah'][$d['kode_daerah']]['jumlah_program']+=$d['jml_program'];
+
+                    $data_return['data'][$f]['urusan'][$d['id_urusan']]['daerah'][$d['kode_daerah']]['jumlah_anggaran']+=$d['jml_anggaran'];
+
+                    $data_return['data'][$f]['urusan'][$d['id_urusan']]['daerah'][$d['kode_daerah']]['jumlah_kegiatan']+=$d['jml_kegiatan'];
+                    $data_return['data'][$f]['urusan'][$d['id_urusan']]['daerah'][$d['kode_daerah']]['jumlah_'.$f]+=$d['jml_'.$f];
+
+                     $data_return['data'][$f]['urusan'][$d['id_urusan']]['daerah'][$d['kode_daerah']]['program'][$d['kode_program']]['jumlah_kegiatan']+=$d['jml_kegiatan'];
+
+                     $data_return['data'][$f]['urusan'][$d['id_urusan']]['daerah'][$d['kode_daerah']]['program'][$d['kode_program']]['jumlah_'.$f]+=$d['jml_'.$f];
+
+                      $data_return['data'][$f]['urusan'][$d['id_urusan']]['daerah'][$d['kode_daerah']]['program'][$d['kode_program']]['jumlah_anggaran']+=$d['jml_anggaran'];
+
+
+
+                    
+                }
+            }
+
+
+        }
+
+
+
+
+        return view('all.pendukung')
+        ->with('data_head',$data_return)
+        ->with('tahun',$tahun)
+        ->with('title','Kegiatan Pendukung')
+        ->with('menu_id','2.6');
+
+
+    }
+
+
+    public function get_kegiatan_tagging($tahun=2020,Request $request){
+
+        $tahun=static::tahun($tahun);
+        $request->request->add(['tahun'=>$tahun]);
+        $validator=Validator::make($request->all(),[
+            'tahun'=>'required|numeric',
+            'id_urusan'=>'required|numeric',
+            'id_sub_urusan'=>'nullable|numeric',
+            'kode_daerah'=>'required|string',
+            'kode_program'=>'required|string',
+        ]);
+
+        if($validator->fails()){
+            return array('code'=>500,'data'=>[],'message'=>$validator->errors());
+        }else{
+            
+        }
+
+        $where='';
+        foreach ($request->except('token') as $key => $value) {
+                
+                $value=(in_array($key,['kode_daerah','kode_program']))?("'".$value."'"):$value;
+
+                if($where==''){
+                    $where.=' where a.'.$key.'='.$value;
+                }else{
+                    $where.=' and a.'.$key.'='.$value;
+                }
+
+        }
+
+
+    
+
+             
+        $query='select a.kode_kegiatan,b.indikator,(case when b.target_awal = null then 0 end) as target_awal,b.target_ahir,b.satuan, a.uraian_kode_kegiatan_daerah as nama, count(DISTINCT(a.kode_kegiatan)) as jml_kegiatan  from program_kegiatan_lingkup_supd_2 as a left join program_kegiatan_lingkup_supd_2_indikator_provinsi as b on  b.id_kegiatan_supd_2 = a.id '.$where."
+            GROUP BY a.kode_kegiatan,a.id_urusan,a.kode_daerah,a.id_sub_urusan,a.kode_program,a.kode_kegiatan,a.uraian_kode_kegiatan_daerah,b.indikator,b.target_awal,b.target_ahir,b.satuan
+        ";
+
+
+
+
+
+
+        $data=DB::select($query);
+        $data=json_encode($data);
+        $data=json_decode($data,true);
+
+
+        $data_return=[];
+        foreach($data as $d)
+        {
+            if(!isset($data_return[('k'.$d['kode_kegiatan'])])){
+                $data_return[('k'.$d['kode_kegiatan'])]['nama']=$d['nama'];
+                $data_return[('k'.$d['kode_kegiatan'])]['indikator']=[];
+            }
+
+            if(($d['indikator']!='')and($d['indikator']!=null)){
+                $data_return[('k'.$d['kode_kegiatan'])]['indikator'][]=array(
+                    'indikator'=>$d['indikator'],
+                    'target_awal'=>$d['target_awal']." ".$d['satuan'],
+                    'target_ahir'=>$d['target_ahir']." ".$d['satuan'],
+                );
+            }
+
+
+        }
+
+
+
+        return ($data_return);
+
 
 
     }

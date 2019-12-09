@@ -75,7 +75,14 @@
                     <i class="metismenu-icon">
                     </i>Profile Urusan
                 </a>
-            </li>             
+            </li> 
+            <li class="{{$menu_id=='2.6'?'mm-active':''}}">
+                <a href="{{route('data.pendukung',['tahun'=>$tahun])}}">
+                    <i class="metismenu-icon">
+                    </i>Kegiatan Pendukung
+                </a>
+            </li> 
+                        
         </ul>
     </li>
     

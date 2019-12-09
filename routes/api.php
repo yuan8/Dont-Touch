@@ -27,6 +27,8 @@ Route::prefix('daerah')->group(function(){
 Route::prefix('all/{tuhun?}')->group(function(){
 
    Route::post('get-kegiatan','DashboardController@get_kegiatan')->name('api.all.get_kegiatan');
+   Route::post('get-kegiatan-tagging','DashboardController@get_kegiatan_tagging')->name('api.all.get_kegiatan_tagging');
+
 
 });
 
