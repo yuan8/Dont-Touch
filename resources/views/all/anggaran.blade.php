@@ -113,7 +113,7 @@
           	<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-black-400"> </h6>
                   <div class=" no-arrow">
-                    <a class=" btn btn-sm btn-warning" href="#">
+                    <a class=" btn btn-sm btn-warning" href="#" data-toggle="popover" data-trigger="hover" title="Info" data-content="Infomasi ...">
                       <i class="fas fa-info fa-sm fa-fw text-black-400"></i> Info
                     </a>
                     
@@ -132,7 +132,7 @@
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-black-400"> </h6>
                   <div class=" no-arrow">
-                    <a class=" btn btn-sm btn-warning" href="#">
+                    <a class=" btn btn-sm btn-warning" href="#" data-toggle="popover" data-trigger="hover" title="Info" data-content="Infomasi ...">
                       <i class="fas fa-info fa-sm fa-fw text-black-400"></i> Info
                     </a>
                     
@@ -155,7 +155,7 @@
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-black-400"> </h6>
                   <div class=" no-arrow">
-                    <a class=" btn btn-sm btn-warning" href="#">
+                    <a class=" btn btn-sm btn-warning" href="#" data-toggle="popover" data-trigger="hover" title="Info" data-content="Infomasi ...">
                       <i class="fas fa-info fa-sm fa-fw text-black-400"></i> Info
                     </a>
                     

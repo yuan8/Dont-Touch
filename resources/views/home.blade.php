@@ -1,7 +1,7 @@
 @extends('layouts.layout-map')
 
 @section('head_asset')
-<script src="{{asset('mp/mp.id.js')}}" charset="utf-8"></script>
+<script src="{{asset('mp/mp.id.js?v=1')}}" charset="utf-8"></script>
 @stop
 @section('content')
 
@@ -24,7 +24,19 @@
 </div>
 
 <script type="text/javascript">
-  var data=[['01','red',2]];
+
+    <?php
+    $data=[];
+    $cl=['red','green','blue','purple'];
+        foreach ($data_provinsi as $key => $value) {
+             # code...
+            $random_keys=array_rand($cl,2);
+            $data[]=[''.$value->kode_daerah,$cl[$random_keys[0]],$value->jumlah_kegiatan,$value->jumlah_anggaran];
+        }
+
+     ?>
+  var data=<?php echo json_encode(($data)); ?>;
+
   Highcharts.mapChart('container', {
     chart: {
         map: 'idn',
@@ -57,7 +69,7 @@
                     click: function(){
                         //get_detail_info(this.x);
                         //alert(this.x);
-                         window.location.href = "http://101.255.10.225/home/detail/"+this.x;
+                         // window.location.href = "http://101.255.10.225/home/detail/"+this.x;
                     }
                 }
             }
@@ -65,12 +77,12 @@
     },
     series: [{
         data:  data,
-        keys: ['id_daerah', 'color','value'],
+        keys: ['id_daerah', 'color','value','anggaran'],
         name: 'Provinsi',
         joinBy: 'id_daerah',
         tooltip: {
             headerFormat: '',
-            pointFormat: '<b>{point.name}</b><hr><br>LAJU PERUMBUHAN EKONOMI : {point.lpe} {point.simbol_lpe} <br>TINGKAT PENGANGGURAN TERBUKA : {point.tpt} {point.simbol_tpt}<br>INDEKS PERTUMBUHAN MANUSIA : {point.ipm}  {point.simbol_ipm} <br>GINI RASIO : {point.gini}  {point.simbol_gini}<br>TINGKAT KEMISKINAN : {point.miskinlu}  {point.simbol_miskin}'
+            pointFormat: '{point.value} Kegiatan <br> Rp. {point.anggaran}'
         },
         dataLabels: {
                 enabled: true,

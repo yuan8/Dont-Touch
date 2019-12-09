@@ -14,8 +14,34 @@
 Route::get('init/{tahun?}', 'DashboardController@landing')->name('home');
 
 Route::get('testing-alert', function(){
-  Alert::success('dd','dd');
-  return view('t');
+
+  $f=json_decode(file_get_contents(public_path('mp\source.json')), true);
+
+  $json=$f['features'];
+
+  
+  foreach ($json as $key => $value) {
+    if($value['properties']['woe-name']!=null){
+      $p=DB::table('provinsi')->where('nama','ilike',('%'.$value['properties']['woe-name'].'%'))->first();
+      if($p){
+        $json[$key]['properties']['id_daerah']=(string) $p->id_provinsi;
+      }else{
+        dd($value);
+      }
+    }
+
+   
+  }
+
+  $f['features']=$json;
+
+ $newJsonString = json_encode($f);
+
+  file_put_contents(public_path('mp/ok/geo_indo.json'), stripslashes($newJsonString));
+
+  return 'ok';
+  // Alert::success('dd','dd');
+  // return view('t');
 });
 
 Route::get('/', function(){
