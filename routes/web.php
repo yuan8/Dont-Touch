@@ -12,6 +12,12 @@
 */
 
 Route::get('init/{tahun?}', 'DashboardController@landing')->name('home');
+
+Route::get('testing-alert', function(){
+  Alert::success('dd','dd');
+  return view('t');
+});
+
 Route::get('/', function(){
   return redirect()->route('home',['tahun'=>2020]);
 })->name('index');
@@ -46,15 +52,13 @@ Route::prefix('/data/{tahun?}')->group(function(){
 
 
 Route::prefix('auth')->group(function(){
-  Auth::routes();
+    Auth::routes();
 });
 
 
 
 Route::middleware('auth:web')->group(function(){
-
   Route::get('/home', 'HomeController@index')->name('maps');
- 
 });
 
 

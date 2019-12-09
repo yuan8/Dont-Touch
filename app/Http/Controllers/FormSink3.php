@@ -31,13 +31,13 @@ class FormSink3 extends Controller
     	->where('id_urusan',$urusan)->paginate(10);
 
 
-    	return view('form_singkron.form3')->with('id_link',$urusan)->with('data_link',$data_link)->with('datas',$data);
+    	return view('form_singkron.form3')->with('menu_id','s.3')->with('id_link',$urusan)->with('data_link',$data_link)->with('datas',$data);
     }
 
 
      public function create($urusan){
     	$data_link=Urusan23::find($urusan);
-    	return view('form_singkron.form3_tambah')->with('id_link',$urusan)->with('data_link',$data_link);
+    	return view('form_singkron.form3_tambah')->with('menu_id','s.3')->with('id_link',$urusan)->with('data_link',$data_link);
     }
 
 
@@ -110,7 +110,7 @@ class FormSink3 extends Controller
     	$data_link=Urusan23::find($urusan);
     	$data=IndetifikasiKebijakanTahunan::find($id);
     	if($data){
-    		return view('form_singkron.form3_edit')->with('id_link',$urusan)
+    		return view('form_singkron.form3_edit')->with('menu_id','s.3')->with('id_link',$urusan)
     		->with('data_link',$data_link)->with('data',$data);
     	}
     }

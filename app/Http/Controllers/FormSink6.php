@@ -21,14 +21,14 @@ class FormSink6 extends Controller
     	$data=PelaksanaanLingkupSupd2Pusat::where('id_urusan',$urusan)
     	->where('tahun',session('focus_tahun'))->with('Program')->paginate(20);
 
-    	return view('form_singkron.form6')->with(['id_link'=>$urusan,'data_link'=>$data_link,'datas'=>$data]);
+    	return view('form_singkron.form6')->with('menu_id','s.6')->with(['id_link'=>$urusan,'data_link'=>$data_link,'datas'=>$data]);
     }
 
 
     public function pusat_create($urusan){
     	$data_link=Urusan23::find($urusan);
     	$program=SubUrusan23::where('id_urusan',$urusan)->get();
-    	return view('form_singkron.form6_pusat_tambah')->with(['program'=>$program,'id_link'=>$urusan,'data_link'=>$data_link]);
+    	return view('form_singkron.form6_pusat_tambah')->with('menu_id','s.6')->with(['program'=>$program,'id_link'=>$urusan,'data_link'=>$data_link]);
     }
 
 
@@ -87,7 +87,7 @@ class FormSink6 extends Controller
         if($data){
              $data_link=Urusan23::find($urusan);
         $program=SubUrusan23::where('id_urusan',$urusan)->get();
-        return view('form_singkron.form6_pusat_edit')->with(['program'=>$program,'id_link'=>$urusan,'data_link'=>$data_link,'data'=>$data]);
+        return view('form_singkron.form6_pusat_edit')->with('menu_id','s.6')->with(['program'=>$program,'id_link'=>$urusan,'data_link'=>$data_link,'data'=>$data]);
         }
 
 
@@ -224,7 +224,7 @@ class FormSink6 extends Controller
             }
         }
 
-        return view('form_singkron.form6_daerah')->with(['datas'=>$data_return,'id_link'=>$urusan,'data_link'=>$data_link,'model'=>$model]);
+        return view('form_singkron.form6_daerah')->with('menu_id','s.6')->with(['datas'=>$data_return,'id_link'=>$urusan,'data_link'=>$data_link,'model'=>$model]);
 
     }
 
@@ -262,7 +262,8 @@ class FormSink6 extends Controller
                     'data'=>$data,
                     'data_pusat'=>$data_pusat,
                     'program'=>$program,
-                    'daerah'=>$daerah
+                    'daerah'=>$daerah,
+                    'menu_id'=>'s.6'
                 ]);
         }else{
 

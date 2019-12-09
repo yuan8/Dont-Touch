@@ -11,6 +11,6 @@ class FormSink10 extends Controller
 
     public function index($urusan){
     	$data_link=Urusan23::find($urusan);
-    	return view('form_singkron.form10')->with('id_link',$urusan)->with('data_link',$data_link);
+    	return view('form_singkron.form10')->with('id_link',$urusan)->with('data_link',$data_link)->with('menu_id','s.10');
     }
 }

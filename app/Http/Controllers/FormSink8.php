@@ -11,6 +11,6 @@ class FormSink8 extends Controller
 
     public function index($urusan){
     	$data_link=Urusan23::find($urusan);
-    	return view('form_singkron.form8')->with('id_link',$urusan)->with('data_link',$data_link);
+    	return view('form_singkron.form8')->with('menu_id','s.8')->with('id_link',$urusan)->with('data_link',$data_link);
     }
 }

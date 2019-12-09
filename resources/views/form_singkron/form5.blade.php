@@ -1,4 +1,4 @@
-@extends('layouts.master2')
+@extends('layouts.master_def')
 
 @section('head_asset')
 
@@ -142,7 +142,7 @@
 				<tr>
 					<td>
 						<div class="custom-control custom-switch">
-						  <input onchange="update_taging_supd_2(this)" type="checkbox" id_dpk={{$d['id']}}  {{$d['nspk']==true?'checked':''}} class="custom-control-input" id="c-1-{{$d['id']}}" name="nspk">
+						  <input onchange="update_taging_supd_2(this)" hh="{{$d['nspk']?'ss':'jkk'}}" type="checkbox" id_dpk={{$d['id']}}   {{$d['nspk']==true?'checked':''}} class="custom-control-input" id="c-1-{{$d['id']}}" name="nspk">
 						  <label class="custom-control-label" for="c-1-{{$d['id']}}">NSPK</label>
 						</div>
 					</td>

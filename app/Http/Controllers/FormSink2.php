@@ -16,7 +16,7 @@ class FormSink2 extends Controller
     	$data_link=Urusan23::find($urusan);
     	$data=IndetifikasiKebijakanPusat5Tahun::where('id_urusan',$urusan)->get();
 
-    	return view('form_singkron.form2')->with('id_link',$urusan)->with('data_link',$data_link)->with('indentifikasis',$data);
+    	return view('form_singkron.form2')->with('menu_id','s.2')->with('id_link',$urusan)->with('data_link',$data_link)->with('indentifikasis',$data);
     }
 
     public function show($urusan,$id){
@@ -26,7 +26,7 @@ class FormSink2 extends Controller
         $data=IndetifikasiKebijakanPusat5Tahun::find($id);
 
         if($data){
-             return view('form_singkron.form2_edit')->with('id_link',$urusan)
+             return view('form_singkron.form2_edit')->with('id_link',$urusan)->with('menu_id','s.2')
         ->with('data_link',$data_link)->with('sub_urusans',$sub_urusans)->with('data',$data);
         }else{
 
@@ -97,7 +97,7 @@ class FormSink2 extends Controller
     	$sub_urusans=SubUrusan23::where('id_urusan',$urusan)->get();
 
 
-    	return view('form_singkron.form2_tambah')->with('id_link',$urusan)->with('data_link',$data_link)->with('sub_urusans',$sub_urusans);
+    	return view('form_singkron.form2_tambah')->with('menu_id','s.2')->with('id_link',$urusan)->with('data_link',$data_link)->with('sub_urusans',$sub_urusans);
     }
 
 

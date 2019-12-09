@@ -90,7 +90,7 @@ class FormSink extends Controller
 
       $mandat=Mandat::find($id);
 
-      return view('form_singkron.form1_edit')->with('id_link',$id_link)->with('data_link',$data_link)->with('mandat',$mandat)->with('sub_urusans',$sub_urusans);
+      return view('form_singkron.form1_edit')->with('menu_id','s.1')->with('id_link',$id_link)->with('data_link',$data_link)->with('mandat',$mandat)->with('sub_urusans',$sub_urusans);
     }
 
 
@@ -188,6 +188,7 @@ class FormSink extends Controller
         ->with('data_link',$data_link)
         ->with('mandat',$mandat_db)
         ->with('daerah',$daerah)
+        ->with('menu_id','s.1')
         ->with('perdaperkada',$perdaperkada);
     }
 
@@ -254,7 +255,7 @@ class FormSink extends Controller
 
       }
 
-      return view('form_singkron.form1_perdaearah')->with('id_link',$urusan)->with('data_link',$data_link)->with('datas',$kota_kab)->with('link',$back);
+      return view('form_singkron.form1_perdaearah')->with('menu_id','s.1')->with('id_link',$urusan)->with('data_link',$data_link)->with('datas',$kota_kab)->with('link',$back);
 
     }
 
@@ -349,7 +350,7 @@ class FormSink extends Controller
 		$data=Mandat::where('id_urusan',$urusan)->where('tahun',session('focus_tahun'))->orderBy('id','DESC')->paginate(10);
 
 
-		return view('form_singkron.form1')->with('datas',$data)->with('id_link',$urusan)->with('data_link',$data_link);
+		return view('form_singkron.form1')->with('menu_id','s.1')->with('datas',$data)->with('id_link',$urusan)->with('data_link',$data_link);
 
     }
 
@@ -360,7 +361,7 @@ class FormSink extends Controller
     $data=Mandat::where('id_urusan',$urusan)
     ->where('tahun',session('focus_tahun'))->paginate(10);
 		
-		return view('form_singkron.form1_penilaian')->with('datas',$data)->with('id_link',$urusan)->with('data_link',$data_link);
+		return view('form_singkron.form1_penilaian')->with('menu_id','s.1')->with('datas',$data)->with('id_link',$urusan)->with('data_link',$data_link);
 
     }
     public function form1PerdaPerkada($urusan,Request $request){
@@ -411,7 +412,7 @@ class FormSink extends Controller
       $data=PerdaPerkada::where('id_urusan',$urusan)->where('tahun',session('focus_tahun'))
       ->where($where)->paginate(10);
 
-      return view('form_singkron.form1_perdaperkada_perdaerah')->with('daerah',$daerah)->with('id_link',$urusan)->with('data_link',$data_link)->with('data_daerah',$kedaerahan)->with('data',$data);
+      return view('form_singkron.form1_perdaperkada_perdaerah')->with('daerah',$daerah)->with('id_link',$urusan)->with('data_link',$data_link)->with('menu_id','s.1')->with('data_daerah',$kedaerahan)->with('data',$data);
 
     }
 
@@ -438,7 +439,7 @@ class FormSink extends Controller
       
       $mandat=Mandat::where('id_sub_urusan',$urusan)->get();
 
-      return view('form_singkron.form1_perdaperkada_perdaerah_tambah')->with('daerah',$daerah)->with('id_link',$urusan)->with('sub_urusans',$sub_urusans)->with('data_link',$data_link)->with('data_daerah',$kedaerahan)->with('mandats',$mandat);
+      return view('form_singkron.form1_perdaperkada_perdaerah_tambah')->with('menu_id','s.1')->with('daerah',$daerah)->with('id_link',$urusan)->with('sub_urusans',$sub_urusans)->with('data_link',$data_link)->with('data_daerah',$kedaerahan)->with('mandats',$mandat);
 
 
     }
@@ -461,6 +462,7 @@ class FormSink extends Controller
         'kota_kabupaten'=>$kota_kab==0?null:$kota_kab,
         'provinsi'=>$provinsi,
         'id_urusan'=>$urusan,
+        'menu_id'=>'s.1'
       ]);
 
      if($data){
@@ -489,7 +491,7 @@ class FormSink extends Controller
     	$urusan=Auth::User()->haveUrusan->pluck('id');
       $urusan=Urusan23::whereIn('id',$urusan)->orderBy('nama','DESC')->get();
 
-    	return view('form_singkron.index')->with('urusans',$urusan)->with('title','SUPD2 Data Suport Sistem');
+    	return view('form_singkron.index')->with('menu_id','s.1')->with('urusans',$urusan)->with('title','SUPD2 Data Suport Sistem');
     }
 
 }

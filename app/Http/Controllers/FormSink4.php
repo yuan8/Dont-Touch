@@ -77,7 +77,7 @@ class FormSink4 extends Controller
     	$data_link=Urusan23::find($urusan);
         $data=Permasalahan::where('id_urusan',$urusan)->orderBy('id','DESC')->paginate(10);
 
-    	return view('form_singkron.form4')->with('id_link',$urusan)->with('data_link',$data_link)->with('permasalahans',$data)->with('datas',$kota_kab)->with('link',$back);
+    	return view('form_singkron.form4')->with('menu_id','s.4')->with('id_link',$urusan)->with('data_link',$data_link)->with('permasalahans',$data)->with('datas',$kota_kab)->with('link',$back);
     }
 
 
@@ -101,7 +101,7 @@ class FormSink4 extends Controller
         if($permasalahan){
             $daerah=$permasalahan->kota_kabupaten!=0?Kabupaten::where('id_kota',$permasalahan->kota_kabupaten)->first():Provinsi::where('id_provinsi',$permasalahan->provinsi)->first();
 
-            return view('form_singkron.form4_update')->with('id_link',$urusan)
+            return view('form_singkron.form4_update')->with('menu_id','s.4')->with('id_link',$urusan)
             ->with('data_link',$data_link)->with('data',$permasalahan)->with('daerah',$daerah);            
         }
 
@@ -154,7 +154,7 @@ class FormSink4 extends Controller
 
     	$data_link=Urusan23::find($urusan);
     	$sub_urusans=SubUrusan23::where('id_urusan',$urusan)->orderBy('nama','ASC')->get();
-    	return view('form_singkron.form4_tambah')->with('id_link',$urusan)->with('data_link',$data_link)->with('sub_urusans',$sub_urusans)->with('daerah',$daerah)->with('provinsi',$provinsi)->with('kota_kabupaten',$kota_kabupaten);
+    	return view('form_singkron.form4_tambah')->with('menu_id','s.4')->with('id_link',$urusan)->with('data_link',$data_link)->with('sub_urusans',$sub_urusans)->with('daerah',$daerah)->with('provinsi',$provinsi)->with('kota_kabupaten',$kota_kabupaten);
     }
 
 

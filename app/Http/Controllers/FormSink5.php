@@ -39,13 +39,14 @@ class FormSink5 extends Controller
             $data_paginate_appends['daerah']=$request->daerah;
            
         }
-        if(isset($request->npsk)){
+        if(isset($request->nspk)){
+
             $query.=" and a.nspk = true";
             // $data_paginate=$data_paginate->where('nspk',true);
             $data_where_paginate[]=['nspk','=','true'];
 
-            $data_paginate_appends['nspk']=$request->nspk;
-            
+            $data_paginate_appends['nspk']='on';
+
         }
        
         if(isset($request->spm)){
@@ -115,10 +116,10 @@ class FormSink5 extends Controller
 
         if($tek){
 
-           $data_paginate=$data_paginate->where($data_where_paginate_1)->orWhere($data_where_paginate_2)->paginate(5);
+           $data_paginate=$data_paginate->where($data_where_paginate_1)->orWhere($data_where_paginate_2)->orderBy('id','desc')->paginate(5);
 
         }else{
-         $data_paginate=$data_paginate->where($data_where_paginate)->paginate(5);
+          $data_paginate=$data_paginate->where($data_where_paginate)->orderBy('id','desc')->paginate(5);
 
         }
        
@@ -154,11 +155,11 @@ class FormSink5 extends Controller
 
 
         }
-        $data_paginate->appends($data_paginate_appends);
 
 
         $query.=" order by a.id DESC";
 
+        $data_paginate->appends($data_paginate_appends);
 
         // return $query;
         $data=DB::select($query);
@@ -250,7 +251,7 @@ class FormSink5 extends Controller
 
 
 
-    	return view('form_singkron.form5')->with('id_link',$urusan)->with('data_link',$data_link)
+    	return view('form_singkron.form5')->with('id_link',$urusan)->with('data_link',$data_link)->with('menu_id','s.5')
     	->with('datas',$data_return)->with('data_paginate',$data_paginate)->with('program_provinsi',$program_provinsi)->with('daerah',$daerahs)->with('sub_urusans',$sub_urusans);
     }
 
@@ -274,7 +275,7 @@ class FormSink5 extends Controller
     public function update_pkl_supd_2($id,Request $request){
 
         $d=DB::table('program_kegiatan_lingkup_supd_2')->where('id',$id)->update($request->data);
-
+        $d=DB::table('program_kegiatan_lingkup_supd_2')->where('id',$id)->get();
         return $d;
     }
 

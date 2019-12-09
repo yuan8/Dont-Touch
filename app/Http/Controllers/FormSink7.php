@@ -29,9 +29,8 @@ class FormSink7 extends Controller
 
         $data2=KebijakanPusatTahunanTarget::with('KebijakanPusatTahunan')->where('tahun',session('focus_tahun'))
         ->where('id_urusan',$urusan)->get()->toArray();
-        dd($data2);
 
-    	return view('form_singkron.form7')->with('id_link',$urusan)->with('data_link',$data_link)->with('datas',$data);
+    	return view('form_singkron.form7')->with('menu_id','s.7.1')->with('id_link',$urusan)->with('data_link',$data_link)->with('datas',$data);
     }
 
     public function showIndetifikasiTahunan($urusan,$id){
@@ -40,7 +39,7 @@ class FormSink7 extends Controller
     	$data=IndetifikasiKebijakanTahunan::find($id);
         $program_provinsi=NomenKlaturProvinsi::where('kode','ilike',$data_link->nomenklatur_provinsi.'%')->where('jenis','program')->get();
         
-    	return view('form_singkron.form7_indetifikasi_tahunan')->with('id_link',$urusan)->with('data_link',$data_link)->with('data',$data)->with('program_provinsi',$program_provinsi)->with('satuans',$satuan);
+    	return view('form_singkron.form7_indetifikasi_tahunan')->with('menu_id','s.7.1')->with('id_link',$urusan)->with('data_link',$data_link)->with('data',$data)->with('program_provinsi',$program_provinsi)->with('satuans',$satuan);
     }
 
 
@@ -51,6 +50,7 @@ class FormSink7 extends Controller
 
         $d=IntegrasiProvinsi::where('id_identifikasi_kebijakan_tahunan',$id)
         ->where('kode_sub_kegiatan',$request->sub_urusan_provinsi)
+        ->with('menu_id','s.7.2')
         ->where('tahun',session('focus_tahun'))
         ->where('id_urusan',$urusan)->first();
 
@@ -78,6 +78,7 @@ class FormSink7 extends Controller
         $d=IntegrasikotaKab::where('id_identifikasi_kebijakan_tahunan',$id)
         ->where('kode_sub_kegiatan',$request->sub_urusan_provinsi)
         ->where('tahun',session('focus_tahun'))
+        ->with('menu_id','s.7.3')
         ->where('id_urusan',$urusan)->first();
         
         if($d){
@@ -142,7 +143,7 @@ class FormSink7 extends Controller
             $data_return[]= $d;
         }
 
-        return view('form_singkron.form7_integrasi_provinsi')->with('id_link',$urusan)->with('data_link',$data_link)->with('provinsis',$data_return)->with('data_paginate',$provinsis);
+        return view('form_singkron.form7_integrasi_provinsi')->with('menu_id','s.7.2')->with('id_link',$urusan)->with('data_link',$data_link)->with('provinsis',$data_return)->with('data_paginate',$provinsis);
     }
 
 
@@ -247,7 +248,7 @@ class FormSink7 extends Controller
             $data_return[]= $d;
         }
 
-        return view('form_singkron.form7_integrasi_kotakab')->with('id_link',$urusan)->with('data_link',$data_link)->with('provinsis',$data_return)->with('data_paginate',$provinsis);
+        return view('form_singkron.form7_integrasi_kotakab')->with('menu_id','s.7.3')->with('id_link',$urusan)->with('data_link',$data_link)->with('provinsis',$data_return)->with('data_paginate',$provinsis);
     }
 
 
@@ -421,7 +422,7 @@ class FormSink7 extends Controller
         $daerah_paginate=\App\Provinsi::where('id_provinsi',NULL)->paginate(10);
       }
       // return $data_return;
-      return view('form_singkron.form7_integrasi_provinsi')->with('id_link',$urusan)->with('data_link',$data_link)->with('datas',$data_return)->with('data_paginate',$daerah_paginate);
+      return view('form_singkron.form7_integrasi_provinsi')->with('menu_id','s.7.2')->with('id_link',$urusan)->with('data_link',$data_link)->with('datas',$data_return)->with('data_paginate',$daerah_paginate);
 
     }
 
@@ -448,7 +449,8 @@ class FormSink7 extends Controller
         $program_provinsi=\App\NomenKlaturProvinsi::where('kode','ilike',$data_link->nomenklatur_provinsi.'%')->where('jenis','program')->get();
         $master_satuan=DB::table('master_satuan')->get();
 
-        return view('form_singkron.form7_integrasi_provinsi_tambah')->with('id_link',$urusan)->with('data_link',$data_link)->with('datas',$data)->with('parent',$data_head)->with('daerah',$daerah)->with('program_provinsi',$program_provinsi)->with('master_satuan',$master_satuan);
+        return view('form_singkron.form7_integrasi_provinsi_tambah')
+        ->with('menu_id','s.7.2')->with('id_link',$urusan)->with('data_link',$data_link)->with('datas',$data)->with('parent',$data_head)->with('daerah',$daerah)->with('program_provinsi',$program_provinsi)->with('master_satuan',$master_satuan);
             
        }
 
