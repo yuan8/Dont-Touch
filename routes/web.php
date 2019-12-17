@@ -69,7 +69,7 @@ Route::prefix('/data/{tahun?}')->group(function(){
   Route::get('/profile-daerah', 'DashboardController@tingkatan')->name('data.tingkatan');
   Route::get('/profile-urusan', 'DashboardController@tingkatan_urusan')->name('data.tingkatan_urusan');
   Route::get('/nuwas', 'DashboardController@nuws')->name('data.nuwas');
-  Route::get('/kegiatan-pendukung', 'DashboardController@pendukung')->name('data.pendukung');
+  Route::get('/kegiatan-pendukung', 'DashboardController@k_pendukung')->name('data.pendukung');
 
 
   Route::get('/kegiatan-pendukung-2', 'DashboardController@k_pendukung')->name('data.pendukung2');
