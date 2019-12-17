@@ -22,7 +22,9 @@ class DashboardController extends Controller
         return (int) $tahun;
 
     }
-    public function landing($tahun=2020){
+    public function landing($tahun){
+
+        
         $tahun=static::tahun($tahun);
 
         $data=DB::select('select count(*) as jml_data from program_kegiatan_lingkup_supd_2 where tahun ='.$tahun);

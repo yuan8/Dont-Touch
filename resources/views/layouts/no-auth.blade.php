@@ -125,7 +125,7 @@
                     <!-- <ul class="header-megamenu nav">
                        
                     </ul> -->
-                    <H5><b>SUPD2</b>   </H5>
+                    <H5><b>SUPD2    | </b> <span style="font-size: 18px;">{{isset($tahun)?''.$tahun.'':''}} </span> </H5>
                     <small> {!!isset($title)?'&nbsp;&nbsp; '.$title:''!!}</small>
                 </div>
                 <div class="app-header-right">
@@ -253,5 +253,13 @@
 
 
 </script>
-
+<style type="text/css">
+    
+    .modal{
+        z-index:9999999999;
+    }
+    .modal-backdrop, .blockOverlay{
+        z-index: 9;
+    }
+</style>
 </html>

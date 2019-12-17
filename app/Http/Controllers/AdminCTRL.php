@@ -45,7 +45,20 @@ class AdminCtrl extends Controller
          session(['focus_tahun' => $request->tahun]);
       }
 
-      return back();
+      return redirect()->back();
+    }
+
+    public function rubah_tahun_dashboard(Request $request){
+
+      if(isset($request->tahun)){
+         session(['focus_tahun' => $request->tahun]);
+      }
+      if(isset($request->route_name)){
+        return redirect()->route($request->route_name,['tahun'=>session('focus_tahun')]);
+      }
+
+
+      return redirect()->route('home',['tahun'=>session('focus_tahun')]);
     }
 
     public function ts(){

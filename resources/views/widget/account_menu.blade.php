@@ -41,6 +41,12 @@
                                         </a >
                                     </div>
                                     <div class="col-sm-6 col-xl-4">
+                                        <a href="{{route('index',['tahun'=>session('focus_tahun')])}}" class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">
+                                            <i class="pe-7s-album icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"></i>
+                                            DashBoard
+                                        </a >
+                                    </div>
+                                    <div class="col-sm-6 col-xl-4">
                                         <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">
                                             <i class="pe-7s-user icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>
                                             Account
@@ -57,6 +63,12 @@
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             @csrf
                                         </form>
+                                    </div>
+                                    <div class="col-sm-6 col-xl-4">
+                                        <button  data-toggle="modal" data-target="#rubah_tahun_modal" class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">
+                                            <i class="pe-7s-date icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>
+                                            Rubah Tahun
+                                    </button>
                                     </div>
                                    
                                 </div>
@@ -78,6 +90,38 @@
         <!-- VP People Manager -->
     </div>
 </div>
+
+<div class="modal" tabindex="-1" role="dialog" id="rubah_tahun_modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+     <form action="{{route('rubah_tahun_dashboard')}}" method="post">
+        @csrf
+        <input type="hidden" name="route_name" value="{{Route::currentRouteName()}}">
+         <div class="modal-header">
+            <h5 class="modal-title">Rubah Tahun</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <select class="form-control" name="tahun" required="" id="modal-select-rubah-tahun">
+                <?php for($i=(date('Y')+1);((date('Y'))-3)<=$i;$i--){ ?>
+                <option value="{{$i}}" {{session('focus_tahun')==$i?'selected':''}}>{{$i}}</option>
+                <?php } ?> 
+            </select>
+
+           <!--  <script type="text/javascript">
+                $('#modal-select-rubah-tahun').select2();
+            </script> -->
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-warning">Rubah</button>
+          </div>
+     </form>
+    </div>
+  </div>
+</div>
+
 
 
 

@@ -97,6 +97,8 @@ Route::middleware('auth:web')->group(function(){
 Route::prefix('admin')->middleware('auth:web')->group(function(){
   Route::get('/', 'AdminCTRL@index')->name('admin.index');
   Route::post('/rubah-tahun', 'AdminCTRL@rubah_tahun')->name('rubah_tahun');
+  Route::post('/rubah-tahun/dashboard', 'AdminCTRL@rubah_tahun_dashboard')->name('rubah_tahun_dashboard');
+
   Route::get('/ts', 'AdminCTRL@ts')->name('ts');
 
 

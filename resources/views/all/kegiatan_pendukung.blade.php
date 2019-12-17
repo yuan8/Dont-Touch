@@ -231,7 +231,7 @@
 			$.post('{{route("api.all.get_kegiatan_tagging",['tahun'=>$tahun])}}',data_send,function(res){
 				
 
-				var dm='<div class="col-md-12"><div class="card mb-4"><div class="card-body"><h6><b><span class="badge badge-pill badge-warning">K</span> Detail Kegiatan</b></h6></div></div></div>';
+				var dm='<div class="col-md-12"><div class="card min-h-100 mb-4"><div class="card-body"><h6><b><span class="badge badge-pill badge-warning">K</span> Detail Kegiatan</b></h6></div></div></div>';
 
 				for(i in res){
 
@@ -417,4 +417,9 @@
 	}
 </script>
 
+<style type="text/css">
+	.min-h-100.m-4{
+		min-height: calc(100% - 20px);
+	}
+</style>
 @stop
