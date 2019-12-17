@@ -12,15 +12,32 @@ class SPM extends Model
 
     public static function query($tahun=2020){
         $data=DB::select(
-            "select s.nama as nama_sub_urusan,count(case when sdgs then 1 end ) as jml_sdgs,count(case when pn then 1 end ) as jml_pn,count(case when spm then 1 end ) as jml_spm,count(case when spm then 1 end ) as jml_spm,sum(anggaran) as jml_anggaran,kode_daerah,d.nama as nama_daerah,a.id_urusan , m.id as id_spm, m.bidang1 as spm,u.nama as nama_urusan,a.id_sub_urusan,kode_program,uraian_kode_program_daerah, count(DISTINCT(kode_program)) as jml_program,count(DISTINCT(a.kode_kegiatan)) as jml_kegiatan from 
-            program_kegiatan_lingkup_supd_2 as a
+            "select 
+            s.nama as nama_sub_urusan,
+            count(case when a.sdgs then 1 end ) as jml_sdgs,
+            count(case when a.pn then 1 end ) as jml_pn,
+            count(case when a.spm then 1 end ) as jml_spm,
+            count(case when a.nspk then 1 end ) as jml_nspk,
+            sum(a.anggaran) as jml_anggaran,
+            a.kode_daerah,
+            d.nama as nama_daerah,
+            a.id_urusan,
+            m.id as id_spm,
+            m.spm as uraian_spm,
+            u.nama as nama_urusan,
+            a.id_sub_urusan,
+            kode_program,
+            uraian_kode_program_daerah,
+            count(DISTINCT(kode_program)) as jml_program,
+            count(DISTINCT(CONCAT(a.kode_daerah,a.kode_kegiatan))) as jml_kegiatan 
+            from program_kegiatan_lingkup_supd_2 as a
             left join view_daerah as d on d.id= a.kode_daerah
             left join master_urusan as u on u.id= a.id_urusan
             left join master_sub_urusan as s on s.id=a.id_sub_urusan
             left join master_spm as m on a.id_spm = m.id
             where a.tahun =
             ".$tahun." and a.id_spm is not null and a.spm=true
-            group by m.id,kode_daerah,a.id_urusan,a.id_sub_urusan,a.kode_program,uraian_kode_program_daerah,d.nama,u.nama,s.nama,m.bidang1 "
+            group by m.id,kode_daerah,a.id_urusan,a.id_sub_urusan,a.kode_program,uraian_kode_program_daerah,d.nama,u.nama,s.nama,m.spm "
         
         );
 
@@ -75,7 +92,7 @@ class SPM extends Model
 
             if(!isset($data_return['spm'][(string)$v['id_urusan']]['sub_urusan'][$v['id_sub_urusan']]['spm'][(string)$v['id_spm']] )){
                 $data_return['spm'][(string)$v['id_urusan']]['sub_urusan'][$v['id_sub_urusan']]['spm'][(string)$v['id_spm']]=array(
-                    'nama'=>$v['spm'],
+                    'nama'=>$v['uraian_spm'],
                     'jumlah_anggaran'=>0,
                     'jumlah_kegiatan'=>0,
                     'jumlah_program'=>0,
@@ -107,7 +124,7 @@ class SPM extends Model
                 $data_return['spm'][(string)$v['id_urusan']]['sub_urusan'][$v['id_sub_urusan']]['spm'][(string)$v['id_spm']]['daerah'][(string) $v['kode_daerah']]['program'][$v['kode_program']]=array(
                     'nama'=>$v['uraian_kode_program_daerah'],
                     'jumlah_anggaran'=>0,
-                    'type'=>'program',
+                    'type'=>'Program',
                     // 'call_id'=>[(string)$v['id_urusan'],'spm',(string)$v['id_spm'],'daerah',(string) $v['kode_daerah'],'program',(string) $v['kode_program']],
                     'call_id_2'=>''.(string)$v['id_urusan'].',sub_urusan,'.$v['id_sub_urusan'].',spm,'.$v['id_spm'].',daerah,'.$v['kode_daerah'].',program,'.$v['kode_program'].'',
                     'where'=>array(

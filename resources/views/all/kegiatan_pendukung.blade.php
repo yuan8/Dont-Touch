@@ -219,7 +219,7 @@
 
 
 		
-		if((tag=='program')){
+		if((['program','Program']).includes(tag)){
 			$('#chart').html('');
 
 			var data_send=dom.where; 	
@@ -282,7 +282,7 @@
 		    chart: {
 		        type: 'column',
 		        events:{
-		        	click:function(e){;
+		        	click:function(e){
 
 		        			var l=parseInt(Math.round(e.xAxis[0].value));
 		        			if(l<0){
@@ -292,10 +292,12 @@
 		        			var d=(d_option_category[l]);
 
 		        			// console.log(d_option_category);
-		        			// console.log((e.xAxis[0].value));
+		        			// // console.log((e.xAxis[0].value));
 		        			// console.log(l);
-		        			// console.log(d);
+		        			// // console.log(d);
 		        			// console.log(e);
+		        			// console.log(this);
+
 
 		        			var map=d.call_id.split(',');
 
@@ -343,6 +345,7 @@
 
 		        footerFormat: '</table>',
 		        shared: true,
+		        crosshairs: true,
 		        useHTML: true
 		    },
 		    plotOptions: {

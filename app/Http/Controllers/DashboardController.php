@@ -241,14 +241,35 @@ class DashboardController extends Controller
 	public static function query($tahun=2020){
 
 		$query="
-    		select s.nama as nama_sub_urusan,count(case when sdgs then 1 end ) as jml_sdgs,count(case when pn then 1 end ) as jml_pn,count(case when spm then 1 end ) as jml_spm,count(case when nspk then 1 end ) as jml_nspk,sum(anggaran) as jml_anggaran,kode_daerah,d.nama as nama_daerah,a.id_urusan,u.nama as nama_urusan,id_sub_urusan,kode_program,uraian_kode_program_daerah, count(DISTINCT(kode_program)) as jml_program,count(DISTINCT(kode_kegiatan)) as jml_kegiatan from 
-			program_kegiatan_lingkup_supd_2 as a
+    		select 
+            s.nama as nama_sub_urusan,
+            count(case when a.sdgs then 1 end ) as jml_sdgs,
+            count(case when a.pn then 1 end ) as jml_pn,
+            count(case when a.spm then 1 end ) as jml_spm,
+            count(case when a.nspk then 1 end ) as jml_nspk,
+            sum(a.anggaran) as jml_anggaran,kode_daerah,
+            d.nama as nama_daerah,
+            a.id_urusan,
+            u.nama as nama_urusan,
+            a.id_sub_urusan,
+            a.kode_program,
+            uraian_kode_program_daerah,
+            count(DISTINCT(kode_program)) as jml_program,
+            count(DISTINCT(kode_kegiatan)) as jml_kegiatan 
+            from program_kegiatan_lingkup_supd_2 as a
 			left join view_daerah as d on d.id= a.kode_daerah
 			left join master_urusan as u on u.id= a.id_urusan
             left join master_sub_urusan as s on s.id=a.id_sub_urusan
             where a.tahun =
             ".$tahun."
-			group by kode_daerah,a.id_urusan,id_sub_urusan,a.kode_program,uraian_kode_program_daerah,d.nama,u.nama,s.nama ";
+			group by kode_daerah,
+            a.id_urusan,
+            a.id_sub_urusan,
+            a.kode_program,
+            a.uraian_kode_program_daerah,
+            d.nama,
+            u.nama,
+            s.nama ";
 
 		$data=DB::select($query);
     	$data=json_encode($data);
@@ -1133,7 +1154,6 @@ class DashboardController extends Controller
         $data=\App\Mapper\SPM::query($tahun);
         $data=\App\Mapper\SPM::map($data);
 
-        // $data=DB::select('select * from program_kegiatan_lingkup_supd_2 where nspk = true ');
 
         return $data;
 
