@@ -1185,7 +1185,8 @@ class DashboardController extends Controller
     public function k_pendukung($tahun=2020){
 
         $data_head=[];
-        return view('all.kegiatan_pendukung')->with('tahun',$tahun);
+        return view('all.kegiatan_pendukung')->with('tahun',$tahun)->with('title','Kegiatan Pendukung')
+        ->with('menu_id','2.6');
 
     }
 
