@@ -11,7 +11,7 @@ class IntegrasiProvinsi extends Model
     //
 
     protected $fillable=[
-		'id_identifikasi_kebijakan_tahunan',
+		'id_identifikasi_kebijakan_tahunan_target',
 		'kode_sub_kegiatan',
 		'id_user',
 		'tahun',
@@ -28,7 +28,7 @@ class IntegrasiProvinsi extends Model
     }
 
     public function IndetifikasiKebijakanTahunan(){
-    	return $this->belongsTo(IndetifikasiKebijakanTahunan::class,'id_identifikasi_kebijakan_tahunan');
+    	return $this->belongsTo(IndetifikasiKebijakanTahunan::class,'id_identifikasi_kebijakan_tahunan_target');
     }
 
 }

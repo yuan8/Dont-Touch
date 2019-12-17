@@ -255,6 +255,17 @@
        .widget-content-left .btn{
             border-color: transparent!important;
         }
+
+        .fade:not(.show){
+            opacity: 1!important;
+        }
+        .modal-backdrop.fade.in, .fade.blockOverlay{
+            opacity: 0.4 !important;
+        }
+        .modal-content{
+            margin-top: 10%;
+        }
+
   </style>
 
 

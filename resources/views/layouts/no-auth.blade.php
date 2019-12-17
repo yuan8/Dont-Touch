@@ -26,6 +26,20 @@
     <script src="{{asset('admin_dist/fs/highcharts-3d.js')}}"></script>
     <script src="{{asset('admin_dist/fs/modules/exporting.js')}}"></script>
     <script src="{{asset('admin_dist/fs/modules/export-data.js')}}"></script>
+    <script type="text/javascript" src="{{url('admin_dist/js/axios.js')}}"></script>
+
+    <script type="text/javascript">
+
+        const CNDSSApi = axios.create({
+              baseURL: '{{url('api')}}',
+              timeout: 6000,
+              headers: {
+                'Authorization': '{{(Auth::User())?'Bearer '.Auth::User()->api_token:''}}',
+                'Content-Type': 'application/json',
+              }
+        });
+
+  </script>
 
 </head>
 

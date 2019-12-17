@@ -267,10 +267,33 @@
 
 
 			$.post('{{route("api.all.get_kegiatan_tagging",['tahun'=>$tahun])}}',data_send,function(res){
-				var dm='<div class="col-md-12"><div class="card mb-4"><div class="card-body"><h6><b><span class="badge badge-pill badge-warning">K</span> Detail Kegiatan</b></h6></div></div></div>';
-				for(i in res){
-					dm+='<div class="col-md-4"><div class="card mb-4"><div class="card-body"><p>'+res[i].nama+'</p>';
+				
 
+				var dm='<div class="col-md-12"><div class="card mb-4"><div class="card-body"><h6><b><span class="badge badge-pill badge-warning">K</span> Detail Kegiatan</b></h6></div></div></div>';
+
+				for(i in res){
+					console.log(res);
+
+					var tag='';
+					dm+='<div class="col-md-4"><div class="card mb-4"><div class="card-body"><p>'+res[i].nama+'</p>';
+					
+					if(res[i].nspk){
+						tag+='<span class="badge badge-pill badge-warning">nspk</span>';
+					}
+
+					if(res[i].spm){
+						tag+='<span class="badge badge-pill badge-warning">spm</span>';
+					}
+
+					if(res[i].pn){
+						tag+='<span class="badge badge-pill badge-warning">pn</span>';
+					}
+
+					if(res[i].sdgs){
+						tag+='<span class="badge badge-pill badge-warning">sdgs</span>';						
+					}
+
+					dm+=tag;
 
 					if(res[i]['indikator'].length > 0){
 

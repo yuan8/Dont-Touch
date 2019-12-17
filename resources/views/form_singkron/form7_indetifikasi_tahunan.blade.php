@@ -4,6 +4,8 @@
 
 @stop
 @section('content')
+<?php 
+?>
 
 <a href="{{route('fs.f7.index',['id_link'=>$id_link])}}" class="btn btn-info btn-sm"> <i class="fa fa-arrow-left"></i> </a>
 <small>INDENTIFIKASI KEBIJAKAN PUSAT TAHUNAN</small>
@@ -59,6 +61,8 @@
 					<td>
 						{!!nl2br($data->pelaksana)!!}
 					</td>
+
+
 
 				</tr>
 			</tbody>

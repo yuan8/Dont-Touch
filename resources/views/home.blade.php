@@ -81,8 +81,8 @@
         name: 'Provinsi',
         joinBy: 'id_daerah',
         tooltip: {
-            headerFormat: '',
-            pointFormat: '{point.value} Kegiatan <br> Rp. {point.anggaran}'
+            headerFormat: '{point.name}',
+            pointFormat: '<b>{point.name}</b><hr><br> {point.value} Kegiatan <br> Rp. {point.anggaran}'
         },
         dataLabels: {
                 enabled: true,

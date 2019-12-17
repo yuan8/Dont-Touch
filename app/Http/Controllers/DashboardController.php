@@ -241,7 +241,7 @@ class DashboardController extends Controller
 	public static function query($tahun=2020){
 
 		$query="
-    		select s.nama as nama_sub_urusan,count(case when sdgs then 1 end ) as jml_sdgs,count(case when pn then 1 end ) as jml_pn,count(case when spm then 1 end ) as jml_spm,count(case when nspk then 1 end ) as jml_nspk,sum(anggaran) as jml_anggaran,kode_daerah,d.nama as nama_daerah,a.id_urusan,u.nama as nama_urusan,id_sub_urusan,kode_program,uraian_kode_program_daerah, count(DISTINCT(kode_program)) as jml_program,count(*) as jml_kegiatan from 
+    		select s.nama as nama_sub_urusan,count(case when sdgs then 1 end ) as jml_sdgs,count(case when pn then 1 end ) as jml_pn,count(case when spm then 1 end ) as jml_spm,count(case when nspk then 1 end ) as jml_nspk,sum(anggaran) as jml_anggaran,kode_daerah,d.nama as nama_daerah,a.id_urusan,u.nama as nama_urusan,id_sub_urusan,kode_program,uraian_kode_program_daerah, count(DISTINCT(kode_program)) as jml_program,count(DISTINCT(kode_kegiatan)) as jml_kegiatan from 
 			program_kegiatan_lingkup_supd_2 as a
 			left join view_daerah as d on d.id= a.kode_daerah
 			left join master_urusan as u on u.id= a.id_urusan
@@ -712,6 +712,14 @@ class DashboardController extends Controller
             'id_sub_urusan'=>'nullable|numeric',
             'kode_daerah'=>'required|string',
             'kode_program'=>'required|string',
+            'id_nspk'=>'nullable|numeric',
+            'id_spm'=>'nullable|numeric',
+            'id_pn3'=>'nullable|numeric',
+            'id_sdgs'=>'nullable|numeric',
+
+
+
+
         ]);
 
         if($validator->fails()){
@@ -726,6 +734,10 @@ class DashboardController extends Controller
         foreach ($request->except('token') as $key => $value) {
                 
                 $value=(in_array($key,['kode_daerah','kode_program']))?("'".$value."'"):$value;
+                $value=(in_array($key,['nspk','spm','pn','sdgs']))?((boolean)$value):$value;
+                $value=(in_array($key,['id_urusan','id_sub_urusan','id_nspk','id_spm','id_sdgs','id_pn3']))?((int)$value):$value;
+
+
 
                 if($where==''){
                     $where.=' where a.'.$key.'='.$value;
@@ -735,9 +747,16 @@ class DashboardController extends Controller
         }
 
              
-        $query='select a.kode_kegiatan,b.indikator,(case when b.target_awal = null then 0 end) as target_awal,b.target_ahir,b.satuan, a.uraian_kode_kegiatan_daerah as nama, count(DISTINCT(a.kode_kegiatan)) as jml_kegiatan  from program_kegiatan_lingkup_supd_2 as a left join program_kegiatan_lingkup_supd_2_indikator_provinsi as b on  b.id_kegiatan_supd_2 = a.id '.$where."
-            GROUP BY a.kode_kegiatan,a.id_urusan,a.kode_daerah,a.id_sub_urusan,a.kode_program,a.kode_kegiatan,a.uraian_kode_kegiatan_daerah,b.indikator,b.target_awal,b.target_ahir,b.satuan
+        $query='select a.kode_kegiatan,b.indikator,(case when b.target_awal = null then 0 end) as target_awal,b.target_ahir,b.satuan, a.uraian_kode_kegiatan_daerah as nama, count(DISTINCT(a.kode_kegiatan)) as jml_kegiatan  from program_kegiatan_lingkup_supd_2 as a 
+
+            left join program_kegiatan_lingkup_supd_2_indikator_provinsi as b on  b.id_kegiatan_supd_2 = a.id 
+            
+            '.$where."
+            
+            GROUP BY a.kode_kegiatan,a.id_urusan,a.kode_daerah,a.id_sub_urusan,a.kode_program,a.kode_kegiatan,
+            a.uraian_kode_kegiatan_daerah,b.indikator,b.target_awal,b.target_ahir,b.satuan
         ";
+
 
         $data=DB::select($query);
         $data=json_encode($data);
@@ -1012,45 +1031,48 @@ class DashboardController extends Controller
 
         $tahun=static::tahun($tahun);
         $request->request->add(['tahun'=>$tahun]);
+        
         $validator=Validator::make($request->all(),[
             'tahun'=>'required|numeric',
             'id_urusan'=>'required|numeric',
             'id_sub_urusan'=>'nullable|numeric',
             'kode_daerah'=>'required|string',
             'kode_program'=>'required|string',
+            'id_nspk'=>'nullable|numeric',
+            'id_spm'=>'nullable|numeric',
+            'id_pn3'=>'nullable|numeric',
+            'id_sdgs'=>'nullable|numeric',
         ]);
 
         if($validator->fails()){
+
             return array('code'=>500,'data'=>[],'message'=>$validator->errors());
+
         }else{
-            
+
         }
 
         $where='';
         foreach ($request->except('token') as $key => $value) {
                 
                 $value=(in_array($key,['kode_daerah','kode_program']))?("'".$value."'"):$value;
+                $value=(in_array($key,['nspk','spm','pn','sdgs']))?($value?'true':'false'):$value;
+                $value=(in_array($key,['id_urusan','id_sub_urusan','id_nspk','id_spm','id_sdgs','id_pn3']))?((int)$value):$value;
 
                 if($where==''){
                     $where.=' where a.'.$key.'='.$value;
                 }else{
                     $where.=' and a.'.$key.'='.$value;
                 }
-
         }
 
 
     
 
              
-        $query='select a.kode_kegiatan,b.indikator,(case when b.target_awal = null then 0 end) as target_awal,b.target_ahir,b.satuan, a.uraian_kode_kegiatan_daerah as nama, count(DISTINCT(a.kode_kegiatan)) as jml_kegiatan  from program_kegiatan_lingkup_supd_2 as a left join program_kegiatan_lingkup_supd_2_indikator_provinsi as b on  b.id_kegiatan_supd_2 = a.id '.$where."
-            GROUP BY a.kode_kegiatan,a.id_urusan,a.kode_daerah,a.id_sub_urusan,a.kode_program,a.kode_kegiatan,a.uraian_kode_kegiatan_daerah,b.indikator,b.target_awal,b.target_ahir,b.satuan
+        $query='select a.kode_kegiatan,b.indikator,(case when b.target_awal = null then 0 end) as target_awal,b.target_ahir,b.satuan, a.uraian_kode_kegiatan_daerah as nama, count(DISTINCT(a.kode_kegiatan)) as jml_kegiatan,a.nspk,a.spm,a.sdgs,a.pn,a.kode_program  from program_kegiatan_lingkup_supd_2 as a left join program_kegiatan_lingkup_supd_2_indikator_provinsi as b on  b.id_kegiatan_supd_2 = a.id '.$where."
+            GROUP BY a.kode_kegiatan,a.id_urusan,a.kode_daerah,a.id_sub_urusan,a.kode_program,a.kode_kegiatan,a.uraian_kode_kegiatan_daerah,b.indikator,b.target_awal,b.target_ahir,b.satuan,a.nspk,a.spm,a.pn,a.sdgs,a.kode_program
         ";
-
-
-
-
-
 
         $data=DB::select($query);
         $data=json_encode($data);
@@ -1065,12 +1087,20 @@ class DashboardController extends Controller
                 $data_return[('k'.$d['kode_kegiatan'])]['indikator']=[];
             }
 
+                $data_return[('k'.$d['kode_kegiatan'])]['nspk']=$d['nspk'];
+                $data_return[('k'.$d['kode_kegiatan'])]['spm']=$d['spm'];
+                $data_return[('k'.$d['kode_kegiatan'])]['pn']=$d['pn'];
+                $data_return[('k'.$d['kode_kegiatan'])]['sdgs']=$d['sdgs'];
+
             if(($d['indikator']!='')and($d['indikator']!=null)){
                 $data_return[('k'.$d['kode_kegiatan'])]['indikator'][]=array(
                     'indikator'=>$d['indikator'],
                     'target_awal'=>$d['target_awal']." ".$d['satuan'],
                     'target_ahir'=>$d['target_ahir']." ".$d['satuan'],
                 );
+
+               
+
             }
 
 
@@ -1086,4 +1116,58 @@ class DashboardController extends Controller
 
 
 
+    public function kegiatan_pendukung_nspk($tahun=2020){
+
+        $data=\App\Mapper\NSPK::query();
+        $data=\App\Mapper\NSPK::map($data);
+
+        // $data=DB::select('select * from program_kegiatan_lingkup_supd_2 where nspk = true ');
+
+        return $data;
+
+
+    }
+
+     public function kegiatan_pendukung_spm($tahun=2020){
+
+        $data=\App\Mapper\SPM::query($tahun);
+        $data=\App\Mapper\SPM::map($data);
+
+        // $data=DB::select('select * from program_kegiatan_lingkup_supd_2 where nspk = true ');
+
+        return $data;
+
+
+    }
+     public function kegiatan_pendukung_pn($tahun=2020){
+
+        $data=\App\Mapper\PN::query($tahun);
+        $data=\App\Mapper\PN::map($data);
+
+        // $data=DB::select('select * from program_kegiatan_lingkup_supd_2 where nspk = true ');
+
+        return $data;
+
+
+    }
+     public function kegiatan_pendukung_sdgs($tahun=2020){
+
+        $data=\App\Mapper\SDGS::query($tahun);
+        $data=\App\Mapper\SDGS::map($data);
+
+        // $data=DB::select('select * from program_kegiatan_lingkup_supd_2 where nspk = true ');
+
+        return $data;
+
+
+    }
+
+    public function k_pendukung($tahun=2020){
+
+        $data_head=[];
+        return view('all.kegiatan_pendukung')->with('tahun',$tahun);
+
+    }
+
 }
+

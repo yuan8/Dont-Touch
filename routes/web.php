@@ -72,6 +72,10 @@ Route::prefix('/data/{tahun?}')->group(function(){
   Route::get('/kegiatan-pendukung', 'DashboardController@pendukung')->name('data.pendukung');
 
 
+  Route::get('/kegiatan-pendukung-2', 'DashboardController@k_pendukung')->name('data.pendukung2');
+
+
+
 
 
 });
@@ -256,6 +260,7 @@ Route::prefix('sinkron')->middleware(['auth:web','can:route_access,bidang_urusan
 
 
  Route::get('/bidang/{bidang_urusan_link}/f7/integrasi/provinsi','FormSink7@integrasi_provinsi')->name('fs.f7.identifikasi.integrasi_provinsi');
+ 
 
 
  Route::get('/bidang/{bidang_urusan_link}/f7/integrasi/provinsi/{kode_daerah}/tambah/target/{id_target_pusat}','FormSink7@integrasi_provinsi_tambah')->name('fs.f7.identifikasi.integrasi_provinsi_tambah');

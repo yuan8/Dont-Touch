@@ -27,9 +27,10 @@ class FormSink7 extends Controller
     	$data = IndetifikasiKebijakanTahunan::where('tahun',session('focus_tahun'))
 		->where('id_urusan',$urusan)->paginate(10);
 
-        $data2=KebijakanPusatTahunanTarget::with('KebijakanPusatTahunan')->where('tahun',session('focus_tahun'))
-        ->where('id_urusan',$urusan)->get()->toArray();
+        // $data2=KebijakanPusatTahunanTarget::with('KebijakanPusatTahunan')->where('tahun',session('focus_tahun'))
+        // ->where('id_urusan',$urusan)->get()->toArray();
 
+    
     	return view('form_singkron.form7')->with('menu_id','s.7.1')->with('id_link',$urusan)->with('data_link',$data_link)->with('datas',$data);
     }
 

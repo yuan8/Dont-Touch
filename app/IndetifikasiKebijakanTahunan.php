@@ -40,7 +40,7 @@ class IndetifikasiKebijakanTahunan extends Model
 
 
     public function HaveSubUrusanProvinsi(){
-        return $this->hasMany(IntegrasiProvinsi::class,'id_identifikasi_kebijakan_tahunan');
+        return $this->hasMany(IntegrasiProvinsi::class,'id_identifikasi_kebijakan_tahunan_target');
     }
 
     public function HaveSubUrusanKabKota(){
