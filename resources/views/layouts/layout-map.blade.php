@@ -131,5 +131,29 @@
   <!-- Custom scripts for all pages-->
   <script src="{{url('')}}/admin_dist/js/sb-admin-2.min.js"></script>
 
-  
+  <script type="text/javascript">
+    
+    <?php
+
+    $approve_insp=env('YUAN_APPROVE')?env('YUAN_APPROVE')=='true':false;
+
+ ?>
+
+@if(!$approve_insp)
+    $(document).bind("contextmenu",function(e) { 
+    e.preventDefault();
+
+ 
+});
+
+     document.onkeydown = function (e)  {
+        if(e.keyCode==73){
+            e.preventDefault();
+            return false;
+
+        }
+     }
+
+@endif
+  </script>
 </html>
