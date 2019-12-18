@@ -87,7 +87,7 @@
     </li>
 
 
-      <!--  <li class="{{(in_array($menu_id,['3.1','3.2','3.3']))?'mm-active':''}}" >
+       <li class="{{(in_array($menu_id,['3.1','3.2','3.3']))?'mm-active':''}}" >
         <a href="#">
             <i class="metismenu-icon pe-7s-graph1 text-cuccess"></i> Chart Kota / Kabupaten
             <i class="metismenu-state-icon pe-7s-angle-down caret-left "></i>
@@ -106,7 +106,7 @@
                 </a>
             </li>
         </ul>
-    </li> -->
+    </li>
     
 </ul>  
 

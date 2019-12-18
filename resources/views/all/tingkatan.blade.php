@@ -24,10 +24,9 @@
 		margin-top: 3px;
 	}
 </style>
+
 <div class="row">
-	<div class="col-md-12 mb-4">
-		<div id="chart" class="chart-cn"></div>
-	</div>
+	<div class="col-md-12 cn-btn-back" id="btn-back"></div>
 </div>
 <div class="row">
 	<div class="col-md-3">
@@ -82,7 +81,10 @@
 
 
 			</div>
+
 		</div>
+			<div class=" cn-btn-back " id="btn-back"></div>
+		
 	</div>
 	<div class="col-md-9" id="d">
 		<div class="row" id="container-builder">
@@ -97,7 +99,14 @@
 		</div>
 	</div>
 </div>
+<div class="row">
+</div>
+<div class="row">
+	<div class="col-md-12 mb-4">
 
+		<div id="chart" class="chart-cn"></div>
+	</div>
+</div>
 
 
 <script type="text/javascript">
@@ -109,28 +118,70 @@
 		var key=$(dom).attr('dt');
 		key=key.split('|');
 
+		var map_array='';
 
 		var d=[];
 
 		if(tag=='d'){
 			d=data[key[0]];
+			map_array=''+key[0];
 		}
 		if(tag=='bu'){
 			d=data[key[0]][key[1]][key[2]];
+			map_array=''+key[0]+'|'+key[1]+'|'+key[2];
+
 		}
 
 		if(tag=='sb'){
 			d=data[key[0]][key[1]][key[2]][key[3]][key[4]];
+			map_array=''+key[0]+'|'+key[1]+'|'+key[2]+'|'+key[3]+'|'+key[4];
+
 		}
 
 		if(tag=='p'){
 			d=data[key[0]][key[1]][key[2]][key[3]][key[4]][key[5]][key[6]];
+			map_array=''+key[0]+'|'+key[1]+'|'+key[2]+'|'+key[3]+'|'+key[4]+'|'+key[5]+'|'+key[6];
+
 		}
+
+		var map_array_chart=[];
 
 
 		var dm_card='';
 		var d_category=[];
 		var d_data=[];
+		var title_chart=(''+' '+d['nama']).toUpperCase();
+		var sub_title_chart='';
+
+		var map=(map_array).split('|');
+
+		(map.pop());
+		var data_container=data;
+		map.pop();
+		var map_ar='';
+		for(var i in map ){
+			if(map[i]!=undefined){
+				data_container=data_container[map[i]];
+				
+				if(map[(parseInt(i)+1)]==undefined){
+					map_ar+=map[i];
+				}else{
+					map_ar+=map[i]+'|';
+
+				}
+			}
+		}
+
+		var name=' '+data_container['nama'];
+		if(map_ar!=''){
+			var dm='<button class="btn btn-warning mb-4	" onclick="backmap(this)" dt="'+map_ar+'"><i class="fa fa-arrow-left text-white"></i> '+name+'</button>';
+			$('.cn-btn-back').html(dm);
+		}else{
+			$('.cn-btn-back').html('');
+
+		}
+
+
 
 		for(var i in d ){
 
@@ -150,10 +201,15 @@
 			if(typeof d[i]=='object'){
 				
 				for(k in d[i]){
+				 		sub_title_chart= ((i).replace(/_/g,' ')).toUpperCase() + ' (Jumlah)';
+
 
 					for(m in d[i][k]){
+
+
 						if(m=='nama'){
 							d_category.push(d[i][k]['nama']);
+							map_array_chart.push(map_array+'|'+i+'|'+k);
 						}
 
 						if(typeof d[i][k][m]=='number'){
@@ -189,10 +245,35 @@
 
 		Highcharts.chart('chart', {
 		    chart: {
-		        type: 'column'
+		        type: 'column',
+		        events:{
+		        	click:function(e){
+
+		        			var l=parseInt(Math.round(e.xAxis[0].value));
+		        			if(l<0){
+		        				l=0;
+		        			}
+
+		        			var g=(map_array_chart[l]);
+
+		        			
+
+
+		        			
+		        			if($('li[dt="'+g+'"]').html()!=undefined){
+		        				$('li[dt="'+g+'"]').click();
+		        			}
+		        			
+
+	            			console.log(name);
+	            			console.log(map_ar);
+
+		            			
+		        	}
+		        }
 		    },
 		    title: {
-		        text: ''
+		        text: title_chart
 
 		    },
 		    subtitle: {
@@ -206,7 +287,7 @@
 		    yAxis: {
 		        min: 0,
 		        title: {
-		            text: 'JUMLAH'
+		            text: sub_title_chart
 		        }
 		    },
 		    tooltip: {
@@ -288,6 +369,14 @@
 
 		
 
+	}
+
+	function backmap(dom){
+		var dt=$(dom).attr('dt');
+	
+		if($('li[dt="'+dt+'"]').html()!=undefined){
+			$('li[dt="'+dt+'"]').click();
+		}
 	}
 </script>
 
