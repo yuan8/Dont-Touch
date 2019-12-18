@@ -167,12 +167,12 @@ class DashboardController extends Controller
 
 	    foreach ($results as $key => $value) {
     		$ls=['nspk'=>false,'spm'=>false,'pn'=>false,'sdgs'=>false];
-    		$name="tidak_satupun";
+    		$name="kegiatan_pendukung";
     		$n=0;
     		foreach ($value as $i) {
     			$ls[$i]=true;
     			
-    			if($name=="tidak_satupun"){
+    			if($name=="kegiatan_pendukung"){
     				$name="hanya_";
     			}
 
@@ -456,12 +456,12 @@ class DashboardController extends Controller
 	    $results=[0];
 	    foreach ($results as $key => $value) {
     		$ls=['nspk'=>false,'spm'=>false,'pn'=>false,'sdgs'=>false];
-    		$name="tidak_satupun";
+    		$name="kegiatan_prndukung";
     		$n=0;
     		// foreach ($value as $i) {
     		// 	$ls[$i]=true;
     			
-    		// 	if($name=="tidak_satupun"){
+    		// 	if($name=="kegiatan_pendukung"){
     		// 		$name="hanya_";
     		// 	}
 
