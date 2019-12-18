@@ -39,9 +39,9 @@
         </ul>
     </li>
 
-    <li class="{{(in_array($menu_id,['2.1','2.2','2.3']))?'mm-active':''}}" >
+    <li class="{{(in_array($menu_id,['2.1','2.2','2.3','2.4','2.5','2.6']))?'mm-active':''}}" >
         <a href="#">
-            <i class="metismenu-icon pe-7s-graph1 text-cuccess"></i> Chart
+            <i class="metismenu-icon pe-7s-graph1 text-cuccess"></i> Chart Provinsi
             <i class="metismenu-state-icon pe-7s-angle-down caret-left "></i>
         </a>
         <ul>
@@ -85,5 +85,28 @@
                         
         </ul>
     </li>
+
+
+       <li class="{{(in_array($menu_id,['3.1','3.2','3.3']))?'mm-active':''}}" >
+        <a href="#">
+            <i class="metismenu-icon pe-7s-graph1 text-cuccess"></i> Chart Kota / Kabupaten
+            <i class="metismenu-state-icon pe-7s-angle-down caret-left "></i>
+        </a>
+        <ul>
+             <li class="{{$menu_id=='3.1'?'mm-active':''}}">
+                <a href="{{route('data.anggaran',['tahun'=>$tahun])}}">
+                    <i class="metismenu-icon">
+                    </i>Anggaran
+                </a>
+            </li>
+            <li class="{{$menu_id=='3.2'?'mm-active':''}}">
+                <a href="{{route('data.index',['tahun'=>$tahun])}}" >
+                    <i class="metismenu-icon">
+                    </i> Program Kegiatan
+                </a>
+            </li>
+        </ul>
+    </li>
     
-</ul>   
+</ul>  
+
