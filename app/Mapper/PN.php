@@ -10,10 +10,10 @@ class PN extends Model
     //
 
 
-    public static function query($tahun=2020){
+    public static function query($tahun=2020,$add=''){
 
         $data=DB::select(
-               "select 
+               "select ".($add!=''?$add.',':'')."
             s.nama as nama_sub_urusan,
             count(case when a.sdgs then 1 end ) as jml_sdgs,
             count(case when a.pn then 1 end ) as jml_pn,
@@ -28,7 +28,7 @@ class PN extends Model
             m.kp as id_kp,
             m.pp as id_pp,
             m.program_prioritas as uraian_pp,
-
+            a.tahun,
 
             u.nama as nama_urusan,
             a.id_sub_urusan,
@@ -43,7 +43,7 @@ class PN extends Model
             left join master_pn as m on a.id_pn3 = m.id
             where a.tahun =
             ".$tahun." and a.id_pn3 is not null and a.pn=true
-            group by  m.program_prioritas,m.pp,m.prioritas_nasional, m.kegiatan_prioritas, m.kp,m.id,kode_daerah,a.id_urusan,a.id_sub_urusan,a.kode_program,uraian_kode_program_daerah,d.nama,u.nama,s.nama "
+            group by  m.program_prioritas,m.pp,m.prioritas_nasional, m.kegiatan_prioritas, m.kp,m.id,kode_daerah,a.id_urusan,a.id_sub_urusan,a.kode_program,uraian_kode_program_daerah,d.nama,u.nama,s.nama ,a.tahun"
         
         );
 
@@ -54,6 +54,76 @@ class PN extends Model
 
     }
 
+
+    public static function map2($data){
+        $base = array('citrus' => array( "orange") , 'berries' => array("blackberry"=>array('type'=>1,'tahun'=>2020), "raspberry"), );
+        $replacements = array('citrus' => array('pineapple'), 'berries' => array('blackberry'=>array('tahun'=>2021)));
+
+        $basket = array_replace_recursive($base, $replacements);
+        dd($basket);
+
+
+        $data_level=[
+            [
+                ['pn','Prioritas Nasioanal','id_pn'],
+                ['pp','Program Prioritas','id_pp'],
+                ['kp','Kegiatan Prioritas','id_kp']
+            ],
+            
+        ];
+        // $data_return=[];
+        // $pointer=0;
+
+        $keys = array(
+            array(
+                'lev1' => 'Science',
+                'lev2' => 'Engineering',
+                'lev3' => 'Chemical Engineering'
+            )
+        );
+
+        $output_array = array();
+       foreach ($data as $l => $d) {
+         foreach( $data_level as $val => $second) { 
+
+            $second = array_reverse($second);
+
+            foreach( $second as $k => $v) {
+                $output_array = array(
+                    'nama'=>'nama',
+                    'type'=>$v[1],
+                    'jumlah_kegiatan'=>0,
+                    'jumlah_program'=>0,
+                    'jumlah_anggaran'=>0,
+
+
+                    $v[0] => array(
+                        $d[$v[2]]=>$output_array,
+                    ),
+                    
+
+
+                );
+            }            
+        }
+           # code...
+       }
+
+        dd($output_array);
+
+        // foreach($data_level as $k=>$l){
+        //         $used_map=(range(0, $k);
+        //         foreach ($data_level as $key => $value) {
+                    
+        //         }
+
+        //     // if(!isset($data_return[$v[$l[0]]][2])){
+        //     //     $data_return[$v[$l[0]]][2]
+        //     // }
+        //     // $data_return=$data_return[$v[$l[0]]][2];
+        // }
+
+    }
 
     public static function map($data){
         

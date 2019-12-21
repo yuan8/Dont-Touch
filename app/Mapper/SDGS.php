@@ -9,9 +9,9 @@ class SDGS extends Model
     //
 
 
-    public static function query($tahun=2020){
+    public static function query($tahun=2020,$add=''){
         $data=DB::select(
-            "select 
+            "select ".($add!=''?$add.',':'')."
             s.nama as nama_sub_urusan,
             count(case when a.sdgs then 1 end ) as jml_sdgs,
             count(case when a.pn then 1 end ) as jml_pn,
@@ -26,6 +26,7 @@ class SDGS extends Model
             u.nama as nama_urusan,
             a.id_sub_urusan,
             kode_program,
+            a.tahun,
             uraian_kode_program_daerah,
             count(DISTINCT(kode_program)) as jml_program,
             count(DISTINCT(CONCAT(a.kode_daerah,a.kode_kegiatan))) as jml_kegiatan 
@@ -36,7 +37,7 @@ class SDGS extends Model
             left join master_sdgs as m on a.id_sdgs = m.id
             where a.tahun =
             ".$tahun." and a.id_sdgs is not null and a.sdgs=true
-            group by m.id,kode_daerah,a.id_urusan,a.id_sub_urusan,a.kode_program,uraian_kode_program_daerah,d.nama,u.nama,s.nama,m.sdgs "
+            group by m.id,kode_daerah,a.id_urusan,a.id_sub_urusan,a.kode_program,uraian_kode_program_daerah,d.nama,u.nama,s.nama,m.sdgs,a.tahun "
         
         );
 

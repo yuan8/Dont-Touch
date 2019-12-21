@@ -27,6 +27,8 @@
     <script src="{{asset('admin_dist/fs/modules/exporting.js')}}"></script>
     <script src="{{asset('admin_dist/fs/modules/export-data.js')}}"></script>
     <script type="text/javascript" src="{{url('admin_dist/js/axios.js')}}"></script>
+    <script type="text/javascript" src="{{url('admin_dist/js/sort.js')}}"></script>
+
 
     <script type="text/javascript">
 

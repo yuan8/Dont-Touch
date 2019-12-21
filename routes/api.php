@@ -68,6 +68,10 @@ Route::prefix('nomenklatur')->middleware('auth:api')->group(function(){
 Route::get('them-tr-f1','API\FormController@Trf1');
 
 
+Route::post('dynamic/{tahun?}','DynamicNested@createData');
+
+
+
 Route::post('kegiatan_pendukung/nspk/{tahun}','DashboardController@kegiatan_pendukung_nspk');
 Route::post('kegiatan_pendukung/sdgs/{tahun}','DashboardController@kegiatan_pendukung_sdgs');
 Route::post('kegiatan_pendukung/pn/{tahun}','DashboardController@kegiatan_pendukung_pn');

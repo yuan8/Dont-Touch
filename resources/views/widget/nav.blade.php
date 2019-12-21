@@ -82,6 +82,13 @@
                     </i>Kegiatan Pendukung
                 </a>
             </li> 
+
+            <li class="{{$menu_id=='2.7'?'mm-active':''}}">
+                <a href="{{route('data.mapper',['tahun'=>$tahun])}}">
+                    <i class="metismenu-icon">
+                    </i>Custome List
+                </a>
+            </li> 
                         
         </ul>
     </li>

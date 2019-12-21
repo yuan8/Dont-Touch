@@ -196,11 +196,11 @@ class DashboardController extends Controller
     				$tk="COUNT( CASE WHEN ";
     			}
     			if((count($ls)-1)!=$k_n){
-    				$tk.="(".$k."=".($l?'true':'false').")and";
+    				$tk.="(a.".$k."=".($l?'true':'false').")and";
     				$k_n+=1;
     			}else{
 
-    				$tk.="(".$k."=".($l?'true':'false').") THEN 1 END ) as ".$name." ";
+    				$tk.="(a.".$k."=".($l?'true':'false').") THEN 1 END ) as ".$name." ";
 
     			}
     		}
@@ -731,18 +731,14 @@ class DashboardController extends Controller
         $request->request->add(['tahun'=>$tahun]);
         $validator=Validator::make($request->all(),[
             'tahun'=>'required|numeric',
-            'id_urusan'=>'required|numeric',
+            'id_urusan'=>'nullable|numeric',
             'id_sub_urusan'=>'nullable|numeric',
             'kode_daerah'=>'required|string',
             'kode_program'=>'required|string',
-            'id_nspk'=>'nullable|numeric',
-            'id_spm'=>'nullable|numeric',
-            'id_pn3'=>'nullable|numeric',
-            'id_sdgs'=>'nullable|numeric',
-
-
-
-
+            'id_nspk'=>'nullable',
+            'id_spm'=>'nullable',
+            'id_pn3'=>'nullable',
+            'id_sdgs'=>'nullable',
         ]);
 
         if($validator->fails()){
@@ -757,16 +753,34 @@ class DashboardController extends Controller
         foreach ($request->except('token') as $key => $value) {
                 
                 $value=(in_array($key,['kode_daerah','kode_program']))?("'".$value."'"):$value;
-                $value=(in_array($key,['nspk','spm','pn','sdgs']))?((boolean)$value):$value;
-                $value=(in_array($key,['id_urusan','id_sub_urusan','id_nspk','id_spm','id_sdgs','id_pn3']))?((int)$value):$value;
+                $value=(in_array($key,['nspk','spm','pn','sdgs']))?(((boolean)$value)==true?'true':'false'):$value;
+               
 
 
+                if((strpos($value, '|') !== false)){
 
-                if($where==''){
-                    $where.=' where a.'.$key.'='.$value;
+                    $value=explode('|',$value);
+                    if($where==''){
+                        $where.=' where a.'.$key.' '.$value[0].' '.$value[1];
+                    }else{
+                        $where.=' and a.'.$key.' '.$value[0].' '.$value[1];
+                    }
+
+
                 }else{
-                    $where.=' and a.'.$key.'='.$value;
+
+                     $value=(in_array($key,['id_urusan','id_sub_urusan','id_nspk','id_spm','id_sdgs','id_pn3']))?((int)$value):$value;
+                     
+                    if($where==''){
+                        $where.=' where a.'.$key.'='.$value;
+                    }else{
+                        $where.=' and a.'.$key.'='.$value;
+                    }
+
                 }
+
+                    
+                
         }
 
              
@@ -1190,6 +1204,17 @@ class DashboardController extends Controller
         return view('all.kegiatan_pendukung')->with('tahun',$tahun)->with('title','Kegiatan Pendukung')
         ->with('menu_id','2.6');
 
+    }
+
+
+    public function test($tahun=2020){
+        // $data=\App\Mapper\ProgramKegiatanDaerah::query($tahun);
+        // $data=\App\Mapper\ProgramKegiatanDaerah::map($data);
+
+        // return $data;
+
+
+        return view('all.test')->with('tahun',$tahun)->with('menu_id','2.7');
     }
 
 }

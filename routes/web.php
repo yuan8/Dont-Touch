@@ -13,6 +13,8 @@
 
 Route::get('init/{tahun?}', 'DashboardController@landing')->name('home');
 
+Route::get('tt','DashboardController@test');
+
 Route::get('testing-alert', function(){
 
   $f=json_decode(file_get_contents(public_path('mp\source.json')), true);
@@ -70,13 +72,9 @@ Route::prefix('/data/{tahun?}')->group(function(){
   Route::get('/profile-urusan', 'DashboardController@tingkatan_urusan')->name('data.tingkatan_urusan');
   Route::get('/nuwas', 'DashboardController@nuws')->name('data.nuwas');
   Route::get('/kegiatan-pendukung', 'DashboardController@k_pendukung')->name('data.pendukung');
-
-
   Route::get('/kegiatan-pendukung-2', 'DashboardController@k_pendukung')->name('data.pendukung2');
 
-
-
-
+  Route::get('/mapper','DashboardController@test')->name('data.mapper');
 
 });
 
