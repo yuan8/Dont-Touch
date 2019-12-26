@@ -124,9 +124,9 @@
 </style>
 
 <div id="container_map" style="z-index: 9999; width: 100%; position: relative;"></div>
-<div class="row justify-content-md-center no-gutter">
+<div class="row justify-content-md-center no-gutter legend" >
      <div class="col col-md-auto bg bg-primary color-white">
-    <samll>Legenda</small>
+    <small>Legenda</small>
         
        <p>Jumlah Anggaran</p>
 
@@ -257,5 +257,12 @@ function getChart(map,where,id=0){
 	 {
 		width: 100% !important;
 	}
+</style>
+<style type="text/css">
+    .legend p,.legend small{
+        color: #222;
+    }
+
+
 </style>
 @stop
