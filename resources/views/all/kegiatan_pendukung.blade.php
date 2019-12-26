@@ -84,6 +84,8 @@
 
 
 	var data=[];
+
+
 	function getdata(tag){
 		$('#chart').html('');
 		$('#container-builder').html('<div class="col-md-12"><div class="card"><div class="card-body text-center " style="min-height: 80vh; padding-top: 20vh;"><i class="align-middle fa fa-spinner mb-4 fa-spin fa-fw margin-bottom fas text-danger" style="font-size: 100px"></i><h5><b>Loading Data {{$tahun}} ....</b></h5></div></div></div>')
@@ -206,13 +208,13 @@
 
 
 		var data_chart=[];
-			for(var i in d_data){
-				data_chart.push({
+		for(var i in d_data){
+			data_chart.push({
 
-					'name':i.replace(/_/g,' '),
-					'data':d_data[i],
-					'd_call_id':d_call_id[i]
-				});
+				'name':i.replace(/_/g,' '),
+				'data':d_data[i],
+				'd_call_id':d_call_id[i]
+			});
 
 		}
 
@@ -395,6 +397,7 @@
 
 	
 			$('#container-builder').html(dm_card);
+		}
 
 					
 	}
@@ -418,6 +421,8 @@
 
 
 	}
+
+
 </script>
 
 <style type="text/css">
