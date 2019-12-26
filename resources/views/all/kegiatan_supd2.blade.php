@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="page-title-actions">
-            <a href="{{route('data.kegiatan_spud2_provinsi_chart')}}" class="btn-shadow mr-3 btn btn-info" >
+            <a href="{{route('data.kegiatan_spud2_provinsi_chart',['tahun'=>$tahun])}}" class="btn-shadow mr-3 btn btn-info" >
                 <span><i class="fa fa-bar-chart fa-sm "></i></span> Chart
             </a>
            
