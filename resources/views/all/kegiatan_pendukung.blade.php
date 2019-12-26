@@ -340,7 +340,6 @@
 		          var val=(this.y).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 		          return '<tr><td style="color:{series.color};padding:0">'+this.series.name+' </td>' +
 		            '<td style="padding:0"><b>: '+val+'</b></td></tr>'
-
 		        },
 
 		        footerFormat: '</table>',
@@ -386,11 +385,15 @@
 		        }
 		    },
 		    series:data_chart
-		});
+	
+		},
+		 );
 
 
 
-		}
+
+
+	
 			$('#container-builder').html(dm_card);
 
 					

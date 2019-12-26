@@ -28,8 +28,8 @@
 </div>
 
 <div class="row" >
-	<div class="col-md-12">
-		<div class="card">
+	<div class="col-md-12 ">
+		<div class="card mb-4">
 			<div class="card-body table-responsive" id="container-builder-table"></div>
 		</div>
 	</div>
@@ -45,11 +45,12 @@
 <script type="text/javascript">
 
 
-	var data=[];
+	var data =<?php echo  json_encode($data_return); ?>; 
+
 
 
 	var d_option_category=[];
-		
+	var previews_map_btn='';
 
 	function get_chart(dom,l,key_stories){
 		$('#chart').html('');
@@ -89,6 +90,7 @@
 			tit=(data_container.nama)==undefined?'':data_container.nama;
 			tit_back=(ty+' '+tit)==" "?'Back':(ty+' '+tit);
 		    
+			previews_map_btn=map.join(',');
 
 		  	 var  dm_btn_back='<button style="height:100%; overflow:hidden;" key_s="'+key_stories+'" class="btn text-capitalize btn-circle btn-warning col-12" call_id="'+map.join(',')+'" onclick="backmap(this)" tag="'+data_container.type+'">  <i class="fa fa-arrow-left text-white"></i> ' + tit_back.toUpperCase()+' </button>';
 
@@ -391,7 +393,20 @@
 		        }
 		    },
 		    series:data_chart
-		});
+		},function (chart) { // on complete
+        	chart.renderer.button('Back',5, 5)
+            .attr({
+                zIndex: 9999,
+                call_id:previews_map_btn,
+
+            }).on('click',function(){
+            	backmap(this);
+            }).addClass('btn btn-warning').add();
+	           
+    	}
+
+
+		);
 			}
 
 
@@ -426,7 +441,6 @@
 
 
 
-	var data =<?php echo  json_encode($data_return); ?>; 
 	get_chart(null,null,'mapper');
 
 
@@ -455,6 +469,25 @@
     		get_chart(data_container,d.type_tag);
 
 	}
+
+
+<?php
+	if(isset($id_map)){
+?>
+	
+	clickDetail(0);
+
+<?php
+}else{
+?>
+
+<?php 
+
+}
+
+
+
+ ?>
 </script>
 
 <style type="text/css">

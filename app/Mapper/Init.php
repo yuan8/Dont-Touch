@@ -166,7 +166,7 @@ class Init extends Model
 	}
 
 
-    public static function map($data,$map=[],$tahun=2020,$option_program=[],$typ='semua'){
+    public static function map($data,$map=[],$tahun=2020,$option_program=[],$typ='semua',$id_map=null){
 		if(count($map) >0){ $data_return=array();
 			$data_global=['nama'=>'Nasional','type'=>'Data '.(($typ=='semua')?'':$typ),'span_typ'=>(($typ=='semua')?'':$typ)];
 
@@ -633,6 +633,13 @@ class Init extends Model
 			$data_return=[];
 		}
 
-		return view('all.mapper')->with(['data_return'=>$data_return,'tahun'=>$tahun])->render();
+		$dr=['data_return'=>$data_return,'tahun'=>$tahun];
+
+		if(isset($id_map)){
+			$dr['id_map']=$id_map;
+		}
+
+
+		return view('all.mapper')->with($dr)->render();
 	}
 }

@@ -79,6 +79,19 @@ Route::prefix('/data/{tahun?}')->group(function(){
 });
 
 
+
+Route::prefix('nuwas/data/{tahun?}')->group(function(){
+  Route::get('/',function(){
+
+    return redirect()->route('n.init',['tahun'=>2020]);
+  });
+
+  Route::get('init','NuwasController@index')->name('n.init');
+  Route::get('profile-daerah/program-kegiatan','NuwasController@program_kegiatan_table')->name('n.program_kegiatan_table');
+
+
+});
+
 Route::prefix('auth')->group(function(){
     Auth::routes();
 });

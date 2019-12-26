@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>SUPD2</title>
+    <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
 
@@ -94,49 +94,26 @@
 
         <div class="app-header header-shadow bg-warning">
             <div class="app-header__logo">
-                <div class="logo-src-ss"></div>
-                <div class="header__pane ml-auto">
-                    <div>
-                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
-                            <span class="hamburger-box">
-                            <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
+                  <H5><b>DSS    </b>  </H5>
+
             </div>
             <div class="app-header__mobile-menu">
                 <div>
                     <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
                         <span class="hamburger-box">
-                        <span class="hamburger-inner"></span>
+                            <span class="hamburger-inner"></span>
                         </span>
                     </button>
                 </div>
             </div>
-            <div class="app-header__menu">
-                <span>
-                <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
-                    <span class="btn-icon-wrapper">
-                        <i class="fa fa-ellipsis-v fa-w-6"></i>
-                    </span>
-                </button>
-                </span>
-            </div>
+                    
             <div class="app-header__content">
+
                 <div class="app-header-left">
-                   <!--  <div class="search-wrapper">
-                        <div class="input-holder">
-                            <input type="text" class="search-input" placeholder="Type to search">
-                            <button class="search-icon"><span></span></button>
-                        </div>
-                        <button class="close"></button>
-                    </div> -->
-                    <!-- <ul class="header-megamenu nav">
-                       
-                    </ul> -->
-                    <H5><b>SUPD2    | </b> <span style="font-size: 18px;">{{isset($tahun)?''.$tahun.'':''}} </span> </H5>
-                    <small> {!!isset($title)?'&nbsp;&nbsp; '.$title:''!!}</small>
+                
+                      
+                    @include('widget.nav_nuwas')
+
                 </div>
                 <div class="app-header-right">
                     
@@ -144,7 +121,6 @@
                     <div class="header-btn-lg pr-0">
                         <div class="widget-content p-0">
                             <div class="widget-content-wrapper">
-                               @include('widget.account_menu')
                             </div>
                         </div>
                     </div>
@@ -154,47 +130,11 @@
         </div>
        
         <div class="app-main">
-            <div class="app-sidebar sidebar-shadow">
-                <div class="app-header__logo">
-                    <div class="logo-src-ss"></div>
-                    <div class="header__pane ml-auto">
-                        <div>
-                            <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
-                                <span class="hamburger-box">
-                                    <span class="hamburger-inner"></span>
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="app-header__mobile-menu">
-                    <div>
-                        <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-                <div class="app-header__menu">
-                    <span>
-                        <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
-                            <span class="btn-icon-wrapper">
-                                <i class="fa fa-ellipsis-v fa-w-6"></i>
-                            </span>
-                    </button>
-                    </span>
-                </div>
-                <div class="scrollbar-sidebar">
-                    <div class="app-sidebar__inner">
-                       @include('widget.nav')
-                    </div>
-                </div>
-            </div>
+           
             <div class="app-main__outer">
 
                 <!-- inner -->
-               <div class="app-main__inner">
+               <div class="app-main__inner" style="padding:10px; min-height: 100vh;">
                 @yield('content')
                </div>
 
@@ -229,7 +169,8 @@
         setTimeout(function(){
             $('#side-bar').addClass('closed-sidebar');
             if($('body').width()>=989){
-                $('.app-main__inner').css('max-width',$('.app-main').width() - 80);
+                // $('.app-main__inner').css('max-width',$('.app-main').width();
+
             }
 
 
@@ -270,6 +211,9 @@
     }
     .modal-backdrop, .blockOverlay{
         z-index: 9;
+    }
+    .closed-sidebar.fixed-sidebar .app-main__outer{
+        padding-left: 0px!important;
     }
 </style>
 </html>

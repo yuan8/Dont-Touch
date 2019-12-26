@@ -48,7 +48,7 @@ class DashboardController extends Controller
             $tahun=static::tahun($tahun);
 
     	   $query="
-            select kode_daerah,d.nama as nama_daerah,id_urusan,u.nama as nama_urusan,id_sub_urusan,kode_program,uraian_kode_program_daerah, count(distinct(kode_program)) as jml_program,count(kode_kegiatan) as jml_kegiatan from 
+            select kode_daerah,d.nama as nama_daerah,id_urusan,u.nama as nama_urusan,id_sub_urusan,kode_program,uraian_kode_program_daerah, count(distinct(a.kode_program)) as jml_program,count(kode_kegiatan) as jml_kegiatan from 
             program_kegiatan_lingkup_supd_2 as a
             left join view_daerah as d on d.id= a.kode_daerah
             left join master_urusan as u on u.id= a.id_urusan
@@ -224,7 +224,7 @@ class DashboardController extends Controller
 	    	}
 	    }
 
-	    $query_pie="select ".$select."  from program_kegiatan_lingkup_supd_2 ";
+	    $query_pie="select ".$select."  from program_kegiatan_lingkup_supd_2 as a ";
 
 		$data_pie=DB::select($query_pie);	
 		$data_pie=json_encode($data_pie);

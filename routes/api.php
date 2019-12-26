@@ -78,3 +78,8 @@ Route::post('kegiatan_pendukung/pn/{tahun}','DashboardController@kegiatan_penduk
 Route::post('kegiatan_pendukung/spm/{tahun}','DashboardController@kegiatan_pendukung_spm');
 
 
+Route::prefix('nuwas')->group(function(){
+
+  Route::post('get/chart','NuwasController@getChart');
+
+});
