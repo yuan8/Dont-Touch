@@ -89,6 +89,10 @@ Route::prefix('nuwas/data/{tahun?}')->group(function(){
   Route::get('init','NuwasController@index')->name('n.init');
   Route::get('profile-daerah/program-kegiatan','NuwasController@program_kegiatan_table')->name('n.program_kegiatan_table');
 
+    Route::get('profile-kebijakan/','NuwasController@kebijakan')->name('n.kebijakan');
+    Route::get('profile-kebijakan/daerah','NuwasController@kebijakanDaerah')->name('n.kebijakanDaerah');
+
+
 
 });
 

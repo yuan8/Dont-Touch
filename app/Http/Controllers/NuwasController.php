@@ -5,11 +5,92 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Urusan23;
+use Auth;
+use App\Program;
+use App\SubUrusan23;
+use Validator;
+use App\Mandat;
+use App\Provinsi;
+use App\Kabupaten;
+use App\PerdaPerkada;
 class NuwasController extends Controller
 {
     //
 
+    public function kebijakan($taun=2020,Request $request){
 
+        $data=Mandat::where('id_urusan',3)->where('id_sub_urusan',12)->where('tahun',session('focus_tahun'))->orderBy('id','DESC')->paginate(10);
+
+        return view('nuwas.kebijakan')->with('menu_id','s.1')->with('datas',$data);
+
+    }
+
+    public function kebijakanDaerah($tahun=2020,Request $request){
+        $urusan=3;
+      $where=[];
+      if(isset($request->q)){
+        $where=[['nama','like','%'.$request->q.'%']];
+      }else{
+        
+
+      }
+
+      $first = DB::table('provinsi')->select(['id_provinsi as id','nama']);
+      if(isset($request->q)){
+        $first=$first->where('nama','Ilike','%'.$request->q.'%');
+      }
+
+      $daerah = DB::table('kabupaten')
+              ->select(['id_kota as id','nama'])
+              ->union($first)->orderBy('id','ASC');
+
+      if(isset($request->q)){
+        $daerah=$daerah->where('nama','Ilike','%'.$request->q.'%');
+      }
+
+      $daerah=$daerah->paginate(10);
+      $daerah->appends(['q'=>$request->q]);
+             
+
+      $back=$daerah;
+      $kota_kab=$daerah->toArray();
+      $kota_kab= (array) $kota_kab['data'];
+
+      foreach ($kota_kab as $key => $value) {
+        $kota_kab[$key]= (array) $kota_kab[$key];
+        $kota_kab[$key]['mandat']=[];
+        $kota_kab[$key]['id']=(int) $kota_kab[$key]['id'];
+        $kota_kab[$key]['id']=(string) $kota_kab[$key]['id'];
+
+        $mandat=Mandat::where('id_urusan',$urusan)->where('id_sub_urusan',12)->where('tahun',session('focus_tahun'))->with('LinkSubUrusan')->get()->toArray();
+      
+        if(strlen($kota_kab[$key]['id'])>2){
+          $level='kota_kabupaten';
+          $kota_kab[$key]['level']=2;
+          $where=[['kota_kabupaten',$kota_kab[$key]['id']]];
+        }else{
+          $level='provinsi';
+          $kota_kab[$key]['level']=1;
+          $kota_kab[$key]['nama']='PROVINSI '.$kota_kab[$key]['nama'];
+          $where=[['provinsi',$kota_kab[$key]['id']],['kota_kabupaten',0]];
+        }
+
+        foreach ($mandat as $m) {
+           $mx=PerdaPerkada::where('id_urusan',$urusan)->where('tahun',session('focus_tahun'))->where('id_mandat',$m['id'])->where($where)->first();
+           if($mx){
+           $mx=$mx->toArray();
+           }
+           $m['perda_perkada']=$mx;
+
+          $kota_kab[$key]['mandat'][]=$m;
+        }
+
+
+      }
+
+      return view('nuwas.kebijakan_daerah')->with('datas',$kota_kab)->with('link',$back);
+
+    }
 
     public function index($tahun=2020){
     	$dt=DB::select("

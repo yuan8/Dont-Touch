@@ -148,7 +148,7 @@
                                 </div>
                             </div>
                             <div class="app-footer-right">
-                              SUPD2 &copy; 2021
+                              DSS &copy; 2021
                             </div>
                         </div>
                     </div>
