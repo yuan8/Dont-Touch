@@ -235,36 +235,41 @@
 			// $('#chart').html('');
 
 			var data_send=dom.where; 	
-			console.log(data_send);
 
 
 			$.post('{{route("api.all.get_kegiatan",['tahun'=>$tahun])}}',data_send,function(res){
 				
-
 				var dm='<div class="col-md-12"><div class="card min-h-100 mb-4"><div class="card-body"><h6><b><span class="badge badge-pill badge-warning">K</span> Detail Kegiatan</b></h6></div></div></div>';
 
 				for(i in res){
 
-					var tag='';
+				console.log(res[i]);
+				console.log('ddd');
+
+
+					var km='';
+
 					dm+='<div class="col-md-4"><div class="card mb-4"><div class="card-body"><p>'+res[i].nama+'</p>';
 					
+					console.log(res[i].nspk);
 					if(res[i].nspk){
-						tag+='<span class="badge badge-pill badge-warning">nspk</span>';
+						km+='<span class="badge badge-pill badge-warning">nspk</span>';
 					}
 
 					if(res[i].spm){
-						tag+='<span class="badge badge-pill badge-warning">spm</span>';
+						km+='<span class="badge badge-pill badge-warning">spm</span>';
 					}
 
 					if(res[i].pn){
-						tag+='<span class="badge badge-pill badge-warning">pn</span>';
+						km+='<span class="badge badge-pill badge-warning">pn</span>';
 					}
 
 					if(res[i].sdgs){
-						tag+='<span class="badge badge-pill badge-warning">sdgs</span>';						
+						km+='<span class="badge badge-pill badge-warning">sdgs</span>';						
 					}
 
-					dm+=tag;
+					dm+='<div class="mb-4">'+km+'</div>';
+
 
 					if(res[i]['indikator'].length > 0){
 
@@ -424,7 +429,7 @@
 		var dom=$(dom);
 
 		var key_stories=dom.attr('key_s');
-		var map=dom.attr('call_id').split('|');
+		var map=dom.attr('call_id').split(',');
 		var data_container=data;
 
 		for(var i in map ){

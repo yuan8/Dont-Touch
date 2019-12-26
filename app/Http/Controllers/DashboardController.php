@@ -784,14 +784,14 @@ class DashboardController extends Controller
         }
 
              
-        $query='select a.kode_kegiatan,b.indikator,(case when b.target_awal = null then 0 end) as target_awal,b.target_ahir,b.satuan, a.uraian_kode_kegiatan_daerah as nama, count(DISTINCT(a.kode_kegiatan)) as jml_kegiatan  from program_kegiatan_lingkup_supd_2 as a 
+        $query='select a.kode_kegiatan,b.indikator,(case when b.target_awal = null then 0 end) as target_awal,b.target_ahir,b.satuan, a.uraian_kode_kegiatan_daerah as nama, count(DISTINCT(a.kode_kegiatan)) as jml_kegiatan,a.nspk,a.sdgs,a.spm,a.pn  from program_kegiatan_lingkup_supd_2 as a 
 
             left join program_kegiatan_lingkup_supd_2_indikator_provinsi as b on  b.id_kegiatan_supd_2 = a.id 
             
             '.$where."
             
             GROUP BY a.kode_kegiatan,a.id_urusan,a.kode_daerah,a.id_sub_urusan,a.kode_program,a.kode_kegiatan,
-            a.uraian_kode_kegiatan_daerah,b.indikator,b.target_awal,b.target_ahir,b.satuan
+            a.uraian_kode_kegiatan_daerah,b.indikator,b.target_awal,b.target_ahir,b.satuan,a.nspk,a.sdgs,a.spm,a.pn 
         ";
 
 
@@ -805,6 +805,12 @@ class DashboardController extends Controller
             if(!isset($data_return[('k'.$d['kode_kegiatan'])])){
 
                 $data_return[('k'.$d['kode_kegiatan'])]['nama']=$d['nama'];
+                $data_return[('k'.$d['kode_kegiatan'])]['nspk']=$d['nspk'];
+                $data_return[('k'.$d['kode_kegiatan'])]['spm']=$d['spm'];
+                $data_return[('k'.$d['kode_kegiatan'])]['sdgs']=$d['sdgs'];
+                $data_return[('k'.$d['kode_kegiatan'])]['pn']=$d['pn'];
+
+
                 $data_return[('k'.$d['kode_kegiatan'])]['indikator']=[];
             }
 
