@@ -27,7 +27,7 @@
 						<td colspan="7">{{$d['nama']}}</td>
 					</tr>
 					<tr class="">
-						<th>Sub Urusan</th>
+						
 						<th>
 							Mandat / Kegiatan
 						</th>
@@ -40,7 +40,7 @@
 					</tr>
 					<?php foreach ($d['mandat'] as $key => $value): ?>
 						<tr  style="{{$value['jenis']==1?'background:#fbe490c2;':''}}">
-							<td>{{$value['link_sub_urusan']?$value['link_sub_urusan']['nama']:''}}</td>
+							
 							<td>
 								@if($value['jenis']==1)
 									-
