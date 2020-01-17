@@ -32,6 +32,8 @@
 	</thead>
 	<tbody>
 		@foreach($datas as $d)
+			@php
+			@endphp
 			<tr>
 				<td>
 					<p>
@@ -62,6 +64,10 @@
 						</ptab>
 						</p>
 					@endforeach
+					<td>
+						
+						<a href="{{route('fs.f3.update',['id_link'=>$id_link,'id'=>$d['id']])}}" class="btn btn-primary">Edit</a>
+					</td>
 				</td>
 			</tr>
 		@endforeach

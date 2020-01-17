@@ -10,7 +10,7 @@ class KebijakanPusatTahunanTarget extends Model
     //
 
     protected $table='kebijakan_pusat_tahunan_target';
-    protected $fillable=['target','satuan_target','lokus','pelaksana','id_user','id_kebijikan_pusat_tahunan','tahun','id_urusan'];
+    protected $fillable=['target','satuan_target','lokus','pelaksana','id_user','id_kebijikan_pusat_tahunan','tahun','id_urusan','uraian_target'];
 
     public function KebijakanPusatTahunan(){
 

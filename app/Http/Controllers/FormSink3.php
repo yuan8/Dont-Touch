@@ -28,35 +28,52 @@ class FormSink3 extends Controller
 
     public function index($urusan, Request $request){
 
-        $paginate=2;
-        $query_count="select count(*) as jdata,".(isset($request->page)?$request->page:1)." as page, CONCAT('".(count($request->all())>0?(json_encode($request->except(["page",0]))):"[]")."')  as input,".$paginate." as paginate from n_kebijakan_pusat_tahunan as kpt
-         where kpt.id_urusan = ".$urusan." and kpt.tahun =".session("focus_tahun");
+  
+
+
+
+        $paginate=5;
+        $query_count="select count(*) as jdata,".(isset($request->page)?$request->page:1)." as page, CONCAT('".(count($request->all())>0?(json_encode($request->except(["page",0]))):"[]")."')  as input,".$paginate." as paginate
+
+      
+         from n_kebijakan_pusat_tahunan as kpt
+         where kpt.id_urusan = ".$urusan." and kpt.tahun =".session("focus_tahun").' limit '.$paginate;
 
         $query='select 
 
-        kpt.id,kpt.id_master_pn, pn.prioritas_nasional,pn.program_prioritas, pn.kegiatan_prioritas, propn.pro_pn,propn.id as id_propn,
-        kptarget.target,kptarget.tahun as tahun_target,kptarget.lokus as lokus_target,kptarget.pelaksana as pelaksana_target,kptarget.id as id_target,kptarget.satuan_target as satuan_target,kptarget.uraian_target as uraian_target
+        kpt.id as id,kpt.id_master_pn, pn.prioritas_nasional,pn.program_prioritas, pn.kegiatan_prioritas, propn.pro_pn,propn.id as id_propn,
+        kptarget.target,kptarget.tahun as tahun_target,kptarget.lokus as lokus_target,kptarget.pelaksana as pelaksana_target,kptarget.id as id_target,kptarget.satuan_target as satuan_target, kptarget.uraian_target as uraian_target
 
         from n_kebijakan_pusat_tahunan as  kpt
         left join master_pn as pn on pn.id =  kpt.id_master_pn
         left join identifikasi_kebijakan_tahunan_pro_pn as propn on 
         propn.id_identifikasi_kebijakan_tahunan = kpt.id
         left join kebijakan_pusat_tahunan_target as kptarget on 
+        
         kptarget.id_kebijikan_pusat_tahunan = kpt.id
-         where kpt.id_urusan = '.$urusan.' and kpt.tahun ='.session('focus_tahun').' limit '.$paginate;
 
+        where kpt.id_urusan = '.$urusan.' and kpt.tahun ='.session('focus_tahun').'
 
+        ';
+
+        return $query;
         $data=DB::select($query);
+
+        dd($data);
+        // dd(DB::select($query_count));
+
         $paginate=(array) DB::select($query_count)[0];
         $paginate['input']=(array) $paginate['input'];
+        $data_return=[];
 
         foreach ($data as $key => $value) {
             # code...
+            $data_return[$value->id]['id']=$value->id;
             $data_return[$value->id]['pn']=$value->prioritas_nasional;
             $data_return[$value->id]['id_master_pn']=$value->id_master_pn;
 
-            $data_return[$value->id]['pp']=$value->prioritas_nasional;
-            $data_return[$value->id]['kp']=$value->prioritas_nasional;
+            $data_return[$value->id]['pp']=$value->program_prioritas;
+            $data_return[$value->id]['kp']=$value->kegiatan_prioritas;
             $data_return[$value->id]['pro_pn'][$value->id_propn]['id']=$value->id_propn;
 
             $data_return[$value->id]['pro_pn'][$value->id_propn]['propn']=$value->pro_pn;
@@ -197,16 +214,18 @@ class FormSink3 extends Controller
 
                     if(($target['target']!="")&&($target['lokus']!="")){
 
-                        \App\KebijakanPusatTahunanTarget::create([
+                      $f=  \App\KebijakanPusatTahunanTarget::create([
                             'id_urusan'=>$urusan,
                             'id_kebijikan_pusat_tahunan'=>$id,
                             'tahun'=>session('focus_tahun'),
                             'target'=> $target['target'],
+                            'uraian_target'=> $target['uraian'],
                             'lokus'=> $target['lokus'],
                             'pelaksana'=> $target['pelaksana'],
                             'satuan_target'=> $target['satuan_target'],
                             'id_user'=>Auth::User()->id
                         ]);
+
                     }
                 }
 
