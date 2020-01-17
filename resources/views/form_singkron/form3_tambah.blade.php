@@ -94,6 +94,9 @@
 					<table style="display: none;">
 						<tbody id="container-themplate-target" >
 						<tr>
+							<td>
+								<textarea name="new_target[xxxx][uraian]" class="form-control"   style="min-height: 100px!important"></textarea>
+							</td>
 							<td class="input-group">
 								<input type="number" min="1" name="new_target[xxxx][target]"  class="form-control" ></input>
 								<select class="form-control" name="new_target[xxxx][satuan_target]">
@@ -119,6 +122,8 @@
 					<table class="table table-stripted table-bordered">
 						<thead>
 							<tr>
+								<th>URAIAN TARGET</th>
+
 								<th>TARGET NASIOANAL</th>
 								<th>LOKUS</th>
 								<th>PELAKSANA</th>

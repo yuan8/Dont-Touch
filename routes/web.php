@@ -80,7 +80,7 @@ Route::prefix('/data/{tahun?}')->group(function(){
 
 
 
-Route::prefix('nuwas/data/{tahun?}')->group(function(){
+Route::prefix('data-nuwas/data/{tahun?}')->group(function(){
   Route::get('/',function(){
 
     return redirect()->route('n.init',['tahun'=>2020]);
@@ -273,6 +273,9 @@ Route::prefix('sinkron')->middleware(['auth:web','can:route_access,bidang_urusan
 
   Route::get('/bidang/{bidang_urusan_link}/f7','FormSink7@index')->name('fs.f7.index');
   Route::get('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/{id}','FormSink7@showIndetifikasiTahunan')->name('fs.f7.show.identifikasi.tahunan');
+
+
+    Route::post('/bidang/{bidang_urusan_link}/f7/identifikasi-tahunan/','FormSink7@showIndetifikasiTahunan')->name('fs.f7.show.identifikasi.add_sub_provinsi]');
 
 
 

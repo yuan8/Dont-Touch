@@ -1214,7 +1214,8 @@ class DashboardController extends Controller
 
 
     public function test($tahun=2020){
-        // $data=\App\Mapper\ProgramKegiatanDaerah::query($tahun);
+        $data=\App\Http\Controllers\MapCtrl::queryBuild(['nama_daerah','nama_program'],'provinsi',[['kode_daerah','=','"3"']],null,[['DB_kode_daerah'],[['DB_kode_daerah','program','DB_kode_program']]]);
+
         // $data=\App\Mapper\ProgramKegiatanDaerah::map($data);
 
         // return $data;

@@ -89,7 +89,7 @@
         
     </style>
 
-    <div id="side-bar" class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar closed-sidebar">
+    <div id="side-bar" class="app-container app-theme-white body-tabs-shadow fixed-header closed-sidebar">
     
 
         <div class="app-header header-shadow bg-warning">
@@ -218,25 +218,28 @@
     </div>
    
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
-    <script type="text/javascript" src="{{asset('assets/scripts/main.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/scripts/main.js?v=')}}"></script>
 </body>
 
 <!-- Mirrored from demo.dashboardpack.com/architectui-html-pro/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 27 Nov 2019 14:36:44 GMT -->
 
 <script type="text/javascript">
     
-    $(function(){
+  
+      $(function(){
         setTimeout(function(){
-            $('#side-bar').addClass('closed-sidebar');
-            if($('body').width()>=989){
-                $('.app-main__inner').css('max-width',$('.app-main').width() - 80);
-            }
+            // $('#side-bar').addClass('closed-sidebar');
+            // if($('body').width()>=989){
+            //     $('.app-main__inner').css('max-width',$('.app-main').width() - 80);
+            // }
 
 
         },10);
 
 
     });
+
+   
 
 <?php
 

@@ -2,6 +2,9 @@
 
 @section('head_asset')
 
+<?php
+	$info_page= HP::paginate($paginate['input'],$paginate['page'],$paginate['jdata'],$paginate['paginate']);
+?>
 @stop
 @section('content')
 
@@ -12,16 +15,17 @@
 </div>
 <hr>
 <div class="card  card-border-top-warning">
+	<div class="card-header">
+		<h6>{{$info_page['total']}} Data</h6>
+	</div>
+
 	<div class="card-body table-responsive">
 	<table class="table table-stripted table-bordered">
 	<thead>
 		<tr class="table-dark">
-			<th>Prioritas Nasional</th>
-			<th>Program Prioritas</th>
-			<th>Kegiatan Prioritas</th>
+			<th>Kebijakan Pusat</th>
 			<th>RPO PN / Proyek K/L</th>
 			<th class="text-center">TARGET NASIONAL</th>
-			
 			<th>Action</th>
 
 		</tr>
@@ -29,84 +33,43 @@
 	<tbody>
 		@foreach($datas as $d)
 			<tr>
-				
-				<td>{{($d->prioritas_nasional!=null)?$d->HavePn()->where('tahun',session('focus_tahun'))->first()->nama_pn:null}}</td>
-
-				<td>{{($d->program_prioritas!=null)?$d->HavePp()->where('tahun',session('focus_tahun'))->first()->nama_pp:null}}</td>
-				<td>{!!nl2br($d->kegiatan_prioritas)!!}</td>
-				<td style="padding: 0px;">
-					<table class="table" style="margin-bottom: 0px;">
-					@foreach($d->HaveProPN as $propn)
-						<tr >
-							<td>{!!nl2br($propn->pro_pn)!!}</td>
-						</tr>
-					@endforeach
-					</table>
-					
-				</td>
-				<td style="padding: 0px; min-width: 800px!important">
-					<table class="table" style="margin-bottom: 0px;">
-						<thead>
-							<tr>
-							<th style="min-width: 30%!important;">TARGET</th>
-							<th>LOKUS</th>
-							<th>PELAKSANA</th>
-
-						</tr>
-						</thead>
-					<tbody>
-						@foreach($d->HaveTarget as $target)
-						<tr>
-							<td>{!!nl2br($target->target)!!} {!!nl2br($target->satuan_target)!!}</td>
-							<td>{!!nl2br($target->lokus)!!}</td>
-							<td>{!!nl2br($target->pelaksana)!!}</td>
-
-
-						</tr>
-					@endforeach
-					</tbody>
-					</table>
-
-				</td>
-				
 				<td>
-					<a href="{{route('fs.f3.show',['id_link'=>$id_link,'id'=>$d->id])}}" class="btn-warning btn btn-circle">
-						<i class="fa fa-edit"></i>
-					</a>
-					<a href="javascript:void(0)" onclick="$('#modal-delete-{{$d->id}}').appendTo('body').modal()" class="btn btn-danger btn-circle">
-							<i class="fa fa-trash"></i>
-						</a>
-
-							<div class="modal fade" id='modal-delete-{{$d->id}}' tabindex="-1" role="dialog">
-						  <div class="modal-dialog" role="document">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <h5 class="modal-title">Konfirmasi Penghapusan</h5>
-						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						          <span aria-hidden="true">&times;</span>
-						        </button>
-						      </div>
-						      <div class="modal-body">
-						        <p>Apakah Anda Yakin Menhapus Data Ini</p>
-						      </div>
-						      <div class="modal-footer">
-						      	<form action="{{route('fs.f3.delete',['id_link'=>$id_link,'id'=>$d->id])}}" method="post">
-						      		@csrf
-						      		@method('delete')
-						        	<input type="hidden"  name="id" value="{{$d->id}}">
-						        	<button type="submit" class="btn btn-danger">Delete</button>
-
-						      	</form>
-						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						      </div>
+					<p>
+						<span class="dot lev1"></span>{{$d['pn']}} <b>(PN)</b>
+						<ptab class="ptab">
+							<span class="dot lev2"></span>{{$d['pp']}} <b>(PP)</b>
+							<ptab class="ptab"><span class="dot lev3"></span>{{$d['kp']}} (<b>KP)</b></ptab>
+						</ptab>
+					</p>
 				</td>
-
-
+				<td>
+					@foreach($d['pro_pn'] as $propn)
+						<p><span class="dot lev1"></span>{{$propn['propn']}} </p>
+					@endforeach
+				</td>
+				<td>
+					@foreach($d['target'] as $target)
+						<p><span class="dot lev1"></span>{!!nl2br($target['uraian'])!!} <b></b>
+							<ptab class="ptab">
+								<span class="dot lev2"></span>{{$target['target']}} <b>{{$target['satuan']}} ({{$target['tahun']}})</b>
+								<ptab class="ptab">
+									<span class="dot lev3"></span>{{$target['lokus']}} <b>(Lokus)</b>
+										<ptab class="ptab">
+											<span class="dot lev1"></span>{{$target['pelaksana']}} <b>(Pelaksana)</b>
+										</ptab>
+								</ptab>
+							</ptab>
+						</ptab>
+						</p>
+					@endforeach
+				</td>
 			</tr>
-
 		@endforeach
 	</tbody>
 </table>
+
+
+	{!! $info_page['html'] !!}
 </div>
 </div>
 

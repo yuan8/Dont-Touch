@@ -9,7 +9,7 @@
 	<div class="col-md-2">
 		 <form id="form">
 		 	
-		 	<ul class="list-group" id="list_positif" style="min-height: 100px; background-color: #f1f1f1;">
+		 <ul class="list-group" id="list_positif" style="min-height: 100px; background-color: #f1f1f1;">
           		<li class="list-group-item bg bg-primary text-white">Filter</li>
           		  
           		  <b class="text-center" style="margin-top: 2px; padding-bottom: 2px; margin-bottom: 0px; border-bottom: 1px solid #222">Drop Area</b>
@@ -29,7 +29,7 @@
           <li class="list-group-item bg bg-danger text-white">Tidak Digunakan</li>
           <b class="text-center" style="margin-top: 2px; padding-bottom: 2px; margin-bottom: 0px; border-bottom: 1px solid #222">Drag Area</b>
           <div id="list_negatif">
-          	<li class="list-group-item tr bidang">Bidang
+          	<li class="list-group-item tr bidang ">Bidang
           	<input type="hidden"  name="map[]" value="Bidang|key_bidang|DB_id_urusan">
           </li>
           <li class="list-group-item tr sub_bidang">Sub Bidang

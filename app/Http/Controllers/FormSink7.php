@@ -21,17 +21,41 @@ class FormSink7 extends Controller
 {
     //
 
-    public function index($urusan){
+    public function index($urusan,Request $request){
     	$data_link=Urusan23::find($urusan);
 
-    	$data = IndetifikasiKebijakanTahunan::where('tahun',session('focus_tahun'))
-		->where('id_urusan',$urusan)->paginate(10);
+        $tahun=session('focus_tahun');
+        $limit=10;
+        $offset=0;
+        $ofset_lable='';
+        if($request->page){
+            if($request->page>1){
+                $offset=($request->page*$limit)-$limit;
+                $ofset_lable=' OFFSET '.$offset;
+            }
 
-        // $data2=KebijakanPusatTahunanTarget::with('KebijakanPusatTahunan')->where('tahun',session('focus_tahun'))
-        // ->where('id_urusan',$urusan)->get()->toArray();
+        }
+
+        $query='select ikt.prioritas_nasional as pn , ikt.program_prioritas as pp, ikt.id as id,ikt.kegiatan_prioritas as kp,ikt.lokus,ikt.pelaksana,ikt.target,
+
+            ikt.target_akumulatif, ikt.target_akumulatif_satuan as satuan_target
+         from identifikasi_kebijakan_tahunan as ikt 
+                 left join integrasi_provinsi  as ip on ip.id_identifikasi_kebijakan_tahunan = ikt.id 
+                 where ikt.id_urusan ='.$urusan.' and ikt.tahun ='.$tahun.' '.$ofset_lable.' LIMIT '.$limit.'
+        ';
+
+        $tdata=(array) DB::select($query);
+
+        $tdata = array_map(function ($value) {
+                return (array)$value;
+            }, $tdata);
+
 
     
-    	return view('form_singkron.form7')->with('menu_id','s.7.1')->with('id_link',$urusan)->with('data_link',$data_link)->with('datas',$data);
+    
+    	return view('form_singkron.form7')->with('menu_id','s.7.1')->with('id_link',$urusan)->with('data_link',$data_link)->with('datas',$tdata);
+
+
     }
 
     public function showIndetifikasiTahunan($urusan,$id){

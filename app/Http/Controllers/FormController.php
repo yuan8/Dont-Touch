@@ -9,7 +9,6 @@ use Alert;
 class FormController extends Controller
 {
     //
-
     public function form1(){
       return view('init.input.form1');
     }

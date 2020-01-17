@@ -117,6 +117,9 @@
 						<tbody id="container-themplate-target" >
 						<tr>
 							<td>
+								<textarea name="new_target[xxxx][uraian]" class="form-control"   style="min-height: 100px!important"></textarea>
+							</td>
+							<td>
 								<input type="number" min="1" name="new_target[xxxx][target]"  class="form-control" ></input>
 								<select class="form-control" name="new_target[xxxx][satuan_target]">
 									@foreach(\DB::table('master_satuan')->get() as $satuan)
@@ -141,6 +144,8 @@
 					<table class="table table-stripted table-bordered">
 						<thead>
 							<tr>
+								<th>URAIAN TARGET</th>
+
 								<th>TARGET NASIOANAL</th>
 								<th>LOKUS</th>
 								<th>PELAKSANA</th>
@@ -172,6 +177,10 @@
 						<tbody  id="container-new-target">
 							@foreach($data->HaveTarget as $key=> $target)
 								<tr>
+									<td>
+										<p>{!!$target->uraian_target!!}</p>
+										<textarea class="form-control" style="display: none; min-height: 100px!important;" name="target[{{$target->id}}][uraian]">{!!($target->uraian_target)!!}</textarea>
+									</td>
 									<td>
 										<p class="text">{!!nl2br($target->target)!!}</p>
 										<div class="input-group">

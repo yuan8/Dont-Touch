@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class IndetifikasiKebijakanTahunan extends Migration
+class KebijakanPusatTahunan extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +14,13 @@ class IndetifikasiKebijakanTahunan extends Migration
     public function up()
     {
         //
-         Schema::create('identifikasi_kebijakan_tahunan', function (Blueprint $table) {
+
+          Schema::create('n_kebijakan_pusat_tahunan', function (Blueprint $table) {
 
             $table->bigIncrements('id');
             $table->bigInteger('id_urusan')->unsigned();
             $table->integer('tahun')->length(4)->nullable();
-            $table->bigInteger('prioritas_nasional')->unsigned();
-            $table->bigInteger('program_prioritas')->nullable()->unsigned();
-            $table->Text('kegiatan_prioritas')->nullable();
+            $table->bigInteger('id_master_pn')->unsigned();
             $table->Text('target')->nullable();
             $table->Text('lokus')->nullable();
             $table->Text('pelaksana')->nullable();
@@ -33,18 +32,14 @@ class IndetifikasiKebijakanTahunan extends Migration
 
             $table->foreign('id_urusan')
             ->references('id')
-           ->on('master_urusan')
+            ->on('master_urusan')
             ->onDelete('cascade');
 
-            $table->foreign('prioritas_nasional')
-            ->references('id')
-            ->on('master_prioritas_nasional')
-            ->onDelete('cascade');
 
-            $table->foreign('program_prioritas')
-            ->references('id')
-            ->on('master_program_prioritas')
-            ->onDelete('cascade');
+            // $table->foreign('id_master_pn')
+            // ->references('id')
+            // ->on('master_pn')
+            // ->onDelete('cascade');
 
 
             $table->foreign('id_user')
@@ -62,6 +57,7 @@ class IndetifikasiKebijakanTahunan extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('identifikasi_kebijakan_tahunan');
+        Schema::dropIfExists('n_kebijakan_pusat_tahunan');
+
     }
 }

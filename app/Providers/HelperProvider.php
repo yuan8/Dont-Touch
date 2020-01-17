@@ -101,4 +101,12 @@ class HelperProvider extends ServiceProvider
       return $data_return;
     }
 
+
+    public static function paginate($input=[],$page=1,$jdata=1,$paginate=1){
+        $return['page']=$page;
+        $return['total']=$jdata;
+         $return['html']=view('widget.paginate',['input'=>$input,'page'=>$page,'jdata'=>$jdata,'paginate'=>$paginate])->render();
+         return $return;
+    }
+
 }

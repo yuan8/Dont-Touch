@@ -32,45 +32,29 @@
 				@foreach($datas as $d)
 					<tr>						
 						<td>
-							<p>{!!($d->prioritas_nasional!=null)?$d->HavePn->nama_pn:''!!}</p>
+							<p>{!!$d['pn']!!}</p>
 						</td>
 						<td>
-							<p>{!!($d->program_prioritas!=null)?$d->HavePp->nama_pp:''!!}</p>
-							<p class="text-primary">{!!$d->kegiatan_prioritas!!}</p>
+							<p>{!!$d['pp']!!}</p>
+							<p class="text-primary">{!!$d['kp']!!}</p>
 						</td>
 						<td>
-							<p>{!!nl2br($d->indikator)!!}</p>
+							<p>{!!$d['kp']!!}</p>
+						</td>
+						<td>
+							<p>{!!$d['target_akumulatif']!!} {!!$d['satuan_target']!!}</p>
+
+						</td>
+						<td>
 							
-
 						</td>
 						<td>
-							<p>{{($d->target_akumulatif)}} {{($d->target_akumulatif_satuan)}}</p>
-
-						</td>
-						<td>
-							@foreach($d->HaveSubUrusanProvinsi as $subp)
-								<span class="badge badge-primary">{{ $subp->nomenklatur->programUp()['nomenklatur']}}</span> 
-								<span class="badge badge-info">{{ $subp->nomenklatur->kegiatanUp()['nomenklatur']}}</span>
-								<p>{{$subp->nomenklatur->nomenklatur}}</p>
-							@endforeach
-
-						</td>
-						<td>
-							@foreach($d->HaveSubUrusanKabKota as $subp)
-								<span class="badge badge-primary">{{ $subp->nomenklatur->programUp()['nomenklatur']}}</span> 
-								<span class="badge badge-info">{{ $subp->nomenklatur->kegiatanUp()['nomenklatur']}}</span>
-								<p>{{$subp->nomenklatur->nomenklatur}}</p>
-							@endforeach
+							
 							
 						</td>
 
 						<td >
-							<a href="{{route('fs.f7.show.identifikasi.tahunan',['id_link'=>$id_link,'id'=>$d->id])}}" class="btn btn-warning btn-circle">
-								<i class="fa fa-edit"></i>
-							</a>
-							<a href="javascript:void(0)" class="btn btn-danger btn-circle">
-								<i class="fa fa-trash"></i>
-							</a>
+							
 						</td>
 					</tr>
 					
