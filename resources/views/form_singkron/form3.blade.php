@@ -11,7 +11,7 @@
 
 <div class="d-sm-flex align-items-center justify-content-between mb-1">        
   <h5 class="mb-0 ">IDENTIFIKASI KEBIJAKAN PUSAT TAHUNAN</h5>
-        <a href="{{route('fs.f3.tambah',['id_link'=>$id_link])}}" class="border-bottom-primary  d-sm-inline-block btn btn-warning" style="margin-bottom: 10px; color:#222;">Tambah Identifikasi Kebijakan</a>
+        <a href="{{route('fs.f3.tambah.listPN',['id_link'=>$id_link])}}" class="border-bottom-primary  d-sm-inline-block btn btn-warning" style="margin-bottom: 10px; color:#222;">Tambah Identifikasi Kebijakan</a>
 </div>
 <hr>
 <div class="card  card-border-top-warning">
@@ -32,41 +32,42 @@
 	</thead>
 	<tbody>
 		@foreach($datas as $d)
-			@php
-			@endphp
+			
 			<tr>
 				<td>
 					<p>
-						<span class="dot lev1"></span>{{$d['pn']}} <b>(PN)</b>
+						<span class="dot lev1"></span> <b>PN</b> {{$d['pn']}} 
 						<ptab class="ptab">
-							<span class="dot lev2"></span>{{$d['pp']}} <b>(PP)</b>
-							<ptab class="ptab"><span class="dot lev3"></span>{{$d['kp']}} (<b>KP)</b></ptab>
+							<span class="dot lev2"></span><b>PP</b> {{$d['pp']}} 
+							<ptab class="ptab"><span class="dot lev3"></span><b>KP</b> {{$d['kp']}} </ptab>
 						</ptab>
 					</p>
 				</td>
 				<td>
-					@foreach($d['pro_pn'] as $propn)
+					@foreach($d['propn'] as $propn)
 						<p><span class="dot lev1"></span>{{$propn['propn']}} </p>
 					@endforeach
 				</td>
 				<td>
 					@foreach($d['target'] as $target)
-						<p><span class="dot lev1"></span>{!!nl2br($target['uraian'])!!} <b></b>
-							<ptab class="ptab">
-								<span class="dot lev2"></span>{{$target['target']}} <b>{{$target['satuan']}} ({{$target['tahun']}})</b>
+						<p>
+							<span class="dot lev1"></span>{!!nl2br($target['uraian'])!!} <b></b>
 								<ptab class="ptab">
-									<span class="dot lev3"></span>{{$target['lokus']}} <b>(Lokus)</b>
-										<ptab class="ptab">
-											<span class="dot lev1"></span>{{$target['pelaksana']}} <b>(Pelaksana)</b>
-										</ptab>
+									<span class="dot lev2"></span><b>Target</b> {{$target['target']}} <b>{{$target['satuan']}} </b>
+									<ptab class="ptab">
+										<span class="dot lev3"></span><b>Lokus</b> {{$target['lokus']}}  
+											<ptab class="ptab">
+												<span class="dot lev1"></span><b>Pelaksana</b> {{$target['pelaksana']}}
+											</ptab>
+									</ptab>
 								</ptab>
 							</ptab>
-						</ptab>
 						</p>
 					@endforeach
 					<td>
 						
-						<a href="{{route('fs.f3.update',['id_link'=>$id_link,'id'=>$d['id']])}}" class="btn btn-primary">Edit</a>
+						<a href="{{route('fs.f3.update',['id_link'=>$id_link,'id'=>$d['id']])}}" class="btn btn-warning btn-circle btn-sm"><i class="fa fa-pen "></i></a>
+						<a href="" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i> </a>
 					</td>
 				</td>
 			</tr>

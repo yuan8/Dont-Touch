@@ -20,16 +20,8 @@ class IndetifikasiKebijakanTahunan extends Model
     	'id',
     	'id_urusan',
     	'tahun',
-    	'prioritas_nasional',
-    	'program_prioritas',
-    	'kegiatan_prioritas',
-    	'target',
-    	'lokus',
-    	'pelaksana',
     	'id_user',
-        'indikator',
-        'target_akumulatif',
-        'target_akumulatif_satuan'
+    
 
 
     ];

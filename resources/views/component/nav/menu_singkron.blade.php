@@ -1,3 +1,13 @@
+<?php 
+  if(Auth::User()){
+    if(sesssion('focus_tahun')==null){
+       session(['focus_tahun' => 2020]);
+    }
+  }
+
+?>
+
+
 <hr class="sidebar-divider my-0">
 
 <li class="nav-item">

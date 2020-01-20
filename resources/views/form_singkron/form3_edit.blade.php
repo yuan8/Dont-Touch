@@ -1,59 +1,39 @@
 @extends('layouts.master_def')
 
 @section('head_asset')
-
 @stop
 @section('content')
+
+
 <a href="{{route('fs.f3.index',['id_link'=>$id_link])}}" class="btn btn-info btn-sm"> <i class="fa fa-arrow-left"></i> </a><small> IDENTIFIKASI KEBIJAKAN PUSAT TAHUNAN </small>
 <hr>
 
 <div class="card card-border-top-warning">
-	<form class="" action="{{route('fs.f3.update',['id_link'=>$id_link,'id'=>$data->id])}}" method="post">
+
+	
+
+	<form class="" action="{{route('fs.f3.update',['id_link'=>$id_link,'id'=>$data['id'] ] )}}" method="post">
 		@csrf
 		@method('PUT')
 		<div class="card-body">
 		<div class="row">
 
-			<!-- <div class="col-md-6">
-				<div class=form-group>
-					@include('init.input.themplate.add_data_master',['field_db'=>'nama_pn','name_field'=>'pn[]','title'=>'Prioritas Nasional','tb'=>'master_prioritas_nasional','tahun'=>session('focus_tahun'),'multiple'=>false,'value'=>isset($data->HavePn)?[$data->HavePn->toArray()]:[],'use_id'=>true])
-				</div>
+			<div class="col-md-4">
+				<b>PN</b>
+				<p><span class="dot lev1"></span> {{$data['pn']}}</p>
 			</div>
-			<div class="col-md-6">
-				<div class=form-group>
-					@include('init.input.themplate.add_data_master',['field_db'=>'nama_pp','name_field'=>'pp[]','title'=>'Program Prioritas','tb'=>'master_program_prioritas','tahun'=>session('focus_tahun'),'multiple'=>false,'value'=>isset($data->HavePp)?[$data->HavePp->toArray()]:[],'use_id'=>true])
-				</div>
-			</div> -->
-
-			
-
+			<div class="col-md-4">
+				<b>PP</b>
+				<p><span class="dot lev2"></span> {{$data['pp']}} </p>
+			</div>
+			<div class="col-md-4">
+				<b>KP</b>
+				<p><span class="dot lev3"></span> {{$data['kp']}} </p>
+			</div>
 
 		</div>
 		<div class="row">
-			<!-- <div class="col-md-12">
-				<div class="form-group">
-					<label>Kegiatan Prioritas</label>
-					<textarea class="form-control" required="" cols="3" rows="3" style="min-height: 100px!important" name="kegiatan_prioritas">{!!nl2br($data->kegiatan_prioritas)!!}</textarea>
-				</div>
-			</div> -->
-			<!-- <div class="col-md-3">
-				<div class="form-group">
-					<label>Target</label>
-					<textarea class="form-control"  name="target">{!!nl2br($data->target)!!}</textarea>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="form-group">
-					<label>Lokus</label>
-					<textarea class="form-control" name="lokus">{!!nl2br($data->lokus)!!}</textarea>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="form-group">
-					<label>Pelaksana</label>
-					<textarea class="form-control" required="" name="pelaksana">{!!nl2br($data->pelaksana)!!}</textarea>
-				</div>
-			</div> -->
+			
 			
 			<div class="col-md-12">
 				<hr class="card-border-top-warning">
@@ -99,12 +79,12 @@
 							</tr>
 						</thead>
 						<tbody  id="container-new-propn">
-							@foreach($data->haveProPN as $key=> $propn)
+							@foreach($data['propn'] as $key=> $propn)
 								<tr>
-									<td>{{$propn->pro_pn}}
+									<td>{{$propn['propn']}}
 									</td>
 									<td>
-										<button onclick="$('#modal-delete-propn-{{$propn->id}}').appendTo('body').modal()" type="button" class="btn btn-danger btn-sm btn-circle">
+										<button onclick="$('#modal-delete-propn-{{$propn['id']}}').appendTo('body').modal()" type="button" class="btn btn-danger btn-sm btn-circle">
 											<i class="fa fa-trash"></i>
 										</button>
 									</td>
@@ -180,33 +160,33 @@
 							</tr>
 						</thead>
 						<tbody  id="container-new-target">
-							@foreach($data->HaveTarget as $key=> $target)
+							@foreach($data['target'] as $key=> $target)
 								<tr>
 									<td>
-										<p>{!!$target->uraian_target!!}</p>
-										<textarea class="form-control" style="display: none; min-height: 100px!important;" name="target[{{$target->id}}][uraian]">{!!($target->uraian_target)!!}</textarea>
+										<p>{!!$target['uraian']!!}</p>
+										<textarea class="form-control" style="display: none; min-height: 100px!important;" name="target[{{$target['id']}}][uraian]">{!!($target['uraian'])!!}</textarea>
 									</td>
 									<td>
-										<p class="text">{!!nl2br($target->target)!!}</p>
+										<p class="text">{!!nl2br($target['target'])." ".$target['satuan']!!}</p>
 										<div class="input-group">
-											<input  type="number" class="form-control" style="display: none;;" name="target[{{$target->id}}][target]" value="{{$target->target}}"></input>
-										<select  style="display: none;" class="form-control" name="target[{{$target->id}}][satuan_target]">
+											<input  type="number" class="form-control" style="display: none;;" name="target[{{$target['id']}}][target]" value="{{$target['target']}}"></input>
+										<select  style="display: none;" class="form-control" name="target[{{$target['id']}}][satuan_target]">
 											@foreach(\DB::table('master_satuan')->get() as $satuan)
-												<option value="{{$satuan->label}}" {{$satuan->label==$target->satuan_label?"selected":''}}>{{$satuan->label}}</option>
+												<option value="{{$satuan->label}}" {{$satuan->label==$target['satuan']?"selected":''}}>{{$satuan->label}}</option>
 											@endforeach
 										</select>
 										</div>
 										
 									</td>
 									<td>
-										<p class="text">{!!nl2br($target->lokus)!!}</p>
-										<textarea class="form-control" style="display: none; min-height: 100px!important;" name="target[{{$target->id}}][lokus]">{!!($target->lokus)!!}</textarea>
+										<p class="text">{!!nl2br($target['lokus'])!!}</p>
+										<textarea class="form-control" style="display: none; min-height: 100px!important;" name="target[{{$target['id']}}][lokus]">{!!($target['lokus'])!!}</textarea>
 										
 									</td>
 									
 									<td>
-										<p class="text">{!!nl2br($target->pelaksana)!!}</p>
-										<textarea class="form-control" style="display: none; min-height: 100px!important;" name="target[{{$target->id}}][pelaksana]">{!!($target->pelaksana)!!}</textarea>
+										<p class="text">{!!nl2br($target['pelaksana'])!!}</p>
+										<textarea class="form-control" style="display: none; min-height: 100px!important;" name="target[{{$target['id']}}][pelaksana]">{!!($target['pelaksana'])!!}</textarea>
 									</td>
 									<td>
 										<button type="button" onclick="$(this).parent().parent().find('td p.text').css('display','none'); $(this).parent().parent().find('textarea,input,select').css('display','block');autosize($('textarea')); $(this).parent().find('.btn.btn-hidden-check').css('display','inline-flex'); $(this).remove();" class="btn btn-warning btn-sm btn-circle">
@@ -217,7 +197,7 @@
 											<i class="fa fa-check"></i>
 										</button>
 
-										<button type="button" class="btn btn-danger btn-sm btn-circle" onclick="$('#modal-delete-target-{{$target->id}}').appendTo('body').modal()">
+										<button type="button" class="btn btn-danger btn-sm btn-circle" onclick="$('#modal-delete-target-{{$target['id']}}').appendTo('body').modal()">
 											<i class="fa fa-trash"></i>
 										</button>
 
@@ -245,7 +225,7 @@
 
 <div style="display:none" class=>
 	
-	<form  method="POST" action="{{route('fs.f3.target_update',['id_link'=>$id_link,'id'=>$data->id])}}">
+	<form  method="POST" action="{{route('fs.f3.target_update',['id_link'=>$id_link,'id'=>$data['id']])}}">
 		@csrf
 		<div id="form-target-update">
 			
@@ -263,8 +243,8 @@
 </script>
 
 
-@foreach($data->HaveTarget as $target)
-	<div class="modal fade" id="modal-delete-target-{{$target->id}}" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+@foreach($data['target'] as $target)
+	<div class="modal fade" id="modal-delete-target-{{$target['id']}}" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -277,7 +257,7 @@
 	        <p>Apakah Anda Yakin Menhapus Data Ini</p>
 	      </div>
 	      <div class="modal-footer">
-	      	<form action="{{route('fs.f3.target_delete',['id_link'=>$id_link,'id'=>$data->id,'id_target'=>$target->id])}}" method="post">
+	      	<form action="{{route('fs.f3.target_delete',['id_link'=>$id_link,'id'=>$data['id'],'id_target'=>$target['id'] ])}}" method="post">
 	      		@method('DELETE')
 	      		@csrf
 	        	<button type="submit" class="btn btn-danger">Delete</button>
@@ -292,8 +272,8 @@
 
 
 
-@foreach($data->haveProPN as $propn)
-	<div class="modal fade" id="modal-delete-propn-{{$propn->id}}" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+@foreach($data['propn'] as $propn)
+	<div class="modal fade" id="modal-delete-propn-{{$propn['id']}}" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -306,7 +286,7 @@
 	        <p>Apakah Anda Yakin Menhapus Data Ini</p>
 	      </div>
 	      <div class="modal-footer">
-	      	<form action="{{route('fs.f3.propn_delete',['id_link'=>$id_link,'id'=>$data->id,'id_propn'=>$propn->id])}}" method="post">
+	      	<form action="{{route('fs.f3.propn_delete',['id_link'=>$id_link,'id'=>$data['id'],'id_propn'=>$propn['id']]	)}}" method="post">
 	      		@method('DELETE')
 	      		@csrf
 	        	<button type="submit" class="btn btn-danger">Delete</button>
@@ -318,4 +298,5 @@
 	  </div>
 	</div>
 @endforeach
+
 @stop

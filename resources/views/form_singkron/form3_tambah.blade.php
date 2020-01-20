@@ -18,7 +18,26 @@
 		@csrf
 		<div class="card-body">
 		<div class="row">
-			<div class="col-md-6">
+
+			<div class="col-md-4">
+				<b>PN</b>
+				<p><span class="dot lev1"></span> {{$data['prioritas_nasional']}}</p>
+			</div>
+			<div class="col-md-4">
+				<b>PP</b>
+				<p><span class="dot lev2"></span> {{$data['program_prioritas']}} </p>
+			</div>
+			<div class="col-md-4">
+				<b>KP</b>
+				<p><span class="dot lev3"></span> {{$data['kegiatan_prioritas']}} </p>
+			</div>
+			<input type="hidden" name="id_master_pn" value="{{$data['id']}}">
+		</div>
+		<div class="row">
+
+			
+
+			<!-- <div class="col-md-6">
 				<div class=form-group>
 					@include('init.input.themplate.add_data_master',['field_db'=>'nama_pn','name_field'=>'pn[]','title'=>'Prioritas Nasional','tb'=>'master_prioritas_nasional','tahun'=>session('focus_tahun'),'multiple'=>false,'use_id'=>true])
 				</div>
@@ -27,16 +46,16 @@
 				<div class=form-group>
 					@include('init.input.themplate.add_data_master',['field_db'=>'nama_pp','name_field'=>'pp[]','title'=>'Program Prioritas','tb'=>'master_program_prioritas','tahun'=>session('focus_tahun'),'multiple'=>false,'use_id'=>true])
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<div class="row">
-			<div class="col-md-12">
+			<!-- <div class="col-md-12">
 				<div class="form-group">
 					<label>Kegiatan Prioritas</label>
 					<textarea class="form-control" required="" style="min-height: 200px!important" name="kegiatan_prioritas"></textarea>
 				</div>
 			</div>
-		
+		 -->
 			
 			<div class="col-md-12">
 				<hr>

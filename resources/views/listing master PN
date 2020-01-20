@@ -1,0 +1,9 @@
+@extends('layouts.master_def')
+
+@section('head_asset')
+
+@stop
+@section('content')
+
+
+@stop

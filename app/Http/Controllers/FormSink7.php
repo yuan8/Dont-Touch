@@ -36,6 +36,8 @@ class FormSink7 extends Controller
 
         }
 
+        dd('perbaikan');
+
         $query='select ikt.prioritas_nasional as pn , ikt.program_prioritas as pp, ikt.id as id,ikt.kegiatan_prioritas as kp,ikt.lokus,ikt.pelaksana,ikt.target,
 
             ikt.target_akumulatif, ikt.target_akumulatif_satuan as satuan_target

@@ -283,3 +283,7 @@ ptab{
   background-color:#222;
 }
 
+.btn-circle.fix{
+  width:38px!important;
+  height: 38px!important;
+}

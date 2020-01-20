@@ -147,9 +147,10 @@ Route::prefix('sinkkron/initilisasi')->middleware('auth:web')->group(function(){
 
 Route::prefix('sinkron')->middleware(['auth:web','can:route_access,bidang_urusan_link'])->group(function(){
 
+
+
+
   Route::get('/bidang/{bidang_urusan_link}/f1/perdaerah','FormSink@Form1Perdaerah')->name('fs.f1.perdaerah');
-
-
   Route::get('/bidang/{bidang_urusan_link}/f1','FormSink@form1')->name('fs.f1.index');
   Route::get('/bidang/{bidang_urusan_link}/f1/edit/{id}','FormSink@form1Edit')->name('fs.f1.edit');
 
@@ -237,13 +238,16 @@ Route::prefix('sinkron')->middleware(['auth:web','can:route_access,bidang_urusan
 
 
 
-  Route::get('/bidang/{bidang_urusan_link}/f3/tambah','FormSink3@create')->name('fs.f3.tambah');
+  Route::get('/bidang/{bidang_urusan_link}/f3/tambah-f3/{id_master_pn}','FormSink3@create')->name('fs.f3.tambah');
+
+  Route::get('/bidang/{bidang_urusan_link}/f3/tambah','FormSink3@listPN')->name('fs.f3.tambah.listPN');
+
 
   Route::post('/bidang/{bidang_urusan_link}/f3/tambah','FormSink3@store')->name('fs.f3.store');
 
   Route::put('/bidang/{bidang_urusan_link}/f3/edit/{id}','FormSink3@update')->name('fs.f3.update');
 
-   Route::get('/bidang/{bidang_urusan_link}/f3/edit/{id}','FormSink3@show')->name('fs.f3.show');
+  Route::get('/bidang/{bidang_urusan_link}/f3/edit/{id}','FormSink3@show')->name('fs.f3.show');
 
   Route::delete('/bidang/{bidang_urusan_link}/f3/delete/{id}','FormSink3@delete')->name('fs.f3.delete');
 

@@ -29,7 +29,11 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('route_access', function ($user,$bidang_urusan) {
 
-                if((session('route_access')!==null)&&(session('route_access')!=[])){
+                if((session('focus_tahun')!=null)){
+                    session(['focus_tahun',2020]);
+                }
+
+                if((session('route_access')!=null)&&(session('route_access')!=[])){
                      if(in_array($bidang_urusan,session('route_access'))){
                         return true;
                     }else{
