@@ -130,7 +130,7 @@ class FormSink3 extends Controller
 
             DISTINCT(CONCAT(id,'||',prioritas_nasional,'||',program_prioritas,'||',kegiatan_prioritas)),'|++|')
             
-            from  public.master_pn as pn
+            from  public.master_pn_2 as pn
             
             where pn.id = a.id_master_pn limit 1 ) as pn
             
@@ -138,9 +138,10 @@ class FormSink3 extends Controller
             
             where a.id_urusan=".$urusan." and a.tahun =".$tahun."  and a.id_master_pn is not null
             
-            group by a.id order by a.id desc  limit ".$paginate ." offset ".$page;
+            group by a.id order by a.id desc  ";
 
-        ;
+
+        
 
 
         // $query="select a.id as id,  
@@ -182,7 +183,7 @@ class FormSink3 extends Controller
             return redirect()->route('fs.f3.show',['urusan'=>$urusan,'id'=>$dataAxis->id]);
         }
 
-        $data=DB::table('master_pn')->where('id',$id_master_pn)->first();
+        $data=DB::table('master_pn_2')->where('id',$id_master_pn)->first();
         if($data){
             $data=(array) $data;
         }else{
@@ -281,7 +282,7 @@ class FormSink3 extends Controller
 
             DISTINCT(CONCAT(id,'||',prioritas_nasional,'||',program_prioritas,'||',kegiatan_prioritas)),'|++|')
             
-            from  public.master_pn as pn
+            from  public.master_pn_2 as pn
             
             where pn.id = a.id_master_pn limit 1 ) as pn
             

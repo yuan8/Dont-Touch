@@ -1,3 +1,4 @@
+
 .shadows{box-shadow: 1px 5px 7px #222;}
 /* width */
 ::-webkit-scrollbar {
@@ -12,6 +13,10 @@
 }
 
 
+table th, table td{
+  color: #222 ;
+  font-size: 14px;
+}
 
 table.dataTable thead th, table.dataTable thead td{
   border-bottom: 1px solid #f1f1f1!important;
@@ -42,15 +47,18 @@ div.dataTables_wrapper div.dataTables_processing {
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background:  #4e73df;
+  background:  #bd9010;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #224abe;
+  background: #bd9010;
 }
 
+.select2-selection {
+  min-height:37px;
+}
 .select2-container--default .select2-selection--multiple .select2-selection__rendered li:not(:last-child){
   word-break: break-all!important;
   max-width: 100%;
@@ -74,9 +82,210 @@ div.dataTables_wrapper div.dataTables_processing {
   border-radius: 100%;
 }
 
-
-.app-main__inner {
-    padding: 30px 30px 0;
-    flex: 1;
-    max-width: calc(100vw - 80px)!important;
+textarea.form-control{
+  margin-top:0px!important;
+  min-height: 34px!important;
 }
+
+.bg-gradient-warning{
+  background: #bd9010;
+
+}
+
+.card-border-top-warning{
+  border-top: 3px solid #f6c23e!important;
+}
+
+.card-border-top-dark{
+  border-top: 3px solid #222;
+}
+
+.custom-control-input:checked~.custom-control-label::before{
+  border-color: #bd9010;
+  background:  #f6c23e;
+
+
+}
+
+
+
+.table-dark th{
+  background: #0000008c!important;
+  color: #fff;
+}
+
+.form-control:focus {
+    color: #6e707e;
+    background-color: #fff;
+    border-color: #c4d630;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(236, 206, 57, 0.25);
+}
+
+body{
+  color:#222;
+}
+
+
+
+.btn{
+  border:1px solid #222;
+
+  
+}
+
+.btn-warning{
+  color:#222;
+  border:1px solid #222!important;
+  /*background-color:transparent!important;*/
+  color: #222!important;
+  /*box-shadow: 1px 3px 2px #222;*/
+}
+
+
+.table td{
+  color:#222;
+}
+
+.table-responsive>.table-bordered {
+    width: max-content;
+    min-width: 100%;
+}
+
+.table-responsive >.table-bordered th,.table-responsive>.table-bordered td{
+  max-width: 300px!important;
+}
+
+.border-warning{
+  border: 2px solid #f6c23e;
+}
+
+.padding-space{
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+}
+
+.card-shadow{
+  box-shadow: 1px 6px 1px #5e634352;
+}
+
+.badge{
+  white-space: nowrap; 
+  max-width: 100%; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  border: 1px solid #000000;
+}
+
+.border-top-primary{
+  border-top: 3px solid #4e73df!important
+}
+
+.page-item.active .page-link{
+  background-color: #f6c23e;
+  border-color: #f6c23e;
+  color:#222;
+}
+
+.bg-w{
+  background-color: #fff!important;
+}
+
+.bg.bg-provinsi{
+  background-color: #4e73df5c!important;
+  color: #222;
+}
+
+.border-provinsi{
+  border-bottom: 2px solid #4e73df5c!important;
+}
+
+.bg.bg-nas{
+  background-color: #c5bb465c!important;
+  color: #222;
+}
+
+.bg.bg-kota{
+  background-color: #32ceeb40!important;
+  color: #222;
+}
+
+
+.sidebar .nav-item .nav-link span,.sidebar .nav-item .nav-link i{
+  color: #fff;
+  font-weight: bold;
+}
+
+.sidebar .nav-item .nav-link span i{
+  color: #fff;
+  font-weight: bold;
+  font-size: 8px;
+  font-style: normal;
+}
+.sidebar .nav-item .nav-link {
+  border-bottom: 1px solid #fff;
+}
+
+
+.sidebar{
+  max-height: calc(100vh - 80px);
+  overflow-x: scroll;
+}
+
+#content{
+  max-height: calc(100vh - 50px);
+  overflow: scroll;
+
+}
+.sidebar .nav-item .collapse, .sidebar .nav-item .collapsing{
+  margin: 0px;
+  border: 0px;
+}
+
+ptab{
+  min-width: calc(100% - 10px);
+  padding:5px;
+  float: left;
+  margin-left: 20px;
+  padding-bottom: 10px;
+  padding-top:  10px;
+
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.lev1{
+  background-color:#eaa289;
+}
+
+.lev2{
+  background-color:#c78989;
+}
+.lev3{
+  background-color:#9a6f8b;
+}
+.lev4{
+  background-color:#6e5d85;
+}
+
+.lev5{
+  background-color:#494e67;
+}
+
+.lev6{
+  background-color:#222;
+}
+
+.btn-circle.fix{
+  width:38px!important;
+  height: 38px!important;
+}
+
