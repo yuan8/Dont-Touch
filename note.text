@@ -1,0 +1,10 @@
+
+
+identifikasi_kebijakan_tahunan 
+hilangkan pp
+pn
+kp
+
+tambah id mandat 
+
+unique(tahun,id_urusan,id_mandat);

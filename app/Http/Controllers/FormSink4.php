@@ -20,6 +20,9 @@ class FormSink4 extends Controller
 
 
     public function index($urusan,Request $request){
+
+      
+
         $where=[];
       if(isset($request->q)){
         $where=[['nama','like','%'.$request->q.'%']];

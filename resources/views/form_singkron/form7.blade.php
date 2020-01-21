@@ -21,7 +21,6 @@
 					<th>Kebijakan Pusat</th>
 					<th>Target Nasioanal</th>
 					<th>Indikator</th>
-					<th>Nilai Target Akumulatif</th>
 					<th>Provinsi</th>
 					<th>Kota Kabupaten</th>
 					<th>Action</th>
@@ -32,23 +31,26 @@
 				@foreach($datas as $d)
 					<tr>						
 						<td>
-							<p>{!!$d['pn']!!}</p>
+							<p>
+								<span class="dot lev1"></span> <b>PN</b> {{$d['pn']}} 
+								<ptab class="ptab">
+									<span class="dot lev2"></span><b>PP</b> {{$d['pp']}} 
+									<ptab class="ptab"><span class="dot lev3"></span><b>KP</b> {{$d['kp']}} </ptab>
+								</ptab>
+							</p>
 						</td>
 						<td>
-							<p>{!!$d['pp']!!}</p>
-							<p class="text-primary">{!!$d['kp']!!}</p>
+
+							
 						</td>
 						<td>
-							<p>{!!$d['kp']!!}</p>
 						</td>
 						<td>
-							<p>{!!$d['target_akumulatif']!!} {!!$d['satuan_target']!!}</p>
 
 						</td>
 						<td>
 							
-						</td>
-						<td>
+						
 							
 							
 						</td>
@@ -57,6 +59,48 @@
 							
 						</td>
 					</tr>
+
+					@foreach($d['target'] as $target)
+
+						<tr>						
+						<td>
+							
+						</td>
+						<td>
+
+							<p>
+								<span class="dot lev1"></span>{!!nl2br($target['uraian'])!!} <b></b>
+									<ptab class="ptab">
+										<span class="dot lev2"></span><b>Target</b> {{$target['target']}} <b>{{$target['satuan']}} </b>
+										<ptab class="ptab">
+											<span class="dot lev3"></span><b>Lokus</b> {{$target['lokus']}}  
+												<ptab class="ptab">
+													<span class="dot lev1"></span><b>Pelaksana</b> {{$target['pelaksana']}}
+												</ptab>
+										</ptab>
+									</ptab>
+								</ptab>
+							</p>
+						</td>
+						<td>
+						</td>
+						<td>
+
+						</td>
+						<td>
+							
+						
+							
+							
+						</td>
+
+						<td >
+							
+						</td>
+					</tr>
+
+
+					@endforeach
 					
 				@endforeach
 			</tbody>

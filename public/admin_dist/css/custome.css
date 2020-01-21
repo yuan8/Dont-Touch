@@ -287,3 +287,7 @@ ptab{
   width:38px!important;
   height: 38px!important;
 }
+
+.modal{
+  z-index: 9999999999999999999999999999;
+}

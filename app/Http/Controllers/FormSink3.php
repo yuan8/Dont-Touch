@@ -18,7 +18,6 @@ class FormSink3 extends Controller
             $data->indikator=$request->indikator;
             $data->target_akumulatif=$request->target_akumulatif;
             $data->target_akumulatif_satuan=$request->target_akumulatif_satuan;
-
             $data->save();
             return back();
         }else{
@@ -139,7 +138,7 @@ class FormSink3 extends Controller
             
             where a.id_urusan=".$urusan." and a.tahun =".$tahun."  and a.id_master_pn is not null
             
-            group by a.id order by a.id  limit ".$paginate ." offset ".$page;
+            group by a.id order by a.id desc  limit ".$paginate ." offset ".$page;
 
         ;
 

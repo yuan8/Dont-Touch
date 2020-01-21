@@ -63,14 +63,45 @@
 								</ptab>
 							</ptab>
 						</p>
+
+
 					@endforeach
 					<td>
 						
 						<a href="{{route('fs.f3.update',['id_link'=>$id_link,'id'=>$d['id']])}}" class="btn btn-warning btn-circle btn-sm"><i class="fa fa-pen "></i></a>
-						<a href="" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i> </a>
+						<a href="javascript:void(0)" onclick="$('#modal-delete-idn-{{$d['id']}}').appendTo('body').modal()" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i> </a>
 					</td>
 				</td>
 			</tr>
+
+			<div class="modal fade" id="modal-delete-idn-{{$d['id']}}">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+						<p>Hapus Data Kebijakan Pusat?</p>
+						<hr>
+						<p>
+						<span class="dot lev1"></span> <b>PN</b> {{$d['pn']}} 
+						<ptab class="ptab">
+							<span class="dot lev2"></span><b>PP</b> {{$d['pp']}} 
+							<ptab class="ptab"><span class="dot lev3"></span><b>KP</b> {{$d['kp']}} </ptab>
+						</ptab>
+						</p>		
+
+						</div>
+						 <div class="modal-footer">
+					        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					     	<form action="{{route('fs.f3.delete',['id_urusan'=>$id_link,'id'=>$d['id']])}}" method="post">
+					     			@method('DELETE')
+					     		   <button type="submit" class="btn btn-warning" ><i class="fa fa-trash"></i></button>
+
+					     	</form>
+					      </div>
+					</div>
+				</div>
+			</div>
+
+			
 		@endforeach
 	</tbody>
 </table>

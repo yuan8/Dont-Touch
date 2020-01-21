@@ -21,40 +21,137 @@ class FormSink7 extends Controller
 {
     //
 
+    static public function jsonBuild($data=[]){
+        $data_return=[];
+        foreach ($data as $key => $value) {
+            $pn=explode('|++|', $value->pn);
+            if(count($pn)>0){
+                $pn=explode('||',$pn[0]);
+
+            }else{
+                $pn=[null,null,null,null];
+            }
+
+            $propn=explode('|++|',  str_replace('"','',$value->propn));
+             
+            
+
+            $data_return[$value->id]['id']=$value->id;
+            $data_return[$value->id]['pn']=$pn[1];            
+            $data_return[$value->id]['pp']=$pn[2];
+            $data_return[$value->id]['kp']=$pn[3];
+            $data_return[$value->id]['id_pn']=$pn[0];
+
+
+            if(!isset($data_return[$value->id]['propn'])){
+                $data_return[$value->id]['propn']=[];
+            }
+
+            if(!isset($data_return[$value->id]['target'])){
+                $data_return[$value->id]['target']=[];
+            }
+
+            foreach ($propn as $key => $d) {
+                $d=explode('||', $d);
+                 if((count($d)>=1)&&($d[0]!="")){
+                     if($d!=null){
+                        $data_return[$value->id]['propn'][$d[0]]['propn']=$d[1];
+                        $data_return[$value->id]['propn'][$d[0]]['id']=$d[0];
+                    }
+                 }
+            }
+            
+            $target=explode('|++|', $value->target);
+
+            foreach ($target as $key => $d) {
+                # code...
+                $d=explode('||', $d);
+                if(count($d)>2){
+                    $data_return[$value->id]['target'][$d[0]]['id']=$d[0];
+                    $data_return[$value->id]['target'][$d[0]]['uraian']=$d[1];
+                    $data_return[$value->id]['target'][$d[0]]['target']=$d[2];
+                    $data_return[$value->id]['target'][$d[0]]['satuan']=$d[3];
+                    $data_return[$value->id]['target'][$d[0]]['lokus']=$d[4];
+                    $data_return[$value->id]['target'][$d[0]]['pelaksana']=$d[5];
+                    $data_return[$value->id]['target'][$d[0]]['tahun']=$d[6];
+
+                }
+            }
+
+           
+        }
+
+        return $data_return;
+    } 
+
     public function index($urusan,Request $request){
     	$data_link=Urusan23::find($urusan);
 
         $tahun=session('focus_tahun');
         $limit=10;
         $offset=0;
+        $paginate=10;
         $ofset_lable='';
+        $page=0;
         if($request->page){
+            
             if($request->page>1){
+                $page=$request->page;
                 $offset=($request->page*$limit)-$limit;
                 $ofset_lable=' OFFSET '.$offset;
             }
 
         }
 
-        dd('perbaikan');
 
-        $query='select ikt.prioritas_nasional as pn , ikt.program_prioritas as pp, ikt.id as id,ikt.kegiatan_prioritas as kp,ikt.lokus,ikt.pelaksana,ikt.target,
+        // $query='select mpn.prioritas_nasional,mpn.program_prioritas
+           
+        //     from identifikasi_kebijakan_tahunan as ikt 
+        //     left join master_pn as mpn on mpn.id = ikt.id_kebijakan_tahunan
+        //     left join integrasi_provinsi  as ip on ip.id_identifikasi_kebijakan_tahunan = ikt.id 
+        //     where ikt.id_urusan ='.$urusan.' and ikt.tahun ='.$tahun.' '.$ofset_lable.' LIMIT '.$limit.'
+        // ';
 
-            ikt.target_akumulatif, ikt.target_akumulatif_satuan as satuan_target
-         from identifikasi_kebijakan_tahunan as ikt 
-                 left join integrasi_provinsi  as ip on ip.id_identifikasi_kebijakan_tahunan = ikt.id 
-                 where ikt.id_urusan ='.$urusan.' and ikt.tahun ='.$tahun.' '.$ofset_lable.' LIMIT '.$limit.'
-        ';
+
+        $query="select 
+            a.id,
+            
+            (select string_agg(CONCAT(id::text,'||', pro_pn::text),'|++|')::text 
+            
+            from public.identifikasi_kebijakan_tahunan_pro_pn 
+            
+            where id_identifikasi_kebijakan_tahunan = a.id ) as propn ,
+            
+            (select string_agg(CONCAT(id,'||',uraian_target,'||',target,'||',satuan_target,'||',lokus,'||',pelaksana,'||',tahun),'|++|') 
+            
+            from  public.kebijakan_pusat_tahunan_target
+            
+            where id_kebijikan_pusat_tahunan = a.id and tahun=".$tahun." ) as target,
+            
+            (select string_agg(
+
+            DISTINCT(CONCAT(id,'||',prioritas_nasional,'||',program_prioritas,'||',kegiatan_prioritas)),'|++|')
+            
+            from  public.master_pn as pn
+            
+            where pn.id = a.id_master_pn limit 1 ) as pn
+            
+            from identifikasi_kebijakan_tahunan as a
+            
+            where a.id_urusan=".$urusan." and a.tahun =".$tahun."  and a.id_master_pn is not null
+            
+            group by a.id order by a.id desc  limit ".$paginate ." offset ".$page;
+        ;
 
         $tdata=(array) DB::select($query);
+        $tdata=static::jsonBuild($tdata);
+        
 
-        $tdata = array_map(function ($value) {
-                return (array)$value;
-            }, $tdata);
+        // $tdata = array_map(function ($value) {
+        //         return (array)$value;
+        // }, $tdata);
 
 
-    
-    
     	return view('form_singkron.form7')->with('menu_id','s.7.1')->with('id_link',$urusan)->with('data_link',$data_link)->with('datas',$tdata);
 
 
