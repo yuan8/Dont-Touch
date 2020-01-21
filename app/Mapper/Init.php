@@ -103,6 +103,24 @@ class Init extends Model
 					);
 
 				break;
+				case 'PP':
+					$option=array(
+						'DB_nama'=>'uraian_pp',
+						'type'=>$type[0],
+						'call_id'=>implode('|',$map)				
+
+					);
+
+				break;
+				case 'KP':
+					$option=array(
+						'DB_nama'=>'uraian_kp',
+						'type'=>$type[0],
+						'call_id'=>implode('|',$map)				
+
+					);
+
+				break;
 
 
 				

@@ -274,5 +274,10 @@
     .modal-backdrop, .blockOverlay{
         z-index: 9;
     }
+    .app-main__inner {
+    padding: 30px 30px 0;
+    flex: 1;
+    max-width: calc(100vw - 100px) !important;
+}
 </style>
 </html>
